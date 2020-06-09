@@ -85,7 +85,7 @@ a:hover, a:focus {
 }
 
 .primary-color {
-  color: #F8694A;
+  color: #0088FF;
 }
 
 .white-color {
@@ -150,7 +150,7 @@ hr {
 
 .primary-btn {
   color: #FFF;
-  background-color: #F8694A;
+  background-color: #0088FF;
 }
 
 .primary-btn:hover, .primary-btn:focus {
@@ -275,7 +275,7 @@ textarea.input {
   bottom: -1.5px;
   height: 3px;
   width: 60px;
-  background-color: #F8694A;
+  background-color: #0088FF;
 }
 
 /*----------------------------*\
@@ -487,7 +487,7 @@ textarea.input {
   padding: 15px;
   display: block;
   text-transform: uppercase;
-  background: #F8694A;
+  background: #0088FF;
   color: #FFF;
   font-weight: 700;
 }
@@ -826,7 +826,7 @@ textarea.input {
 ===========================================================*/
 
 .product .product-old-price {
-  color: #F8694A;
+  color: #B0B0B0;
   font-size: 70%;
 }
 
@@ -853,7 +853,7 @@ textarea.input {
 }
 
 .product .product-label>span.sale {
-  background-color: #F8694A;
+  background-color: #0088FF;
 }
 
 .product .product-countdown {
@@ -877,7 +877,7 @@ textarea.input {
   color: #FFF;
   font-weight: 700;
   padding: 10px;
-  background: #F8694A;
+  background: #0088FF;
 }
 
 /*----------------------------*\
@@ -996,7 +996,7 @@ textarea.input {
 /*-- hot product --*/
 
 .product.product-single.product-hot {
-  border: 2px solid #F8694A;
+  border: 2px solid #0088FF;
 }
 
 .product.product-single.product-hot .product-btns {
