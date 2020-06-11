@@ -179,6 +179,23 @@ hr {
   box-shadow: 0px 0px 0px 1px #0088FF inset, 0px 0px 0px 0px #0088FF;
 }
 
+textarea.inputt{
+  width: 100%;
+  height: 160px;
+  padding: 0px 15px;
+  border: none;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #DADADA inset, 0px 0px 0px 5px transparent;
+  box-shadow: 0px 0px 0px 1px #DADADA inset, 0px 0px 0px 5px transparent;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+textarea.inputt:focus{
+  -webkit-box-shadow: 0px 0px 0px 1px #0088FF inset, 0px 0px 0px 0px #0088FF;
+  box-shadow: 0px 0px 0px 1px #0088FF inset, 0px 0px 0px 0px #0088FF;
+}
+
 textarea.input {
   padding: 15px;
 }
