@@ -15,5 +15,15 @@ router.get('/', function(req, res, next) {
      res.render('index', {title: 'test'});
   });
 });
+router.get('/product-page', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('product-page', {title: 'product-page'});
+  });
+});
+router.get('/products', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('products', {title: 'products'});
+  });
+});
 
 module.exports = router;
