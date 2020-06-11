@@ -535,50 +535,21 @@
 	</div>
 	<!-- /NAVIGATION -->
 
-	<!-- HOME -->
-	<div id="home">
-		<!-- container -->
+
+
+
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
 		<div class="container">
-			<!-- home wrap -->
-			<div class="home-wrap">
-				<!-- home slick -->
-				<div id="home-slick">
-					<!-- banner -->
-					<div class="banner banner-1">
-						<img src="./img/banner_lol.jpg" alt="">
-						<div class="banner-caption text-center">
-							<button class="primary-btn">여기 daITso !</button>
-						</div>
-					</div>
-					<!-- /banner -->
-
-					<!-- banner -->
-					<div class="banner banner-1">
-						<img src="./img/banner_battleground.jpg" alt="">
-						<div class="banner-caption">
-							<h1 class="primary-color"><br><br><br><span class="white-color font-weak"></span></h1>
-							<button class="primary-btn">여기 daITso !</button>
-						</div>
-					</div>
-					<!-- /banner -->
-
-					<!-- banner -->
-					<div class="banner banner-1">
-						<img src="./img/banner_summer.jpg" alt="">
-						<div class="banner-caption">
-							<h1 class="primary-color"><br><br><br><span class="white-color font-weak"></span></h1>
-							<button class="primary-btn">여기 daITso !</button>
-						</div>
-					</div>
-					<!-- /banner -->
-				</div>
-				<!-- /home slick -->
-			</div>
-			<!-- /home wrap -->
+			<ul class="breadcrumb">
+				<li><a href="#">홈</a></li>
+				<li><a href="#">마이 페이지</a></li>
+				<li class="active">회원 정보 수정</li>
+			</ul>
 		</div>
-		<!-- /container -->
 	</div>
-	<!-- /HOME -->
+	<!-- /BREADCRUMB -->
 
 	<!-- section -->
 	<div class="section">
@@ -586,588 +557,77 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<!-- banner -->
-				<div class="col-md-4 col-sm-6">
-					<a class="banner banner-1" href="#">
-						<img src="./img/123.jpg" alt="">
-					</a>
-				</div>
-				<!-- /banner -->
+				<form id="checkout-form" class="clearfix">
+					<div class="col-md-6">
+						<div class="billing-details">
+							<div class="section-title">
+								<h3 class="title">회원 정보 수정</h3>
+							</div>
+							<br>
+							<div class="form-group"><h4> 아이디 </h4>
+								<h3>wlsghdoal</h3>
+							</div>
+							<br>
+							<div class="form-group"><h4> 이름 </h4>
+								<h3>김혜정</h3>
+							</div>
+							<br>
+							<div class="form-group"><h4> 비밀번호 </h4>
+								<input class="input" type="password" name="password">
+							</div>
+							<div class="form-group"><h4> 비밀번호 확인 </h4>
+								<input class="input" type="password_c" name="password_c">
+							</div>
+							<div class="form-group"><h4> 이메일 </h4>
+								<input class="input" type="email" name="email" placeholder="hyejung@ami.ang">
+							</div>
+							<div class="form-group"><h4> 휴대폰 번호 </h4>
+								<input class="input" type="tel" name="tel" placeholder="010 - 1234 - 5678">
+							</div>
+							<div class="form-group"><h4> 주소 </h4>
+								<input class="input" type="text" name="country" placeholder="주소">
+							</div>
+							<div class="form-group">
+								<input class="input" type="tel" name="tel" placeholder="상세주소">
+							</div>
+						</div>
+					</div>
 
-				<!-- banner -->
-				<div class="col-md-4 col-sm-6">
-					<a class="banner banner-1" href="#">
-						<img src="./img/banner11.jpg" alt="">
-					</a>
-				</div>
-				<!-- /banner -->
-
-				<!-- banner -->
-				<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
-					<a class="banner banner-1" href="#">
-						<img src="./img/banner12.jpg" alt="">
-					</a>
-				</div>
-				<!-- /banner -->
-
+					<div class="col-md-6">
+						<div class="shiping-methods">
+							<div class="section-title">
+								<h4 class="title">회원 정보 수정 주의사항</h4>
+							</div>
+								<div class="caption">
+									<p> daITso PC 쇼핑몰에서는 간단한 회원 정보 수정을 지원합니다. 원하시는 회원 정보로 수정한 후, '등록' 버튼을 눌러 수정을 진행하면 됩니다.
+										등록을 원하지 않을 경우 '취소' 버튼을 눌러 회원 정보 수정 이전화면으로 돌아가시길 바랍니다.
+									<p>
+								</div>
+						</div>
+						<br>
+						<div class="payments-methods">
+							<div class="section-title">
+								<h4 class="title">Notice for member information modification</h4>
+							</div>
+								<div class="caption">
+									<p>
+										Please contact daITso PC shopping mall. After correction, click on the'Register' button.
+										If you press the'Cancel' button, the member information will be displayed on the previous screen.
+									<p>
+								</div>
+						</div>
+					</div>
+				</form>
 			</div>
 			<!-- /row -->
+			<button class="primary-btn"> &nbsp;&nbsp;&nbsp; 등록 &nbsp;&nbsp;&nbsp; </button>
+			<button class="main-btn"> &nbsp;&nbsp;&nbsp; 취소 &nbsp;&nbsp;&nbsp; </button>
 		</div>
 		<!-- /container -->
 	</div>
 	<!-- /section -->
 
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- section-title -->
-				<div class="col-md-12">
-					<div class="section-title">
-						<h2 class="title">특가! 할인 상품</h2>
-						<div class="pull-right">
-							<div class="product-slick-dots-1 custom-dots"></div>
-						</div>
-					</div>
-				</div>
-				<!-- /section-title -->
 
-				<!-- banner -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="banner banner-2">
-						<img src="./img/banner14.jpg" alt="">
-						<div class="banner-caption">
-							<h2 class="white-color">daITso만의<br>초특가 할인!</h2>
-							<button class="primary-btn">지금 보러가기</button>
-						</div>
-					</div>
-				</div>
-				<!-- /banner -->
-
-				<!-- Product Slick -->
-				<div class="col-md-9 col-sm-6 col-xs-6">
-					<div class="row">
-						<div id="product-slick-1" class="product-slick">
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-								<div class="product-body">
-									<h3 class="product-price">3,500원 <del class="product-old-price">4,500원</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<div class="product-btns ">
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-								<div class="product-body">
-									<h3 class="product-price">3,500원 <del class="product-old-price">4,500원</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<div class="product-btns ">
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-								<div class="product-body">
-									<h3 class="product-price">3,500원 <del class="product-old-price">4,500원</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<div class="product-btns ">
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-								<div class="product-body">
-									<h3 class="product-price">3,500원 <del class="product-old-price">4,500원</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<div class="product-btns ">
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-						</div>
-					</div>
-				</div>
-				<!-- /Product Slick -->
-			</div>
-			<!-- /row -->
-
-			<!-- row -->
-			<div class="row">
-				<!-- section title -->
-				<div class="col-md-12">
-					<div class="section-title">
-						<h2 class="title">평점만점 상품</h2>
-						<div class="pull-right">
-							<div class="product-slick-dots-2 custom-dots">
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- section title -->
-
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single product-hot">
-						<div class="product-thumb">
-							<div class="product-label">
-								<span class="sale">-20%</span>
-							</div>
-							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-						<div class="product-body">
-							<h3 class="product-price">40,000원 <del class="product-old-price">60,000원</del></h3>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
-							</div>
-							<div class="product-btns">
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
-
-				<!-- Product Slick -->
-				<div class="col-md-9 col-sm-6 col-xs-6">
-					<div class="row">
-						<div id="product-slick-2" class="product-slick">
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-								<div class="product-body">
-									<h3 class="product-price">3,500원 <del class="product-old-price">4,500원</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<div class="product-btns ">
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-								<div class="product-body">
-									<h3 class="product-price">3,500원 <del class="product-old-price">4,500원</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<div class="product-btns ">
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-								<div class="product-body">
-									<h3 class="product-price">3,500원 <del class="product-old-price">4,500원</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<div class="product-btns ">
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 자세히 보기</button>
-									<img src="./img/product03.jpg" alt="">
-								</div>
-								<h2 class="product-name"><a href="#">동현이 카케쿠루이 마쑈오~</a></h2>
-								ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㄱ
-								<div class="product-body">
-									<h3 class="product-price">3,500원 <del class="product-old-price">4,500원</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<div class="product-btns ">
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>  장바구니에 담기</button>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-						</div>
-					</div>
-				</div>
-				<!-- /Product Slick -->
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /section -->
-
-	<!-- section -->
-	<div class="section section-grey">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- banner -->
-				<div class="col-md-8">
-					<div class="banner banner-1">
-						<img src="./img/banner13.jpg" alt="">
-						<div class="banner-caption text-center">
-							<h1 class="primary-color">핫한 핫딜!<br><span class="white-color font-weak">50% 이상 할인</span></h1>
-							<button class="primary-btn">지금 보러가기</button>
-						</div>
-					</div>
-				</div>
-				<!-- /banner -->
-
-				<!-- banner -->
-				<div class="col-md-4 col-sm-6">
-					<a class="banner banner-1" href="#">
-						<img src="./img/banner11.jpg" alt="">
-					</a>
-				</div>
-				<!-- /banner -->
-
-				<!-- banner -->
-				<div class="col-md-4 col-sm-6">
-					<a class="banner banner-1" href="#">
-						<img src="./img/banner12.jpg" alt="">
-					</a>
-				</div>
-				<!-- /banner -->
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /section -->
-
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- section title -->
-			<div class="col-md-12">
-				<div class="section-title">
-					<h2 class="title">daITso 판매 순위 차트</h2>
-				</div>
-			</div>
-			<!-- section title -->
-			<section class="latest-product spad">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-4 col-md-6">
-							<div class="latest-product__text">
-								<h4>daITso 조립PC 판매 순위</h4>
-								<div class="latest-product__slider owl-carousel">
-									<div class="latest-prdouct__slider__item">
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-1.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-3.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-									</div>
-									<div class="latest-prdouct__slider__item">
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-1.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-2.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-3.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="latest-product__text">
-								<h4>CPU 부문 판매 순위</h4>
-								<div class="latest-product__slider owl-carousel">
-									<div class="latest-prdouct__slider__item">
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-1.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-3.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-									</div>
-									<div class="latest-prdouct__slider__item">
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-1.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-2.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-3.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>Crab Pool Security</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="latest-product__text">
-								<h4>GPU 부문 판매 순위</h4>
-								<div class="latest-product__slider owl-carousel">
-									<div class="latest-prdouct__slider__item">
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-1.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>1. 진호 왼쪽 찌찌</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-2.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>2. 진호 오른쪽 찌찌</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-3.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>3. 재훈이 찌찌</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-									</div>
-									<div class="latest-prdouct__slider__item">
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-1.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>4. 동현이 콧털</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-										<a href="#" class="latest-product__item">
-											<div class="latest-product__item__pic">
-												<img src="img/latest-product/lp-2.jpg" alt="">
-											</div>
-											<div class="latest-product__item__text">
-												<h6>5. 현구 똥꼬털</h6>
-												<span>$30.00</span>
-											</div>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- Latest Product Section End -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /section -->
 
 	<!-- FOOTER -->
 	<footer id="footer" class="section section-grey">
@@ -1270,5 +730,4 @@
 	<script src="js/main.js"></script>
 
 </body>
-
 </html>

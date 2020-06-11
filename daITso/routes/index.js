@@ -16,4 +16,27 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/modify_info_customer', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('modify_info_customer', {title: 'test'});
+  });
+});
+
+router.get('/modify_info_seller', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('modify_info_seller', {title: 'test'});
+  });
+});
+
+router.get('/view_info_seller', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('view_info_seller', {title: 'test'});
+  });
+});
+router.get('/view_info_customer', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('view_info_customer', {title: 'test'});
+  });
+});
+
 module.exports = router;
