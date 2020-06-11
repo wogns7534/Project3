@@ -549,16 +549,12 @@
 		<!-- /container -->
 	</div>
 	<!-- /NAVIGATION -->
-
-
 	<!-- BREADCRUMB -->
 	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
 				<li><a href="#">홈</a></li>
-				<li><a href="#">제품</a></li>
-				<li><a href="#">카테고리</a></li>
-				<li class="active">상품 이름</li>
+				<li class="active">제품</li>
 			</ul>
 		</div>
 	</div>
@@ -570,361 +566,382 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<!--  Product Details -->
-				<div class="product product-details clearfix">
-					<div class="col-md-6">
-						<div id="product-main-view">
-							<div class="product-view">
-								<img src="./img/no14.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/no7.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/no16.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/no6.jpg" alt="">
-							</div>
-						</div>
-						<div id="product-view">
-							<div class="product-view">
-								<img src="./img/thumb-no14.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/thumb-no7.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/thumb-no16.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/thumb-no6.jpg" alt="">
-							</div>
-						</div>
+				<!-- ASIDE -->
+				<div id="aside" class="col-md-3">
+					<!-- aside widget -->
+					<div class="aside">
+						<h3 class="aside-title">상품리스트</h3>
+						<ul class="list-links">
+							<li><a href="#">베스트순</a></li>
+							<li><a href="#">신상품순</a></li>
+							<li><a href="#">낮은가격</a></li>
+							<li><a href="#">높은가격</a></li>
+							<li><a href="#">상품명순</a></li>
+						</ul>
 					</div>
-					<div class="col-md-6">
-						<div class="product-body">
-							<div class="product-label">
-								<span>신상</span>
-								<span class="sale">-20%</span>
-							</div>
-							<h2 class="product-name">daITso-윈도우10 탑재 No.14</h2>
-							<h3 class="product-price">950,200 원 <del class="product-old-price">1,140,240 원<< /del>
-							</h3>
-							<div>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<a href="#">3 개의 리뷰 / 리뷰 추가하기</a>
-							</div>
-							<p><strong>Availability:</strong> 재고 있음</p>
-							<p><strong>Brand:</strong> daITso</p>
-							<p>조립비+AS : 조립+선정리+테스트+무상 출장 A/S 서비스 1년+포장비</p>
-							<p>프로세서 : 인텔 코어 i5-9세대 9400F (커피레이크-R)</p>
-							<p>프로세서 쿨러 : (인텔) 소켓1156 정품 /쿨러/튜닝</p>
-							<p>메모리 : (삼성전자) DDR4 8G PC4-21300 정품</p>
-							<p>메인보드 : ASRock H310CM-DVS 디앤디컴</p>
-							<p>그래픽카드 : 갤럭시 GALAX 지포스 GTX 1660 SUPER OC D6 6GB</p>
-							<p>SSD고속하드 : (WD) GREEN SSD 120GB /내장형 SSD</p>
-							<p>케이스 : 잘만 MegaMax 500W 80Plus Standard 230V EU</p>
-							<p>파워 : (Microsoft) Windows 10 Home DSP 한글 64bit /운영체제</p>
-							<!-- <div class="product-options">
-								<ul class="size-option">
-									<li><span class="text-uppercase">Size:</span></li>
-									<li class="active"><a href="#">S</a></li>
-									<li><a href="#">XL</a></li>
-									<li><a href="#">SL</a></li>
-								</ul>
-								<ul class="color-option">
-									<li><span class="text-uppercase">Color:</span></li>
-									<li class="active"><a href="#" style="background-color:#475984;"></a></li>
-									<li><a href="#" style="background-color:#8A2454;"></a></li>
-									<li><a href="#" style="background-color:#BF6989;"></a></li>
-									<li><a href="#" style="background-color:#9A54D8;"></a></li>
-								</ul>
-							</div>
----------------------------------------------------------------------------------------
-여기 사이즈랑 색깔 선택 버튼이라 일단 주석 처리
+					<!-- /aside widget -->
+					<!-- aside widget -->
+					<div class="aside">
+						<h3 class="aside-title">가격대 검색</h3>
+						<div id="price-slider"></div>
+						<button class="primary-btn">적용</button>
+					</div>
+					<!-- aside widget -->
+				</div>
+				<!-- /ASIDE -->
 
-						-->
-
-							<div class="product-btns">
-								<div class="qty-input">
-									<span class="text-uppercase">수량: </span>
-									<input class="input" type="number">
-								</div>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니 담기</button>
-								<div class="pull-right">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
-								</div>
+				<!-- MAIN -->
+				<div id="main" class="col-md-9">
+					<!-- store top filter -->
+					<div class="store-filter clearfix">
+						<div class="pull-left">
+							<div class="row-filter">
+								<a href="#"><i class="fa fa-th-large"></i></a>
+								<a href="#" class="active"><i class="fa fa-bars"></i></a>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="product-tab">
-							<ul class="tab-nav">
-								<li class="active"><a data-toggle="tab" href="#tab1">상세정보</a></li>
-								<li><a data-toggle="tab" href="#tab2">배송정보</a></li>
-								<li><a data-toggle="tab" href="#tab3">AS, 교환, 환불</a></li>
-								<li><a data-toggle="tab" href="#tab4">리뷰</a></li>
+						<div class="pull-right">
+							<div class="page-filter">
+								<select class="input">
+									<option value="0">10개씩 보기</option>
+									<option value="1">20개씩 보기</option>
+									<option value="2">30개씩 보기</option>
+								</select>
+							</div>
+							<ul class="store-pages">
+								<li class="active">1</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
 							</ul>
-							<div class="tab-content">
-								<div id="tab1" class="tab-pane fade in active">
-									<p>상세 정보 설명 입력</p>
-								</div>
-								<div id="tab2" class="tab-pane fade in active">
-									<p>배송 정보 설명 입력</p>
-								</div>
-								<div id="tab3" class="tab-pane fade in active">
-									<p>AS, 교환, 환불 정보 설명 입력</p>
-								</div>
-								<div id="tab4" class="tab-pane fade in">
+						</div>
+					</div>
+					<!-- /store top filter -->
 
-									<div class="row">
-										<div class="col-md-6">
-											<div class="product-reviews">
-												<div class="single-review">
-													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> 주재훈</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 2017년 12월 11일 / 8:00 PM</a></div>
-														<div class="review-rating pull-right">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o empty"></i>
-														</div>
-													</div>
-													<div class="review-body">
-														<p>아주 좋습니다! 역시 컴퓨터는 daITso!!</p>
-													</div>
-												</div>
-
-												<div class="single-review">
-													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> 최진호</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 2018년 1월 4일 / 5:17 PM</a></div>
-														<div class="review-rating pull-right">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o empty"></i>
-														</div>
-													</div>
-													<div class="review-body">
-														<p>저같은 전문가와는 잘 맞지 않는 듯 하네용;</p>
-													</div>
-												</div>
-
-												<div class="single-review">
-													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> 최현구</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 2018년 9월 9일 / 9:19 PM</a></div>
-														<div class="review-rating pull-right">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o empty"></i>
-														</div>
-													</div>
-													<div class="review-body">
-														<p>나온 지 1년이 다되가는데 저는 만족합니다!</p>
-													</div>
-												</div>
-
-												<ul class="reviews-pages">
-													<li class="active">1</li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
-												</ul>
-											</div>
+					<!-- STORE -->
+					<div id="store">
+						<!-- row -->
+						<div class="row">
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<div class="product-label">
+											<span>신상</span>
+											<span class="sale">-20%</span>
 										</div>
-										<div class="col-md-6">
-											<h4 class="text-uppercase">리뷰 작성하기</h4>
-											<p>이메일 주소는 공개되지 않습니다.</p>
-											<form class="review-form">
-												<div class="form-group">
-													<input class="input" type="text" placeholder="이름" />
-												</div>
-												<div class="form-group">
-													<input class="input" type="email" placeholder="이메일" />
-												</div>
-												<div class="form-group">
-													<textarea class="input" placeholder="리뷰를 작성해주세요"></textarea>
-												</div>
-												<div class="form-group">
-													<div class="input-rating">
-														<strong class="text-uppercase">별점 주기: </strong>
-														<div class="stars">
-															<input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
-															<input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
-															<input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
-															<input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
-															<input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
-														</div>
-													</div>
-												</div>
-												<button class="primary-btn">리뷰 제출</button>
-											</form>
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product01.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
 										</div>
 									</div>
-
-
-
 								</div>
 							</div>
+							<!-- /Product Single -->
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product02.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50</h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+
+							<div class="clearfix visible-sm visible-xs"></div>
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<div class="product-label">
+											<span>신상</span>
+											<span class="sale">-20%</span>
+										</div>
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product03.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+
+							<div class="clearfix visible-md visible-lg"></div>
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<div class="product-label">
+											<span>신상</span>
+										</div>
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product04.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50</h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+
+							<div class="clearfix visible-sm visible-xs"></div>
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<div class="product-label">
+											<span>신상</span>
+										</div>
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product05.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50</h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<div class="product-label">
+											<span>신상</span>
+											<span class="sale">-20%</span>
+										</div>
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product06.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+
+							<div class="clearfix visible-md visible-lg visible-sm visible-xs"></div>
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<div class="product-label">
+											<span>신상</span>
+											<span class="sale">-20%</span>
+										</div>
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product07.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product08.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50</h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+
+							<div class="clearfix visible-sm visible-xs"></div>
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<div class="product-label">
+											<span class="sale">-20%</span>
+										</div>
+										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+										<img src="./img/product01.jpg" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o empty"></i>
+										</div>
+										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+						</div>
+						<!-- /row -->
+					</div>
+					<!-- /STORE -->
+
+					<!-- store bottom filter -->
+					<div class="store-filter clearfix">
+						<div class="pull-left">
+							<div class="row-filter">
+								<a href="#"><i class="fa fa-th-large"></i></a>
+								<a href="#" class="active"><i class="fa fa-bars"></i></a>
+							</div>
+							<div class="sort-filter">
+								<span class="text-uppercase">Sort By:</span>
+								<select class="input">
+									<option value="0">Position</option>
+									<option value="0">Price</option>
+									<option value="0">Rating</option>
+								</select>
+								<a href="#" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></a>
+							</div>
+						</div>
+						<div class="pull-right">
+							<div class="page-filter">
+								<span class="text-uppercase">Show:</span>
+								<select class="input">
+									<option value="0">10</option>
+									<option value="1">20</option>
+									<option value="2">30</option>
+								</select>
+							</div>
+							<ul class="store-pages">
+								<li><span class="text-uppercase">Page:</span></li>
+								<li class="active">1</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+							</ul>
 						</div>
 					</div>
-
+					<!-- /store bottom filter -->
 				</div>
-				<!-- /Product Details -->
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /section -->
-
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- section title -->
-				<div class="col-md-12">
-					<div class="section-title">
-						<h2 class="title">당신을 위한 추천 제품</h2>
-					</div>
-				</div>
-				<!-- section title -->
-
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single">
-						<div class="product-thumb">
-							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-							<img src="./img/no6.jpg" alt="">
-						</div>
-						<div class="product-body">
-							<h3 class="product-price">1,176,900 원</h3>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
-							</div>
-							<h2 class="product-name"><a href="#">daITso-AMD 마티스 모니터 패키지 No.6</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
-
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single">
-						<div class="product-thumb">
-							<div class="product-label">
-								<span>신상</span>
-							</div>
-							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-							<img src="./img/no16.jpg" alt="">
-						</div>
-						<div class="product-body">
-							<h3 class="product-price">1,195,600 원</h3>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
-							</div>
-							<h2 class="product-name"><a href="#">daITso-모니터 패키지 No.16</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
-
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single">
-						<div class="product-thumb">
-							<div class="product-label">
-								<span class="sale">-20%</span>
-							</div>
-							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-							<img src="./img/no7.jpg" alt="">
-						</div>
-						<div class="product-body">
-							<h3 class="product-price">1,021,000 원 <del class="product-old-price">1,225,200 원</del></h3>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
-							</div>
-							<h2 class="product-name"><a href="#">daITso-AMD 마티스 윈도우 패키지 No.7</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
-
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single">
-						<div class="product-thumb">
-							<div class="product-label">
-								<span>신상</span>
-								<span class="sale">-20%</span>
-							</div>
-							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-							<img src="./img/no14.jpg" alt="">
-						</div>
-						<div class="product-body">
-							<h3 class="product-price">950,200 원 <del class="product-old-price">1,140,240 원</del></h3>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
-							</div>
-							<h2 class="product-name"><a href="#">daITso-윈도우10 탑재 No.14</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
+				<!-- /MAIN -->
 			</div>
 			<!-- /row -->
 		</div>
@@ -1026,7 +1043,6 @@
 	</footer>
 	<!-- /FOOTER -->
 
-
 	<!-- jQuery Plugins -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -1035,9 +1051,6 @@
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
 
-
 </body>
-
-
 
 </html>
