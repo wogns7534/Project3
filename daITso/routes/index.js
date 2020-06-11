@@ -49,4 +49,40 @@ router.get('/view_info_customer', function(req, res, next) {
   });
 });
 
+router.get('/seller_page', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('seller_page', {
+      title: 'seller_page'
+    });
+  });
+});
+router.get('/shoppingcart', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('shoppingcart', {
+      title: 'shoppingcart'
+    });
+  });
+});
+router.get('/login', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('login', {
+      title: 'login'
+    });
+  });
+});
+
+router.get('/seller_add_product', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('seller_add_product', {
+      title: 'seller_add_product'
+    });
+  });
+});
+router.get('/cpu_product-page', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('cpu_product-page', {
+      title: 'cpu_product-page'
+    });
+  });
+});
 module.exports = router;
