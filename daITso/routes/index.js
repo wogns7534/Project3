@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var pool = mysql.createPool({
-  connectionLimit: 5,
+  connectionLimit: 50,
   host: 'localhost',
   user: 'root',
   password: '1234',
