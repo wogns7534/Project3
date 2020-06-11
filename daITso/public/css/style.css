@@ -252,6 +252,14 @@ textarea.input {
   padding-bottom: 30px;
 }
 
+.section-login {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin : 0 auto;
+  width: 30%;
+  text-align: center;
+}
+
 .section-grey {
   background: #F6F7F8;
 }
