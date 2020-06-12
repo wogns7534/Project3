@@ -25,6 +25,11 @@ router.get('/products', function(req, res, next) {
      res.render('products', {title: 'products'});
   });
 });
+router.get('/purchase', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('purchase', {title: 'products'});
+  });
+});
 
 router.get('/modify_info_customer', function(req, res, next) {
   pool.getConnection(function(err, connection){
