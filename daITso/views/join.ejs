@@ -554,7 +554,7 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<form id="checkout-form" class="clearfix">
+				<form id="checkout-form" class="clearfix" action="/join" method="POST">
 					<div class="col-md-6">
 						<div class="billing-details">
 							<div class="section-title">
@@ -595,7 +595,7 @@
 							<div class="form-group">
 								<h4 class = "pull-left">* 전화번호</h4>
 								<p class = "pull-right">"-"를 제외한 숫자만 입력해주세요.</p>
-								<input class="input" type="text" name="customer_phone_num">
+								<input class="input" type="text" name="customer_phone">
 							</div>
 
 							<div class="form-group">
@@ -613,6 +613,13 @@
 								<input class="input" type="text" name="addr2"/>
 							</div>
 						</div>
+						<input value="회원가입" class="primary-btn" type="submit">
+						<input type="button" id='btn' class="primary-btn" value="취소" onClick="movepage()">
+						<script type="text/javascript">
+							function movepage() {
+								location.href = "/index";
+							}
+						</script>
 					</div>
 
 					<div class="col-md-6">
@@ -640,8 +647,8 @@
 				</form>
 			</div>
 			<!-- /row -->
-			<button class="primary-btn"> &nbsp;&nbsp;&nbsp; 회원가입 &nbsp;&nbsp;&nbsp; </button>
-			<button class="main-btn"> &nbsp;&nbsp;&nbsp; 취소 &nbsp;&nbsp;&nbsp; </button>
+			
+			
 		</div>
 		<!-- /container -->
 	</div>
