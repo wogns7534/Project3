@@ -85,3 +85,19 @@ router.get('/cpu_product-page', function(req, res, next) {
     });
   });
 });
+
+router.get('/join', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('join', {
+      title: 'join'
+    });
+  });
+});
+
+router.get('/customer_page', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('customer_page', {
+      title: 'customer_page'
+    });
+  });
+});
