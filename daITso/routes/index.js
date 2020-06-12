@@ -48,6 +48,21 @@ router.get('/view_info_customer', function(req, res, next) {
      res.render('view_info_customer', {title: 'test'});
   });
 });
+router.get('/purchase', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('purchase', {title: 'test'});
+  });
+});
+router.get('/join', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('join', {title: 'test'});
+  });
+});
+router.get('/join_seller', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('join_seller', {title: 'test'});
+  });
+});
 
 router.get('/seller_page', function(req, res, next) {
   pool.getConnection(function(err, connection) {
@@ -82,6 +97,13 @@ router.get('/cpu_product-page', function(req, res, next) {
   pool.getConnection(function(err, connection) {
     res.render('cpu_product-page', {
       title: 'cpu_product-page'
+    });
+  });
+});
+router.get('/customer_page', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('customer_page', {
+      title: 'customer_page'
     });
   });
 });
