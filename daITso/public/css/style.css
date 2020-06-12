@@ -1561,6 +1561,7 @@ textarea.input {
 .shopping-cart-table>tbody>tr>td, .shopping-cart-table>tbody>tr>th, .shopping-cart-table>tfoot>tr>td, .shopping-cart-table>tfoot>tr>th, .shopping-cart-table>thead>tr>td, .shopping-cart-table>thead>tr>th {
   padding: 15px 0px;
   vertical-align: middle;
+  text-align:center;
   border-top: 1px solid #DADADA;
 }
 
