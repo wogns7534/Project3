@@ -25,6 +25,11 @@ router.get('/products', function(req, res, next) {
      res.render('products', {title: 'products'});
   });
 });
+router.get('/purchase', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('purchase', {title: 'products'});
+  });
+});
 
 router.get('/modify_info_customer', function(req, res, next) {
   pool.getConnection(function(err, connection){
@@ -46,6 +51,11 @@ router.get('/view_info_seller', function(req, res, next) {
 router.get('/view_info_customer', function(req, res, next) {
   pool.getConnection(function(err, connection){
      res.render('view_info_customer', {title: 'test'});
+  });
+});
+router.get('/join_check', function(req, res, next) {
+  pool.getConnection(function(err, connection){
+     res.render('join_check', {title: 'test'});
   });
 });
 
@@ -101,3 +111,4 @@ router.get('/customer_page', function(req, res, next) {
     });
   });
 });
+module.exports = router;
