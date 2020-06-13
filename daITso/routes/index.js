@@ -61,4 +61,5 @@ router.get('/index', function (req, res, next) {
     title: 'index'
   });
 });
+
 module.exports = router;

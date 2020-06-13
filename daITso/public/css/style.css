@@ -1278,6 +1278,7 @@ textarea.input {
 .store-pages li {
   display: inline-block;
   margin-right: 6px;
+  font-size: 20px;
 }
 
 .store-pages li a {
@@ -1831,4 +1832,38 @@ textarea.input {
 	display: block;
 	color: #252525;
 	font-weight: 700;
+}
+
+
+
+/*----------------------------*\
+	Search info
+\*----------------------------*/
+
+.info-search {
+  /* display: inline-block; */
+  position: absolute;
+  left: 30%;
+  padding: 15px 0px;
+  width: 30%
+  /* max-width: 700px; */
+}
+
+.info-search {
+  position: relative;
+}
+
+.info-search .search-input {
+  padding-left: 25px;
+  padding-right: 45px;
+}
+
+.info-search .search-btn {
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
 }
