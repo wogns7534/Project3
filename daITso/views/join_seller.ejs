@@ -547,77 +547,108 @@
    </div>
     <!-- /BREADCRUMB -->
     
-    <!-- section -->
-   <div class="section-login">
-      <!-- container -->
-      <div class="container">
-         <!-- row -->
-         <div>
-            <form>
-               <div class="col-md-6">
-                  <div class="billing-details">
-                     <div class="section-title">
-                        <h2 class="title">판매자 가입하기</h2>
-                        <br><p>당신이 원하는 PC, 여기 daITso!</p>
-                        <p>항상 고객을 위해 최선을 다하는 daITso가 되겠습니다!</p>
-                     </div>
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<form id="checkout-form" class="clearfix">
+					<div class="col-md-6">
+						<div class="billing-details">
+							<div class="section-title">
+								<h2 class="title">판매자 가입하기</h2>
+							</div>
+							<br>
+                     <div class="form-group">
+								<h4 class = "pull-left">* 아이디</h4>
+								<p class = "pull-right">영문, 숫자만 사용할 수 있습니다.</p>
+								<input class="input" type="text" name="customer_id" style="width:80%;">
+								<button class="main-btn pull-right">중복확인</button>
+							</div>
 
-                     <div class="form-group">
-                        <h4 class = "pull-left">*아이디</h4>
-                        <p class = "pull-right">영문, 숫자만 사용할 수 있습니다.</p>
-                        <input class="input" type="text" name="seller_id" style="width:83%; height:40px;">
-                        <input class="primary-btn" :hover type="button" value="중복확인" onclick="IDCheck()">
+							<div class="form-group">
+								<h4 class = "pull-left">* 비밀번호</h4>
+								<p class = "pull-right">영문, 숫자를 포함한 8자 이상으로 입력해주세요.</p>
+								<input class="input" type="password" name="customer_passwd">
+							</div>
+
+							<div class="form-group">
+								<h4 class = "pull-left">* 비밀번호 확인</h4>
+								<p class = "pull-right">비밀번호 확인을 위해 다시 입력해주세요.</p>
+								<input class="input" type="password" name="customer_passwd_check">
                      </div>
+                     
                      <div class="form-group">
-                        <h4 class = "pull-left">*비밀번호</h4>
-                        <p class = "pull-right">영문, 숫자를 포함한 8자 이상으로 입력해주세요.</p>
-                        <input class="input" type="password" name="seller_passwd">
-                     </div>
-                     <div class="form-group">
-                        <h4 class = "pull-left">*비밀번호 확인</h4>
-                        <p class = "pull-right">비밀번호 확인을 위해 다시 입력해주세요.</p>
-                        <input class="input" type="password" name="seller_passwd_check">
-                     </div>
-                     <div class="form-group">
-                        <h4 class = "pull-left">*회사 이름</h4>
+                        <h4 class = "pull-left">* 회사 이름</h4>
                         <input class="input" type="text" name="company_name">
                      </div>
-                     </div>
+                     
                      <div class="form-group">
                         <h4 class = "pull-left">*대표자 이름</h4>
                         <input class="input" type="text" name="PIC_name">
                      </div>
+
                      <div class="form-group">
                         <h4 class = "pull-left">*사업자 등록번호</h4>
                         <input class="input" type="text" name="company_registration_num">
                      </div>
+
                      <div class="form-group">
-                        <h4 class = "pull-left">*회사 이메일</h4><br>
+                        <h4 class = "pull-left">*회사 이메일</h4>
                         <p class = "pull-right">abc@abc.abc의 형태로 작성해주세요.</p>
-                        <input class="input" type="text" name="company_email" style="width:83%; height:40px;">
-                        <input class="primary-btn" :hover type="button" value="중복확인" onclick="emailCheck()">
+                        <input class="input" type="text" name="company_email" style="width:80%;">
+                        <button class="main-btn pull-right">중복확인</button>
                      </div>
+
                      <div class="form-group">
                         <h4 class = "pull-left">*회사 전화번호</h4>
                         <p class = "pull-right">"-"를 제외한 숫자만 입력해주세요.</p>
                         <input class="input" type="text" name="company_phone_num">
                      </div>
+
                      <div class="form-group">
                         <h4 class = "pull-left">*회사 주소</h4><br>
-                        우편번호 : <input class="input" type="text" name="zip" style="width:80px; height:35px;" />
-                        <button class="primary-btn" :hover type="button" onclick="openZipSearch()">우편번호 검색</button>
-                        <input class="input" type="text" name="addr1" readonly/>
-                        <input class="input" type="text" name="addr2"/>
                      </div>
-                            <br>
-                            <div class="pull-center">
-                        <button class="primary-btn" :hover>회원가입</button>
-                            </div>      
-                        </div>
+                     <div class="form-group">
+								<input class="input" type="text" name="zip" style="width:40%;" placeholder="우편번호"/>
+								<button class="main-btn" :hover type="button" onclick="openZipSearch()">우편번호 검색</button>
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="addr1" readonly/>
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="addr2"/>
+                     </div>
+                  </div>
                </div>
+               <div class="col-md-6">
+						<div class="shiping-methods">
+							<div class="section-title">
+								<h4 class="title">반갑습니다, daITso!</h4>
+							</div>
+							<div class="caption">
+								<p>당신이 원하는 PC, 여기 daITso!<br>항상 고객을 위해 최선을 다하는 daITso가 되겠습니다!</p>
+							</div>
+						</div>
+						<br>
+						<div class="payments-methods">
+							<div class="section-title">
+								<h4 class="title">Nice to meet you, daITso!</h4>
+							</div>
+							<div class="caption">
+								<p>
+									The PC you want, it is here daITso!<br>
+									We will always be daITso who does our best for our customers!
+								<p>
+							</div>
+						</div>
+					</div>
             </form>
          </div>
             <!-- /row -->
+            <button class="primary-btn"> &nbsp;&nbsp;&nbsp; 회원가입 &nbsp;&nbsp;&nbsp; </button>
+            <button class="main-btn"> &nbsp;&nbsp;&nbsp; 취소 &nbsp;&nbsp;&nbsp; </button>
       </div>
       <!-- /container -->
    </div>

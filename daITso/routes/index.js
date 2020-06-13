@@ -93,6 +93,13 @@ router.get('/join', function(req, res, next) {
     });
   });
 });
+router.get('/join_seller', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('join_seller', {
+      title: 'join_seller'
+    });
+  });
+});
 
 router.get('/customer_page', function(req, res, next) {
   pool.getConnection(function(err, connection) {
@@ -101,3 +108,19 @@ router.get('/customer_page', function(req, res, next) {
     });
   });
 });
+
+router.get('/view_infolist_admin', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('view_infolist_admin', {
+      title: 'view_infolist_admin'
+    });
+  });
+});
+router.get('/view_info_customer_admin', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    res.render('view_info_customer_admin', {
+      title: 'view_info_seller_admin'
+    });
+  });
+});
+module.exports = router;
