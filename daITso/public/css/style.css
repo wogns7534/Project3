@@ -1266,6 +1266,10 @@ textarea.input {
   width: 90px;
 }
 
+.category-filter select.input {
+  width: 200px;
+}
+
 .page-filter {
   display: inline-block;
 }
