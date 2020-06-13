@@ -38,6 +38,7 @@
 </head>
 
 <body>
+
 	<!-- HEADER -->
 	<header>
 		<!-- top Header -->
@@ -86,9 +87,13 @@
 								<div class="header-btns-icon">
 									<i class="fa fa-user-o"></i>
 								</div>
-								<strong class="text-uppercase">계정정보 관리메뉴 <i class="fa fa-caret-down"></i></strong>
+								<strong class="text-uppercase"><%=session%><i class="fa fa-caret-down"></i></strong>
 							</div>
-							<a href="#" class="text-uppercase">로그인</a> / <a href="#" class="text-uppercase">회원가입</a>
+							<% if(session == '계정정보 관리메뉴'){%>
+								<a href="/login" class="text-uppercase">로그인</a> / <a href="#" class="text-uppercase">회원가입</a>
+							<% } else { %>
+								<a href="/logout" class="text-uppercase">로그아웃</a>
+							<% } %>	
 							<ul class="custom-menu">
 								<li><a href="#"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 								<li><a href="#"><i class="fa fa-heart-o"></i> 위시 리스트</a></li>
