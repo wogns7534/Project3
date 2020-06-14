@@ -57,7 +57,7 @@
     });
   });
 
-  // LOGIN CHECKSUM
+  // LOGIN CHECKSUM CUSTOMER
   $(document).on('click', "#checksum_customer", function(){
       if($("#id").val() == ""){
           alert("아이디를 꼭 입력하세요");
@@ -94,8 +94,47 @@
         error: function(request, status, error) {
             alert(request.status + "  /  " + error);
         }
-    })
+      });
     });
+  // LOGIN CHECKSUM SELLER
+  $(document).on('click', "#checksum_seller", function(){
+    if($("#id").val() == ""){
+        alert("아이디를 꼭 입력하세요");
+        $("#id").focus();
+        return;
+    }
+    if($("#password").val() == ""){
+        alert("비밀번호를 꼭 입력하세요");
+        $("#password").focus();
+        return;
+    }
+
+    $.ajax({
+      url: "/checksum_seller",
+      dataType: "json",
+      type: "POST",
+      data:$('#login_seller').serialize(),
+
+      success: function(data) {
+          if(data.message == "password"){
+            alert("비밀번호가 일치하지 않습니다.");
+            return;
+          }
+          if(data.message == "failed"){
+            alert("계정정보가 존재하지 않습니다.");
+            return;
+          }
+          if(data.message == "success"){
+            alert("환영합니다, " + $("#id").val() + "님!");
+            location.href="/index";
+          }
+          
+      },
+      error: function(request, status, error) {
+          alert(request.status + "  /  " + error);
+      }
+    });
+  });
 
 
   // HOME SLICK
