@@ -155,6 +155,142 @@
          <!-- header -->
       </div>
       <!-- container -->
+
+      <!-- javascript-->
+      <script src="/javascripts/jquery-3.5.1.min.js"></script>
+      <script>
+         var idck = 0;
+         var emailck = 0;
+         $(function () {
+            $("#btnJoin").click(
+               function () {
+                  if ($("#seller_id").val() == "") {
+                     alert("아이디를 꼭 입력하세요");
+                     $("#seller_id").focus();
+                     return;
+                  }
+                  if (idck == 0) {
+                     alert("아이디 중복확인을 하세요");
+                     $("#seller_id").focus();
+                     return;
+                  }
+                  if ($("#seller_passwd").val() == "") {
+                     alert("비밀번호를 꼭 입력하세요");
+                     $("#seller_passwd").focus();
+                     return;
+                  }
+                  if ($("#seller_passwd_check").val() == "") {
+                     alert("비밀번호 확인을 꼭 입력하세요");
+                     $("#seller_passwd_check").focus();
+                     return;
+                  }
+                  if ($("#company_name").val() == "") {
+                     alert("회사 이름을 꼭 입력 하세요");
+                     $("#company_name").focus();
+                     return;
+                  }
+                  if ($("#seller_name").val() == "") {
+                     alert("판매자 이름을 꼭 입력 하세요");
+                     $("#seller_name").focus();
+                     return;
+                  }
+                  if ($("#company_number").val() == "") {
+                     alert("사업자 등록번호를 꼭 입력 하세요");
+                     $("#company_number").focus();
+                     return;
+                  }
+                  if ($("#seller_email").val() == "") {
+                     alert("회사 이메일을 꼭 입력 하세요");
+                     $("#seller_email").focus();
+                     return;
+                  }
+                  if (emailck == 0) {
+                     alert("이메일 중복확인을 하세요");
+                     $("#customr_email").focus();
+                     return;
+                  }
+                  if ($("#seller_mobile").val() == "") {
+                     alert("회사 전화번호를 확인해 주세요");
+                     $("#seller_mobile").focus();
+                     return;
+                  }
+                  if ($("#zip").val() == "") {
+                     alert("우편번호를 꼭 입력 하세요");
+                     $("#zip").focus();
+                     return;
+                  }
+                  $("#checkout-form").submit();
+               });
+         });
+         function movepage() {
+            location.href = "/";
+         }
+
+         $(function () {
+            $("#idck").click(
+               function () {
+                  if ($("#seller_id").val() == "") {
+                     alert("아이디를 입력하고 중복확인 버튼을 눌러주세요");
+                     $("#seller_id").focus();
+                     return;
+                  }
+                  var sellerid = $("#seller_id").val();
+                  $.ajax({
+                     type: 'POST',
+                     data: { data: sellerid },
+                     url: '/api/idck',
+                     dataType: 'json',
+                     success: function (result) {
+                        if (result.result > 0) {
+                           alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+                           $("#seller_id").focus();
+                           idck = 0;
+                        }
+                        else {
+                           alert("사용가능한 아이디입니다.");
+                           $("#seller_passwd").focus();
+                           idck = 1;
+                        }
+                     },
+                     error: function (error) {
+                        alert("error : " + error);
+                     }
+                  });
+               });
+         });
+         $(function () {
+            $("#emailck").click(
+               function () {
+                  if ($("#seller_email").val() == "") {
+                     alert("주소를 입력하고 중복확인 버튼을 눌러주세요");
+                     $("#seller_email").focus();
+                     return;
+                  }
+                  var selleremail = $("#seller_email").val();
+                  $.ajax({
+                     type: 'POST',
+                     data: { data: selleremail },
+                     url: '/api/emailck',
+                     dataType: 'json',
+                     success: function (result) {
+                        if (result.result > 0) {
+                           alert("이메일이 존재합니다. 다른 이메일을 입력해주세요.");
+                           $("#seller_email").focus();
+                           emailck = 0;
+                        }
+                        else {
+                           alert("사용가능한 이메일입니다.");
+                           $("#seller_phone").focus();
+                           emailck = 1;
+                        }
+                     },
+                     error: function (error) {
+                        alert("error : " + error);
+                     }
+                  });
+               });
+         });
+      </script>
    </header>
    <!-- /HEADER -->
 
@@ -168,13 +304,15 @@
                <span class="category-header">카테고리 <i class="fa fa-list"></i></span>
                <ul class="category-list">
                   <li class="dropdown side-dropdown">
-                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">daITso 조립PC <i class="fa fa-angle-right"></i></a>
+                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">daITso 조립PC <i
+                           class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">daITso 조립PC - 100만원 이하</h3></li>
+                                    <h3 class="list-links-title">daITso 조립PC - 100만원 이하</h3>
+                                 </li>
                                  <li><a href="#">20만원 이하 조립PC</a></li>
                                  <li><a href="#">30만원 이하 조립PC</a></li>
                                  <li><a href="#">50만원 이하 조립PC</a></li>
@@ -186,7 +324,8 @@
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">daITso 조립PC - 100만원 이상</h3></li>
+                                    <h3 class="list-links-title">daITso 조립PC - 100만원 이상</h3>
+                                 </li>
                                  <li><a href="#">120만원 이하 조립PC</a></li>
                                  <li><a href="#">150만원 이하 조립PC</a></li>
                                  <li><a href="#">180만원 이하 조립PC</a></li>
@@ -210,26 +349,30 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">WINDOWS10 탑재PC <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">WINDOWS10 탑재PC <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
-                                 <li><h3 class="list-links-title">WINDOWS10 탑재PC</h3></li>
+                                 <li>
+                                    <h3 class="list-links-title">WINDOWS10 탑재PC</h3>
+                                 </li>
                                  <li><a href="#">30~60만원대 탑재PC</a></li>
                                  <li><a href="#">70~80만원대 탑재PC</a></li>
                                  <li><a href="#">90~100만원대 탑재PC</a></li>
                                  <li><a href="#">100~120만원대 탑재PC</a></li>
                                  <li><a href="#">130~150만원대 탑재PC</a></li>
-                                 <li><a href="#">160만원 이상 탑재PC</a></li>   
+                                 <li><a href="#">160만원 이상 탑재PC</a></li>
                               </ul>
-                              
+
                               <hr class="hidden-md hidden-lg">
                            </div>
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">Intel vs AMD</h3></li>
+                                    <h3 class="list-links-title">Intel vs AMD</h3>
+                                 </li>
                                  <li><a href="#">Intel 계열 PC</a></li>
                                  <li><a href="#">AMD 계열 PC</a></li>
                               </ul>
@@ -245,25 +388,29 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">본체 + 모니터 패키지 <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">본체 + 모니터 패키지 <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
-                                 <li><h3 class="list-links-title">본체 + 모니터 패키지</h3></li>
+                                 <li>
+                                    <h3 class="list-links-title">본체 + 모니터 패키지</h3>
+                                 </li>
                                  <li><a href="#">30~60만원대 패키지</a></li>
                                  <li><a href="#">70~80만원대 패키지</a></li>
                                  <li><a href="#">90~100만원대 패키지</a></li>
                                  <li><a href="#">100~120만원대 패키지</a></li>
                                  <li><a href="#">130~150만원대 패키지</a></li>
-                                 <li><a href="#">160만원 이상 패키지</a></li>   
+                                 <li><a href="#">160만원 이상 패키지</a></li>
                               </ul>
                               <hr class="hidden-md hidden-lg">
                            </div>
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">Intel vs AMD</h3></li>
+                                    <h3 class="list-links-title">Intel vs AMD</h3>
+                                 </li>
                                  <li><a href="#">Intel 계열 PC</a></li>
                                  <li><a href="#">AMD 계열 PC</a></li>
                               </ul>
@@ -279,13 +426,15 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">컴퓨터 주요부품 <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">컴퓨터 주요부품 <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">컴퓨터 주요부품</h3></li>
+                                    <h3 class="list-links-title">컴퓨터 주요부품</h3>
+                                 </li>
                                  <li><a href="#">CPU</a></li>
                                  <li><a href="#">메인보드</a></li>
                                  <li><a href="#">메모리</a></li>
@@ -317,13 +466,15 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">키보드 ㆍ 마우스 ㆍ 주변기기 <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">키보드 ㆍ 마우스 ㆍ 주변기기 <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">키보드 ㆍ 마우스 ㆍ 주변기기</h3></li>
+                                    <h3 class="list-links-title">키보드 ㆍ 마우스 ㆍ 주변기기</h3>
+                                 </li>
                                  <li><a href="#">키보드</a></li>
                                  <li><a href="#">마우스</a></li>
                                  <li><a href="#">키보드 + 마우스 세트</a></li>
@@ -350,13 +501,15 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">모니터 ㆍ 악세서리 <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">모니터 ㆍ 악세서리 <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">모니터 ㆍ 악세서리</h3></li>
+                                    <h3 class="list-links-title">모니터 ㆍ 악세서리</h3>
+                                 </li>
                                  <li><a href="#">19~22인치 모니터</a></li>
                                  <li><a href="#">24~26인치 모니터</a></li>
                                  <li><a href="#">27~29인치 모니터</a></li>
@@ -383,13 +536,15 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">게이밍 의자 ㆍ 책상 <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">게이밍 의자 ㆍ 책상 <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">게이밍 의자 ㆍ 책상 </h3></li>
+                                    <h3 class="list-links-title">게이밍 의자 ㆍ 책상 </h3>
+                                 </li>
                                  <li><a href="#">제닉스</a></li>
                                  <li><a href="#">ABKO HACKER</a></li>
                                  <li><a href="#">GEEKSTAR</a></li>
@@ -417,13 +572,15 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">프린터 ㆍ 복합기 ㆍ 스캐너 <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">프린터 ㆍ 복합기 ㆍ 스캐너 <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">프린터 ㆍ 복합기 ㆍ 스캐너 </h3></li>
+                                    <h3 class="list-links-title">프린터 ㆍ 복합기 ㆍ 스캐너 </h3>
+                                 </li>
                                  <li><a href="#">레이저/잉크젯 프린터</a></li>
                                  <li><a href="#">복합기</a></li>
                                  <li><a href="#">스캐너</a></li>
@@ -447,13 +604,15 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">음향 ㆍ 방송용 장비 <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">음향 ㆍ 방송용 장비 <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">음향 ㆍ 방송용 장비 </h3></li>
+                                    <h3 class="list-links-title">음향 ㆍ 방송용 장비 </h3>
+                                 </li>
                                  <li><a href="#">스피커</a></li>
                                  <li><a href="#">마이크</a></li>
                                  <li><a href="#">헤드셋 ㆍ 이어폰</a></li>
@@ -480,13 +639,15 @@
                         </div>
                      </div>
                   </li>
-                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">네트워크 ㆍ 공유기 <i class="fa fa-angle-right"></i></a>
+                  <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="true">네트워크 ㆍ 공유기 <i class="fa fa-angle-right"></i></a>
                      <div class="custom-menu">
                         <div class="row">
                            <div class="col-md-4">
                               <ul class="list-links">
                                  <li>
-                                    <h3 class="list-links-title">네트워크 ㆍ 공유기 </h3></li>
+                                    <h3 class="list-links-title">네트워크 ㆍ 공유기 </h3>
+                                 </li>
                                  <li><a href="#">공유기</a></li>
                                  <li><a href="#">랜 카드</a></li>
                                  <li><a href="#">랜 케이블</a></li>
@@ -535,120 +696,112 @@
    </div>
    <!-- /NAVIGATION -->
 
-    
-    <!-- BREADCRUMB -->
+
+   <!-- BREADCRUMB -->
    <div id="breadcrumb">
       <div class="container">
          <ul class="breadcrumb">
             <li><a href="/">&nbsp 홈</a></li>
-            <li class="active"> 회원가입</li>
+            <li class="active"> 판매자 회원가입</li>
          </ul>
       </div>
    </div>
-    <!-- /BREADCRUMB -->
-    
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<form id="checkout-form" class="clearfix">
-					<div class="col-md-6">
-						<div class="billing-details">
-							<div class="section-title">
-								<h2 class="title">판매자 가입하기</h2>
-							</div>
-							<br>
-                     <div class="form-group">
-								<h4 class = "pull-left">* 아이디</h4>
-								<p class = "pull-right">영문, 숫자만 사용할 수 있습니다.</p>
-								<input class="input" type="text" name="customer_id" style="width:80%;">
-								<button class="main-btn pull-right">중복확인</button>
-							</div>
+   <!-- /BREADCRUMB -->
 
-							<div class="form-group">
-								<h4 class = "pull-left">* 비밀번호</h4>
-								<p class = "pull-right">영문, 숫자를 포함한 8자 이상으로 입력해주세요.</p>
-								<input class="input" type="password" name="customer_passwd">
-							</div>
-
-							<div class="form-group">
-								<h4 class = "pull-left">* 비밀번호 확인</h4>
-								<p class = "pull-right">비밀번호 확인을 위해 다시 입력해주세요.</p>
-								<input class="input" type="password" name="customer_passwd_check">
+   <!-- section -->
+   <div class="section">
+      <!-- container -->
+      <div class="container">
+         <!-- row -->
+         <div class="row">
+            <form id="checkout-form" class="clearfix" action="/join_seller" method="POST">
+               <div class="col-md-6">
+                  <div class="billing-details">
+                     <div class="section-title">
+                        <h2 class="title">판매자 가입하기</h2>
                      </div>
-                     
+                     <br>
                      <div class="form-group">
-                        <h4 class = "pull-left">* 회사 이름</h4>
-                        <input class="input" type="text" name="company_name">
-                     </div>
-                     
-                     <div class="form-group">
-                        <h4 class = "pull-left">*대표자 이름</h4>
-                        <input class="input" type="text" name="PIC_name">
-                     </div>
-
-                     <div class="form-group">
-                        <h4 class = "pull-left">*사업자 등록번호</h4>
-                        <input class="input" type="text" name="company_registration_num">
-                     </div>
-
-                     <div class="form-group">
-                        <h4 class = "pull-left">*회사 이메일</h4>
-                        <p class = "pull-right">abc@abc.abc의 형태로 작성해주세요.</p>
-                        <input class="input" type="text" name="company_email" style="width:80%;">
-                        <button class="main-btn pull-right">중복확인</button>
-                     </div>
-
-                     <div class="form-group">
-                        <h4 class = "pull-left">*회사 전화번호</h4>
-                        <p class = "pull-right">"-"를 제외한 숫자만 입력해주세요.</p>
-                        <input class="input" type="text" name="company_phone_num">
-                     </div>
-
-                     <div class="form-group">
-                        <h4 class = "pull-left">*회사 주소</h4><br>
+                        <h4 class="pull-left">* 아이디</h4>
+                        <p class="pull-right">영문, 숫자만 사용할 수 있습니다.</p>
+                        <input class="input" type="text" id="seller_id" name="seller_id" style="width:80%;">
+                        <input type="button" value="중복확인" class="main-btn pull-right" id="idck" name="idck">
                      </div>
                      <div class="form-group">
-								<input class="input" type="text" name="zip" style="width:40%;" placeholder="우편번호"/>
-								<button class="main-btn" :hover type="button" onclick="openZipSearch()">우편번호 검색</button>
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="addr1" readonly/>
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="addr2"/>
+                        <h4 class="pull-left">* 비밀번호</h4>
+                        <p class="pull-right">영문, 숫자를 포함한 8자 이상으로 입력해주세요.</p>
+                        <input class="input" type="password" id="seller_passwd" name="seller_passwd">
+                     </div>
+                     <div class="form-group">
+                        <h4 class="pull-left">* 비밀번호 확인</h4>
+                        <p class="pull-right">비밀번호 확인을 위해 다시 입력해주세요.</p>
+                        <input class="input" type="password" id="seller_passwd_check" name="seller_passwd_check">
+                     </div>
+                     <div class="form-group">
+                        <h4 class="pull-left">* 회사 이름</h4>
+                        <input class="input" type="text" id="company_name" name="company_name">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <h4 class="pull-left">* 판매자 이름</h4>
+                     <input class="input" type="text" id="seller_name" name="seller_name">
+                  </div>
+                  <div class="form-group">
+                     <h4 class="pull-left">* 사업자 등록번호</h4>
+                     <input class="input" type="text" id="company_number" name="company_number">
+                  </div>
+                  <div class="form-group">
+                     <h4 class="pull-left">* 회사 이메일</h4>
+                     <p class="pull-right">abc@abc.abc의 형태로 작성해주세요.</p>
+                     <input class="input" type="text" id="seller_email" name="seller_email" style="width: 80%;">
+                     <input type="button" value="중복확인" class="main-btn pull-right" id="emailck" name="emailck">
+                  </div>
+                  <div class="form-group">
+                     <h4 class="pull-left">* 회사 전화번호</h4>
+                     <p class="pull-right">"-"를 붙여서 입력해주세요.</p>
+                     <input class="input" type="text" id="seller_mobile" name="seller_mobile">
+                  </div>
+                  <div class="form-group">
+                     <h4 class="pull-left">* 회사 주소</h4><br>
+                  </div>
+                  <div class="form-group">
+                     <input class="input" type="text" id="zip" name="zip" style="width:40%;" placeholder="우편번호" />
+                     <button class="main-btn" :hover type="button" onclick="openZipSearch()">우편번호 검색</button>
+                  </div>
+                  <div class="form-group">
+                     <input class="input" type="text" id="addr1" name="addr1" readonly />
+                  </div>
+                  <div class="form-group">
+                     <input class="input" type="text" id="addr2" name="addr2" />
+                  </div>
+                  <input type="button" value="회원가입" id="btnJoin" name='join' class="primary-btn">
+                  <input type="button" id='cansle' class="primary-btn" value="취소" onClick="movepage()">
+               </div>
+               <div class="col-md-6">
+                  <div class="shiping-methods">
+                     <div class="section-title">
+                        <h4 class="title">반갑습니다, daITso!</h4>
+                     </div>
+                     <div class="caption">
+                        <p>당신이 원하는 PC, 여기 daITso!<br>항상 고객을 위해 최선을 다하는 daITso가 되겠습니다!</p>
+                     </div>
+                  </div>
+                  <br>
+                  <div class="payments-methods">
+                     <div class="section-title">
+                        <h4 class="title">Nice to meet you, daITso!</h4>
+                     </div>
+                     <div class="caption">
+                        <p>
+                           The PC you want, it is here daITso!<br>
+                           We will always be daITso who does our best for our customers!
+                        <p>
                      </div>
                   </div>
                </div>
-               <div class="col-md-6">
-						<div class="shiping-methods">
-							<div class="section-title">
-								<h4 class="title">반갑습니다, daITso!</h4>
-							</div>
-							<div class="caption">
-								<p>당신이 원하는 PC, 여기 daITso!<br>항상 고객을 위해 최선을 다하는 daITso가 되겠습니다!</p>
-							</div>
-						</div>
-						<br>
-						<div class="payments-methods">
-							<div class="section-title">
-								<h4 class="title">Nice to meet you, daITso!</h4>
-							</div>
-							<div class="caption">
-								<p>
-									The PC you want, it is here daITso!<br>
-									We will always be daITso who does our best for our customers!
-								<p>
-							</div>
-						</div>
-					</div>
             </form>
          </div>
-            <!-- /row -->
-            <button class="primary-btn"> &nbsp;&nbsp;&nbsp; 회원가입 &nbsp;&nbsp;&nbsp; </button>
-            <button class="main-btn"> &nbsp;&nbsp;&nbsp; 취소 &nbsp;&nbsp;&nbsp; </button>
+         <!-- /row -->
       </div>
       <!-- /container -->
    </div>
@@ -665,8 +818,8 @@
                   <!-- footer logo -->
                   <div class="footer-logo">
                      <a class="logo" href="#">
-                  <img src="./img/logo.png" alt="">
-                </a>
+                        <img src="./img/logo.png" alt="">
+                     </a>
                   </div>
                   <!-- /footer logo -->
                   <p>광운대학교 컴퓨터정보공학부<br>소프트웨어공학 3차 프로젝트<br>인터넷 쇼핑몰 웹 애플리케이션</p>
@@ -733,7 +886,8 @@
                <!-- footer copyright -->
                <div class="footer-copyright">
                   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved by 주재훈, 박동현, 최진호, 최현구
+                  Copyright &copy;
+                  <script>document.write(new Date().getFullYear());</script> All rights reserved by 주재훈, 박동현, 최진호, 최현구
                   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                </div>
                <!-- /footer copyright -->
@@ -755,15 +909,16 @@
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
    <script>
       function openZipSearch() {
-   new daum.Postcode({
-      oncomplete: function(data) {
-         $('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
-         $('[name=addr1]').val(data.address);
-         $('[name=addr2]').val(data.buildingName);
+         new daum.Postcode({
+            oncomplete: function (data) {
+               $('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
+               $('[name=addr1]').val(data.address);
+               $('[name=addr2]').val(data.buildingName);
+            }
+         }).open();
       }
-   }).open();
-}
    </script>
 
 </body>
+
 </html>
