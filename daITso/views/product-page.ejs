@@ -776,7 +776,7 @@
 														else{
 											        for(var i = 0; i < review.length; i++){ %>
 																<div class="review-heading">
-														<div><i class="fa fa-user-o"></i> <%=review[i].customer_name%></div>
+														<div><i class="fa fa-user-o"></i> <%=review[i].customer_id%></div>
 														<div><i class="fa fa-clock-o"></i> <%=review[i].review_time%></div>
 
 														<div class="review-rating pull-right">
@@ -796,9 +796,6 @@
 													} }
 													%>
 												</div>
-
-
-
 												<ul class="reviews-pages">
 													<li class="active">1</li>
 													<li><a href="#">2</a></li>
@@ -807,14 +804,11 @@
 												</ul>
 											</div>
 										</div>
+										<% if (review_check==1){ %>
 										<div class="col-md-6">
 											<h4 class="text-uppercase">리뷰 작성하기</h4>
-											<p>이메일 주소는 공개되지 않습니다.</p>
 											<form class="review-form" method="post" action="/product-page">
 												<input type="hidden" name="product_no" id="product_no" value=<%=p_no%> >
-												<div class="form-group">
-													<input class="input" type="text" name="customer_name" id="customer_name" placeholder="이름" />
-												</div>
 												<div class="form-group">
 													<textarea class="input" id="review_comment" name="review_comment" placeholder="리뷰를 작성해주세요"></textarea>
 												</div>
@@ -833,6 +827,7 @@
 												<input type="submit" value="리뷰 제출" class="primary-btn" >
 											</form>
 										</div>
+										<% } %>
 									</div>
 
 
