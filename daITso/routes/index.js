@@ -47,11 +47,25 @@ connection.connect();
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   PRODUCT SECTION                                   //
 /////////////////////////////////////////////////////////////////////////////////////////
-router.get('/products', function (req, res) {
+router.get('/products', function(req, res) {
   console.log('products . path loaded');
-  res.render('products', {
-    title: 'products'
-  });
+  //[req.query.bdiv, req.query.sdiv]
+  //'SELECT * FROM product WHERE bdiv = ? and sdiv = ?'
+  connection.query('SELECT * FROM product WHERE sdiv_no=?', [req.query.sdiv_no],
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        console.log(result);
+        res.render('products', {
+          title: 'products',
+          products: result
+        });
+      }
+    });
 });
 
 router.get('/seller_add_product', function (req, res) {
@@ -60,38 +74,173 @@ router.get('/seller_add_product', function (req, res) {
     title: 'seller_add_product'
   });
 });
-router.get('/seller_page', function (req, res) {
-  console.log('seller_page . path loaded');
-  res.render('seller_page', {
-    title: 'seller_page'
-  });
-});
 
-router.post('/seller_add_product', up_img.array('product_img', 3), function (req, res, next) {
+router.post('/seller_add_product', up_img.array('product_img', 3), function(req, res, next) {
   console.log('# Seller add product reuqest arrive.');
   console.log(req.body);
   console.log(req.files);
   var body = req.body;
   var product_name = body.product_name;
   var product_price = body.product_price;
+  var product_sale = body.product_sale;
   var detail_description = body.detail_description;
   var product_thumb_img = req.files[0].originalname;
   var product_img = req.files[1].originalname;
   var product_detail_img = req.files[2].originalname;
-  var classification_no = body.select2;
-  var query = connection.query('insert into product (product_name, detail_description, product_price, product_img, product_thumb_img, product_detail_img, classification_no) values ("'
-    + product_name + '","'
-    + detail_description + '","' + product_price + '","'
-    + product_img + '","' + product_thumb_img + '","'
-    + product_detail_img + '","'
-    + classification_no + '")',
-    function (err, rows) {
-      if (err) { throw err; }
+  var sdiv_no = body.sdiv_no;
+  var query = connection.query('insert into product (product_name, detail_description, product_price, product_sale, product_img, product_thumb_img, product_detail_img, sdiv_no) values ("' +
+    product_name + '","' +
+    detail_description + '","' + product_price + '","' +
+    prduct_sale + '","' + product_img + '","' +
+    product_thumb_img + '","' +
+    product_detail_img + '","' +
+    sdiv_no + '")',
+    function(err, rows) {
+      if (err) {
+        throw err;
+      }
       console.log("Data inserted!");
     });
   res.redirect('/seller_page');
 });
 
+router.get('/seller_page', function(req, res) {
+  console.log('seller_page . path loaded');
+
+  connection.query('SELECT * FROM product WHERE seller_id = ?', req.session._id,
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        console.log(result);
+        res.render('seller_page', {
+          title: 'seller_page',
+          result: result
+        });
+      }
+    });
+});
+
+
+router.get('/product-page', function(req, res) {
+  console.log('product-page . path loaded');
+
+  connection.query('SELECT * FROM product WHERE product_no = ?', req.query.product_no,
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        console.log(result);
+        connection.query('select * from review where product_no=?', req.query.product_no,
+          function(error2, result2, fields) {
+            if (error2) {
+              res.send({
+                code: 400,
+                failed: "error ocurred"
+              });
+            } else {
+
+              console.log(result2);
+              var arr=new Array();
+              var total_grade=0;
+              var len=result2.length;
+              for(var i=0; i<result2.length; i++){
+                arr.push(result2[i].review_grade);
+                total_grade+=result2[i].review_grade;
+              }
+              if(len!=0){
+                total_grade=Math.ceil(total_grade/result2.length);
+              }
+              console.log(arr);
+              console.log(total_grade);
+              console.log(len);
+              res.render('product-page', {
+                title: 'review',
+                review: result2,
+                result: result,
+                grade: arr,
+                p_no: req.query.product_no,
+                total_grade: total_grade,
+                review_cnt: len
+              });
+            }
+          });
+      }
+  });
+});
+
+router.post('/product-page', function(req, res, next){
+  console.log('# product review request arrive.');
+  console.log(req.body);
+  var body = req.body;
+  var customer_name = body.customer_name;
+  var review_comment = body.review_comment;
+  var review_grade = body.rating;
+  var product_no = body.product_no;
+  var query = connection.query('insert into review (customer_name, product_no, review_comment, review_grade) values("' +
+    customer_name + '","' +
+    product_no + '","' + review_comment + '","' +
+    review_grade + '")',
+    function(err, rows){
+      if(err){
+        throw err;``
+      }
+      console.log("review inserted!");
+    });
+    res.redirect('/product-page?product_no='+product_no);
+});
+
+router.get('/seller_modify_product', function(req, res) {
+  console.log('seller_modify_product . page loaded');
+  connection.query('SELECT * FROM product WHERE product_no = ?', req.query.product_no,
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        console.log(result);
+        res.render('seller_modify_product', {
+          title: 'seller_modify_product',
+          result: result,
+          p_no: req.query.product_no
+        });
+      }
+    });
+});
+
+router.post('/seller_modify_product', up_img.array('product_img', 3), function(req, res, next) {
+  console.log('# Seller modify product reuqest arrive.');
+  console.log(req.body);
+  console.log(req.files);
+  var body = req.body;
+  var product_no = body.product_no;
+  var product_name = body.product_name;
+  var product_price = body.product_price;
+  var product_sale = body.product_sale;
+  var detail_description = body.detail_description;
+  var product_thumb_img = req.files[0].originalname;
+  var product_img = req.files[1].originalname;
+  var product_detail_img = req.files[2].originalname;
+  var bdiv_no = body.bdiv_no;
+  var sdiv_no = body.sdiv_no;
+
+  var sql = "update product set product_name=?, product_price=?, product_sale=?, detail_description=?, product_thumb_img=?, product_img=?, product_detail_img=?, bdiv_no=?, sdiv_no=? where product_no=?"
+  var query = connection.query(sql, [product_name, product_price, product_sale, detail_description, product_thumb_img, product_img, product_detail_img, bdiv_no, sdiv_no, product_no], function(err, rows) {
+    if (err) {
+      throw err;
+    }
+    console.log("Data modified!");
+  });
+  res.redirect('/seller_page');
+});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   JOIN SECTION                                      //

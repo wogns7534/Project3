@@ -575,30 +575,7 @@
 					<div class="col-md-6">
 						<div id="product-main-view">
 							<div class="product-view">
-								<img src="./img/no14.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/no7.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/no16.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/no6.jpg" alt="">
-							</div>
-						</div>
-						<div id="product-view">
-							<div class="product-view">
-								<img src="./img/thumb-no14.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/thumb-no7.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/thumb-no16.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="./img/thumb-no6.jpg" alt="">
+								<img src="/img/proj3_img/<%=result[0].sdiv_no%>/<%=result[0].product_img%>"  alt="">
 							</div>
 						</div>
 					</div>
@@ -606,56 +583,39 @@
 						<div class="product-body">
 							<div class="product-label">
 								<span>신상</span>
-								<span class="sale">-20%</span>
+								<span class="sale">-<%=result[0].product_sale%>%</span>
 							</div>
-							<h2 class="product-name">daITso-윈도우10 탑재 No.14</h2>
-							<h3 class="product-price">950,200 원 <del class="product-old-price">1,140,240 원<< /del>
+							<h2 class="product-name"><%=result[0].product_name%></h2>
+							<h3 class="product-price"><%=(result[0].product_price*((100-result[0].product_sale)/100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원 <del
+									class="product-old-price"><%=result[0].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원 </del>
 							</h3>
 							<div>
 								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<a href="#">3 개의 리뷰 / 리뷰 추가하기</a>
-							</div>
-							<p><strong>Availability:</strong> 재고 있음</p>
-							<p><strong>Brand:</strong> daITso</p>
-							<p>조립비+AS : 조립+선정리+테스트+무상 출장 A/S 서비스 1년+포장비</p>
-							<p>프로세서 : 인텔 코어 i5-9세대 9400F (커피레이크-R)</p>
-							<p>프로세서 쿨러 : (인텔) 소켓1156 정품 /쿨러/튜닝</p>
-							<p>메모리 : (삼성전자) DDR4 8G PC4-21300 정품</p>
-							<p>메인보드 : ASRock H310CM-DVS 디앤디컴</p>
-							<p>그래픽카드 : 갤럭시 GALAX 지포스 GTX 1660 SUPER OC D6 6GB</p>
-							<p>SSD고속하드 : (WD) GREEN SSD 120GB /내장형 SSD</p>
-							<p>케이스 : 잘만 MegaMax 500W 80Plus Standard 230V EU</p>
-							<p>파워 : (Microsoft) Windows 10 Home DSP 한글 64bit /운영체제</p>
-							<!-- <div class="product-options">
-								<ul class="size-option">
-									<li><span class="text-uppercase">Size:</span></li>
-									<li class="active"><a href="#">S</a></li>
-									<li><a href="#">XL</a></li>
-									<li><a href="#">SL</a></li>
-								</ul>
-								<ul class="color-option">
-									<li><span class="text-uppercase">Color:</span></li>
-									<li class="active"><a href="#" style="background-color:#475984;"></a></li>
-									<li><a href="#" style="background-color:#8A2454;"></a></li>
-									<li><a href="#" style="background-color:#BF6989;"></a></li>
-									<li><a href="#" style="background-color:#9A54D8;"></a></li>
-								</ul>
-							</div>
----------------------------------------------------------------------------------------
-여기 사이즈랑 색깔 선택 버튼이라 일단 주석 처리
+									<% if(review.length==0) { %>
+										<tr>
+											<td class=details>
+												등록된 리뷰가 없습니다.
+											</td>
+										</tr>
 
-						-->
+									<% } else{%>
+									<% for(var i=0; i < total_grade; i++){ %>
+									<i class="fa fa-star"></i>
+									<% } %>
+									<% for(var j =0; j < (5-total_grade); j++){ %>
+									<i class="fa fa-star-o empty"></i>
+									<% } }%>
+								</div>
+								<a><%= review_cnt %>개의 리뷰</a>
+							</div>
+							<p><strong>재고 상태:</strong> 재고 있음</p>
+							<p><strong>브랜드:</strong> daITso</p>
+							<p><%=result[0].detail_description%></p>
 
 							<div class="product-btns">
 								<div class="qty-input">
 									<span class="text-uppercase">수량: </span>
-									<input class="input" type="number">
+									<input class="input" type="number" placeholder="0">
 								</div>
 								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니 담기</button>
 								<div class="pull-right">
@@ -669,20 +629,135 @@
 					<div class="col-md-12">
 						<div class="product-tab">
 							<ul class="tab-nav">
-								<li class="active"><a data-toggle="tab" href="#tab1">상세정보</a></li>
+								<li class="active">
+									<a data-toggle="tab" href="#tab1">상세정보</a></li>
 								<li><a data-toggle="tab" href="#tab2">배송정보</a></li>
 								<li><a data-toggle="tab" href="#tab3">AS, 교환, 환불</a></li>
 								<li><a data-toggle="tab" href="#tab4">리뷰</a></li>
 							</ul>
 							<div class="tab-content">
 								<div id="tab1" class="tab-pane fade in active">
-									<p>상세 정보 설명 입력</p>
+									<img src="/img/proj3_img/<%=result[0].sdiv_no%>/<%=result[0].product_detail_img%>"  alt="">
 								</div>
 								<div id="tab2" class="tab-pane fade in active">
-									<p>배송 정보 설명 입력</p>
+									<table width="1200" border="0" align="center" cellpadding="0" cellspacing="0">
+										<tr>
+											<td style="border-left:1px solid #cccccc; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc; padding:30px 30px 25px 30px">
+												<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+													<tr>
+														<td valign="top" width="12" style="padding:2px 0 0 0"></td>
+														<td valign="top" style="padding:0 0 10px 0">구매자 사정으로 교환이나 환불을 할 경우 왕복 배송료는 구매자 부담이며, 상품에 이상이 있거나 잘못 배송이 된 경우에는 왕복 배송료를 판매자가 부담합니다.</td>
+													</tr>
+													<tr>
+														<td valign="top" style="padding:2px 0 0 0"></td>
+														<td valign="top" style="padding:0 0 10px 0">도서지역(제주등)을 제외하고는 전국 어느곳이나 배송료가 같습니다. </td>
+													</tr>
+													<tr>
+														<td valign="top" style="padding:2px 0 0 0"></td>
+														<td valign="top" style="padding:0 0 10px 0">배송은 결제확인후 1일~4일이며, 배송조회에서 배송현황을 확인하실 수 있습니다. <br>
+														</td>
+													</tr>
+													<tr>
+														<td valign="top" style="padding:2px 0 0 0"></td>
+														<td valign="top" style="padding:0 0 10px 0">공휴일, 기타 휴무일에는 배송되지 않으며, 온라인 송금을 하신 경우에는 입금확인 당일부터 배송기간에 포함합니다.</td>
+													</tr>
+													<tr>
+														<td valign="top" style="padding:2px 0 0 0"></td>
+														<td valign="top" style="padding:0 0 10px 0">천재지변에 의한 기간은 배송기간에서 제외합니다. </td>
+													</tr>
+													<tr>
+														<td valign="top" style="padding:2px 0 0 0"></td>
+														<td valign="top" style="padding:0 0 10px 0">온라인결제로 결제를 하셨을 경우에는 입금확인 후 배송하며, 카드결제로 하신 경우에는 쇼핑몰에서 확인하는데로 배송을 합니다.</td>
+													</tr>
+													<tr>
+														<td valign="top" style="padding:2px 0 0 0"></td>
+														<td valign="top" style="padding:0 0 10px 0">상품은 주문일로 부터 3~4일 이내에 배달하는 것을 원칙적으로 하고 있으며, 도서지역은 3~10일정도 걸리며 발송 유무를 확인시는 배송확인 코너에서 확인하실 수 있습니다.</td>
+													</tr>
+
+												</table>
+
+											</td>
+										</tr>
+									</table>
 								</div>
 								<div id="tab3" class="tab-pane fade in active">
-									<p>AS, 교환, 환불 정보 설명 입력</p>
+									<table width="1200" border="0" align="center" cellpadding="0" cellspacing="0">
+										<tr>
+											<td style="border-left:1px solid #cccccc; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc; padding:30px 30px 25px 30px">
+												<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+													<tr>
+														<td width="50%" valign="top">
+															<table width="95%" border="0" cellpadding="0" cellspacing="0">
+																<tr>
+																	<td height="35" valign="top" style="padding:2px 0 0 2px"><strong> &nbsp;교환 및 반품이 가능한 경우</strong></td>
+																</tr>
+															</table>
+															<table width="95%" border="0" cellpadding="0" cellspacing="0">
+																<tr>
+																	<td valign="top" width="12" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">상품등을 실제 받으신 날로부터 7일 이내.<br>
+																		&nbsp;(※ 포장을 개봉하여 사용하거나 또는 설치완료가 되어 상품의 가치가 훼손된 경우에는 반품 및 교환이 불가하오니 이점 양해하여 주시기 바랍니다. 단, 상품의 내용을 확인하기 위하여 포장을 개봉한 경우에는 교환 및 반품이 가능합니다.)</td>
+																</tr>
+																<tr>
+																	<td valign="top" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">받으신 상품의 내용이 표시·광고 사항과 다른 경우에는 상품등을 받으신 날로부터 3개월 이내.
+																	</td>
+																</tr>
+																<tr>
+																	<td valign="top" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">전자상거래등에서의소비자보호에관한법률에 규정되어 있는 소비자 청약철회 가능범위에 해당되는 경우.
+																	</td>
+																</tr>
+																<tr>
+																	<td valign="top" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">기타, 고객님의 단순한 변심에 의해 상품의 교환 및 반품을 요청하시는 경우에는 고객님께서 상품 반송에 소요되는 비용을 실비로 부담하셔야 하오니 이점 양해하여 주시기 바랍니다.&nbsp;</td>
+																</tr>
+
+															</table>
+														</td>
+														<td width="50%" align="right" valign="top">
+															<table width="95%" border="0" cellpadding="0" cellspacing="0">
+																<tr>
+																	<td height="35" valign="top" style="padding:2px 0 0 2px"><strong> &nbsp;교환 및 반품이 불가능한 경우</strong>&nbsp;</td>
+																</tr>
+															</table>
+															<table width="95%" border="0" cellpadding="0" cellspacing="0">
+																<tr>
+																	<td valign="top" width="12" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">고객님의 책임있는 사유로 상품등이 멸실 또는 훼손된 경우.
+																	</td>
+																</tr>
+																<tr>
+																	<td valign="top" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">고객님의 사용 또는 일부 소비에 의하여 상품등의 가치가 현저히 감소한 경우. (예 : 화장품, 식품 등)
+																	</td>
+																</tr>
+																<tr>
+																	<td valign="top" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">시간이 경과되어 재판매가 곤란할 정도로 상품등의 가치가 상실된 경우. (예 : 계절상품 등)
+																	</td>
+																</tr>
+																<tr>
+																	<td valign="top" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">복제가 가능한 상품등의 포장을 훼손한 경우. (예 : 도서, dvd, cd등 복제 가능한 상품)
+																	</td>
+																</tr>
+																<tr>
+																	<td valign="top" style="padding:2px 0 0 0"></td>
+																	<td valign="top" style="padding:0 0 10px 0">기타, 전자상거래등에서의소비자보호에관한법률이 정하는 소비자 청약철회 제한에 해당되는 경우.</td>
+																</tr>
+																<tr>
+																	<td valign="top" style="padding:2px 0 0 0">&nbsp;</td>
+																	<td valign="top" style="padding:0 0 10px 0">※ <font class=blue>고객변심에 의한 교환, 반품인 경우 상품 반송에 드는 비용은 고객님께서 부담하셔야 합니다.</font>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
 								</div>
 								<div id="tab4" class="tab-pane fade in">
 
@@ -690,55 +765,39 @@
 										<div class="col-md-6">
 											<div class="product-reviews">
 												<div class="single-review">
-													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> 주재훈</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 2017년 12월 11일 / 8:00 PM</a></div>
+														<% if(review.length==0) { %>
+															<tr>
+																<td class=details>
+																	등록된 리뷰가 없습니다.
+																</td>
+															</tr>
+
+														<% }
+														else{
+											        for(var i = 0; i < review.length; i++){ %>
+																<div class="review-heading">
+														<div><i class="fa fa-user-o"></i> <%=review[i].customer_name%></div>
+														<div><i class="fa fa-clock-o"></i> <%=review[i].review_time%></div>
+
 														<div class="review-rating pull-right">
+															<% for (var j =0; j< grade[i]; j++){ %>
 															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
+															<% } %>
+															<% for (var k=0; k<(5-grade[i]); k++){ %>
 															<i class="fa fa-star-o empty"></i>
+															<% } %>
 														</div>
 													</div>
 													<div class="review-body">
-														<p>아주 좋습니다! 역시 컴퓨터는 daITso!!</p>
+														<p><%=review[i].review_comment%></p>
+														<br>
 													</div>
+													<%
+													} }
+													%>
 												</div>
 
-												<div class="single-review">
-													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> 최진호</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 2018년 1월 4일 / 5:17 PM</a></div>
-														<div class="review-rating pull-right">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o empty"></i>
-														</div>
-													</div>
-													<div class="review-body">
-														<p>저같은 전문가와는 잘 맞지 않는 듯 하네용;</p>
-													</div>
-												</div>
 
-												<div class="single-review">
-													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> 최현구</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 2018년 9월 9일 / 9:19 PM</a></div>
-														<div class="review-rating pull-right">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o empty"></i>
-														</div>
-													</div>
-													<div class="review-body">
-														<p>나온 지 1년이 다되가는데 저는 만족합니다!</p>
-													</div>
-												</div>
 
 												<ul class="reviews-pages">
 													<li class="active">1</li>
@@ -751,15 +810,13 @@
 										<div class="col-md-6">
 											<h4 class="text-uppercase">리뷰 작성하기</h4>
 											<p>이메일 주소는 공개되지 않습니다.</p>
-											<form class="review-form">
+											<form class="review-form" method="post" action="/product-page">
+												<input type="hidden" name="product_no" id="product_no" value=<%=p_no%> >
 												<div class="form-group">
-													<input class="input" type="text" placeholder="이름" />
+													<input class="input" type="text" name="customer_name" id="customer_name" placeholder="이름" />
 												</div>
 												<div class="form-group">
-													<input class="input" type="email" placeholder="이메일" />
-												</div>
-												<div class="form-group">
-													<textarea class="input" placeholder="리뷰를 작성해주세요"></textarea>
+													<textarea class="input" id="review_comment" name="review_comment" placeholder="리뷰를 작성해주세요"></textarea>
 												</div>
 												<div class="form-group">
 													<div class="input-rating">
@@ -773,7 +830,7 @@
 														</div>
 													</div>
 												</div>
-												<button class="primary-btn">리뷰 제출</button>
+												<input type="submit" value="리뷰 제출" class="primary-btn" >
 											</form>
 										</div>
 									</div>
