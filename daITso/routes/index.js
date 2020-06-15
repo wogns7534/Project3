@@ -49,10 +49,50 @@ connection.connect();
 /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/products',function(req, res){
   console.log('products . path loaded');
-  res.render('products',{
-    title: 'products'
+
+  if(req.query.sdiv_no == undefined) {
+    var _QUERY = "SELECT * FROM product WHERE bdiv_no=?";
+    var REQ_QUERY = req.query.bdiv_no;
+    var DIV_TYPE = 1;
+  } else {
+    var _QUERY = "SELECT * FROM product WHERE sdiv_no=?";
+    var REQ_QUERY = req.query.sdiv_no;
+    var DIV_TYPE = 2;
+  }
+
+  var start_page = Math.ceil(req.query.page/5) * 5 - 4;
+  console.log("####" + start_page);
+  var end_page = start_page + 4;
+
+  connection.query(_QUERY, REQ_QUERY,
+  function( error, result, fields) {
+      if (error) {
+          res.send({
+              code: 400,
+              failed: "error ocurred"
+          });
+      } else {
+          res.render('products', {
+            title : 'products',
+            total_page : Math.ceil(result.length / req.query.page_size),
+            current_page : req.query.page,
+            page_size: req.query.page_size,
+            start_page : start_page,
+            end_page : end_page,
+            products : result,
+            div_type : DIV_TYPE
+          });
+      }    
   });
 });
+
+// router.post('/products_main_select', function(req,res){
+//   console.log('products_main_select request!!!');
+//   console.log(req.body.option);
+//   res.json({
+//     option: req.body.option
+//   });
+// });
 
 router.get('/seller_add_product',function(req, res){
   console.log('seller_add_product . path loaded');

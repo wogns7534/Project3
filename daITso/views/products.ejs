@@ -593,7 +593,7 @@
 				<!-- /ASIDE -->
 
 				<!-- MAIN -->
-				<div id="main" class="col-md-9">
+				<div id="product_main" class="col-md-9">
 					<!-- store top filter -->
 					<div class="store-filter clearfix">
 						<div class="pull-left">
@@ -602,18 +602,17 @@
 						</div>
 						<div class="pull-right">
 							<div class="page-filter">
-								<select class="input">
-									<option value="0">10개씩 보기</option>
-									<option value="1">20개씩 보기</option>
-									<option value="2">30개씩 보기</option>
+								<select onchange="location.href=this.value" style="width: 110px;">
+										<option>보기 개수 선택</option>
+									<% if(div_type == 1) {%>
+										<option value="?bdiv_no=<%=products[0].bdiv_no%>&page=<%=current_page%>&page_size=6">6개씩 보기</option>
+										<option value="?bdiv_no=<%=products[0].bdiv_no%>&page=<%=current_page%>&page_size=12">12개씩 보기</option>
+									<% } else { %>
+										<option value="?sdiv_no=<%=products[0].sdiv_no%>&page=<%=current_page%>&page_size=6">6개씩 보기</option>
+										<option value="?sdiv_no=<%=products[0].sdiv_no%>&page=<%=current_page%>&page_size=12">12개씩 보기</option>
+									<% } %>
 								</select>
 							</div>
-							<ul class="store-pages">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
-							</ul>
 						</div>
 					</div>
 					<!-- /store top filter -->
@@ -623,60 +622,40 @@
 						<!-- row -->
 						<div class="row">
 							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>신상</span>
+							<% if(products.length == 0) { %>
+								<h4 class="text-center">등록된 상품 정보가 없습니다.</h4>
+							<% } else { %>
+								<% if(page_size == 12) var psize=3;
+								  else var psize=4; %>
+							<% for(var i = (current_page-1)*page_size; i < (current_page)*page_size; i++){ %>
+							<%	if(products.length == i) break; %>
+								<div class="col-md-<%=psize%> col-sm-6 col-xs-6">
+									<div class="product product-single">
+										<div class="product-thumb">
+											<div class="product-label">
+												<!-- <span>신상</span> -->
+											</div>
+											<!-- <input type="hidden" name="product_no" value="1"/> -->
+											<button class="main-btn quick-view" ><i class="fa fa-search-plus"></i> 상세 보기</button>
+											<img src="<%=products[i].product_thumb_img%>" alt="">
 										</div>
-										<input type="hidden" name="product_no" value="1"/>
-										<button class="main-btn quick-view" ><i class="fa fa-search-plus"></i> 상세 보기</button>
-										<img src="./img/proj3_img/cpu/cpu_no1.jpg" alt="">
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">300,000원</h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">amd 라이젠</a></h2>
-										<div class="product-btns">
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>신상</span>
-										</div>
-										<input type="hidden" name="product_no" value="1"/>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> 상세 보기</button>
-										<img src="./img/proj3_img/cpu/cpu_no1.jpg" alt="">
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">300,000원</h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">amd 라이젠</a></h2>
-										<div class="product-btns">
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+										<div class="product-body">
+											<h3 class="product-price"><%=products[i].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</h3>
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-o empty"></i>
+											</div>
+											<h2 class="product-name"><%=products[i].product_name%></a></h2>
+											<div class="product-btns">
+												<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							<% }} %>
 							<!-- /Product Single -->
 						</div>
 						<!-- /row -->
@@ -689,19 +668,32 @@
 							<div class="row-filter">
 							</div>
 						</div>
-						<div class="pull-right">
-							<div class="page-filter">
-								<select class="input">
-									<option value="0">10개씩 보기</option>
-									<option value="1">20개씩 보기</option>
-									<option value="2">30개씩 보기</option>
-								</select>
-							</div>
+						<div class="text-center">
 							<ul class="store-pages">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+								<% if(start_page > 5){
+									if(div_type == 1) {%>
+										<li><a href="?bdiv_no=<%=products[0].bdiv_no%>&page=<%=start_page-1%>&page_size=<%=page_size%>"><i class="fa fa-caret-left"></i></a></li>
+									<% } else { %>
+										<li><a href="?sdiv_no=<%=products[0].sdiv_no%>&page=<%=start_page-1%>&page_size=<%=page_size%>"><i class="fa fa-caret-left"></i></a></li>
+								<% } } %>
+
+								<% for(var p = start_page; p <= end_page; p++){ %>
+									<% if(p > total_page) break; %>
+									<% if(p == current_page) { %>
+										<li class="active"><%=p%></li>
+									<% } else { %>
+										<% if(div_type == 1){ %>
+											<li><a href="?bdiv_no=<%=products[0].bdiv_no%>&page=<%=p%>&page_size=<%=page_size%>"><%=p%></a></li>
+										<% } else { %>
+											<li><a href="?sdiv_no=<%=products[0].sdiv_no%>&page=<%=p%>&page_size=<%=page_size%>"><%=p%></a></li>
+								<% }}} %>
+
+								<% if(end_page < total_page){
+									if(div_type == 1) {%>
+										<li><a href="?bdiv_no=<%=products[0].bdiv_no%>&page=<%=end_page+1%>&page_size=<%=page_size%>"><i class="fa fa-caret-right"></i></a></li>
+									<% } else { %>
+										<li><a href="?sdiv_no=<%=products[0].sdiv_no%>&page=<%=end_page+1%>&page_size=<%=page_size%>"><i class="fa fa-caret-right"></i></a></li>
+								<% } } %>
 							</ul>
 						</div>
 					</div>

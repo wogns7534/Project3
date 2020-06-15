@@ -228,22 +228,21 @@
   var slider = document.getElementById('price-slider');
   if (slider) {
     noUiSlider.create(slider, {
-      start: [1, 999],
+      start: [0, 500],
       connect: true,
       tooltips: [true, true],
       format: {
         to: function(value) {
-          return value.toFixed(2) + '$';
+          return parseInt(value) + ' 만원';
         },
         from: function(value) {
           return value
         }
       },
       range: {
-        'min': 1,
-        'max': 999
+        'min': 0,
+        'max': 500
       }
     });
   }
-
 })(jQuery);
