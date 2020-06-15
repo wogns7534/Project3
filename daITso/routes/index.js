@@ -127,7 +127,9 @@ router.get('/seller_page', function(req, res) {
 
 router.get('/product-page', function(req, res) {
   console.log('product-page . path loaded');
-
+  var display=[];
+  if(req.session._id) display=req.session_id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴"
   connection.query('SELECT * FROM product WHERE product_no = ?', req.query.product_no,
     function(error, result, fields) {
       if (error) {
@@ -167,7 +169,8 @@ router.get('/product-page', function(req, res) {
                 grade: arr,
                 p_no: req.query.product_no,
                 total_grade: total_grade,
-                review_cnt: len
+                review_cnt: len,
+                session: display
               });
             }
           });
@@ -179,12 +182,12 @@ router.post('/product-page', function(req, res, next){
   console.log('# product review request arrive.');
   console.log(req.body);
   var body = req.body;
-  var customer_name = body.customer_name;
+  var customer_id = body.customer_id;
   var review_comment = body.review_comment;
   var review_grade = body.rating;
   var product_no = body.product_no;
-  var query = connection.query('insert into review (customer_name, product_no, review_comment, review_grade) values("' +
-    customer_name + '","' +
+  var query = connection.query('insert into review (customer_id, product_no, review_comment, review_grade) values("' +
+    customer_id + '","' +
     product_no + '","' + review_comment + '","' +
     review_grade + '")',
     function(err, rows){
