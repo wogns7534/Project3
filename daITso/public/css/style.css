@@ -277,6 +277,14 @@ textarea.input {
   text-align: center;
 }
 
+.section-join {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin : 0 auto;
+  width: 60%;
+  text-align: center;
+}
+
 .section-grey {
   background: #F6F7F8;
 }
