@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var session = require('express-session');                   // import express-session module
 var MySQLStore = require('express-mysql-session')(session); // import express-mysql-session module
 
-var options={                                               // for connect mysql <-> session
+var options = {                                               // for connect mysql <-> session
   host: 'daitso.ckebjmyaqenk.us-east-2.rds.amazonaws.com',  // detail : mysql에 연동해서 session 정보를 등록해놓지 않으면
   user: 'root',                                             //          session 정보 유지를 위해 서버가 끊기지 않고 무한하게 동작해야 한다.
   password: '12341234',                                     //          mysql과 연동 후 session 정보를 등록해놓으면
@@ -13,9 +13,9 @@ var options={                                               // for connect mysql
 }
 var sessionStore = new MySQLStore(options);
 router.use(session({
-  secret:"sexydaitso",
-  resave:false,
-  saveUninitialized:true,
+  secret: "sexydaitso",
+  resave: false,
+  saveUninitialized: true,
   store: sessionStore
 }));
 
@@ -31,14 +31,14 @@ var connection = mysql.createConnection({
 });
 var multer = require('multer');
 var storage = multer.diskStorage({
-  destination: function(req, file, cb){
+  destination: function (req, file, cb) {
     cb(null, 'public/img/proj3_img/')
   },
-  filename: function(req, file, cb){
+  filename: function (req, file, cb) {
     cb(null, file.originalname)
   }
 });
-var up_img = multer({storage:storage});
+var up_img = multer({ storage: storage });
 
 connection.connect();
 
@@ -47,27 +47,27 @@ connection.connect();
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   PRODUCT SECTION                                   //
 /////////////////////////////////////////////////////////////////////////////////////////
-router.get('/products',function(req, res){
+router.get('/products', function (req, res) {
   console.log('products . path loaded');
-  res.render('products',{
+  res.render('products', {
     title: 'products'
   });
 });
 
-router.get('/seller_add_product',function(req, res){
+router.get('/seller_add_product', function (req, res) {
   console.log('seller_add_product . path loaded');
-  res.render('seller_add_product',{
+  res.render('seller_add_product', {
     title: 'seller_add_product'
   });
 });
-router.get('/seller_page',function(req, res){
+router.get('/seller_page', function (req, res) {
   console.log('seller_page . path loaded');
-  res.render('seller_page',{
+  res.render('seller_page', {
     title: 'seller_page'
   });
 });
 
-router.post('/seller_add_product', up_img.array('product_img',3) ,function(req,res, next){
+router.post('/seller_add_product', up_img.array('product_img', 3), function (req, res, next) {
   console.log('# Seller add product reuqest arrive.');
   console.log(req.body);
   console.log(req.files);
@@ -78,17 +78,17 @@ router.post('/seller_add_product', up_img.array('product_img',3) ,function(req,r
   var product_thumb_img = req.files[0].originalname;
   var product_img = req.files[1].originalname;
   var product_detail_img = req.files[2].originalname;
-  var classification_no=body.select2;
+  var classification_no = body.select2;
   var query = connection.query('insert into product (product_name, detail_description, product_price, product_img, product_thumb_img, product_detail_img, classification_no) values ("'
-                              + product_name + '","'
-                              + detail_description + '","' + product_price + '","'
-                              + product_img + '","' + product_thumb_img + '","'
-                              + product_detail_img + '","'
-                              + classification_no + '")',
-                              function (err, rows) {
+    + product_name + '","'
+    + detail_description + '","' + product_price + '","'
+    + product_img + '","' + product_thumb_img + '","'
+    + product_detail_img + '","'
+    + classification_no + '")',
+    function (err, rows) {
       if (err) { throw err; }
       console.log("Data inserted!");
-  });
+    });
   res.redirect('/seller_page');
 });
 
@@ -97,15 +97,23 @@ router.post('/seller_add_product', up_img.array('product_img',3) ,function(req,r
 //                                   JOIN SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
 /* GET join page. */
-router.get('/join', function(req, res) {
+router.get('/join', function (req, res) {
   console.log('joinjs . path loaded');
   res.render('join', {
     title: 'join'
   });
 });
 
+/* GET join_customer page. */
+router.get('/join_customer', function (req, res) {
+  console.log('join_customerjs . path loaded');
+  res.render('join_customer', {
+    title: 'join_customer'
+  });
+});
+
 /* GET join_seller page. */
-router.get('/join_seller', function(req, res) {
+router.get('/join_seller', function (req, res) {
   console.log('join_sellerjs . path loaded');
   res.render('join_seller', {
     title: 'join_seller'
@@ -120,8 +128,8 @@ router.get('/join_check', function (req, res, next) {
   });
 });
 
-/* POST join page. */
-router.post('/join', function(req,res, next){
+/* POST join_customer page. */
+router.post('/join_customer', function (req, res, next) {
   console.log('# User join reuqest arrive.');
   console.log(req.body);
   var body = req.body;
@@ -134,19 +142,19 @@ router.post('/join', function(req,res, next){
   var customer_email = body.customer_email;
 
   var query = connection.query('insert into customer (customer_id, customer_passwd, customer_name, customer_address, customer_zipcode, customer_phone,customer_email) values ("'
-                              + customer_id + '","' + customer_passwd + '","'
-                              + customer_name + '","' + customer_address + '","'
-                              + customer_zipcode + '","' + customer_phone + '","'
-                              + customer_email + '")', 
-                              function (err, rows) {
+    + customer_id + '","' + customer_passwd + '","'
+    + customer_name + '","' + customer_address + '","'
+    + customer_zipcode + '","' + customer_phone + '","'
+    + customer_email + '")',
+    function (err, rows) {
       if (err) { throw err; }
       console.log("Data inserted!");
-  });
+    });
   res.redirect('/join_check');
 });
 
 /* POST join_seller page. */
-router.post('/join_seller', function(req,res, next){
+router.post('/join_seller', function (req, res, next) {
   console.log('# User join_seller reuqest arrive.');
   console.log(req.body);
   var body = req.body;
@@ -161,66 +169,66 @@ router.post('/join_seller', function(req,res, next){
   var company_name = body.company_name;
 
   var query = connection.query('insert into seller (seller_id, seller_passwd, seller_name, seller_address, seller_zipcode, seller_mobile, seller_email, company_number, company_name) values ("'
-                              + seller_id + '","' + seller_passwd + '","'
-                              + seller_name + '","' + seller_address + '","'
-                              + seller_zipcode + '","' + seller_mobile + '","'
-                              + seller_email + '","' + company_number + '","'
-                              + company_name + '")', 
-                              function (err, rows) {
+    + seller_id + '","' + seller_passwd + '","'
+    + seller_name + '","' + seller_address + '","'
+    + seller_zipcode + '","' + seller_mobile + '","'
+    + seller_email + '","' + company_number + '","'
+    + company_name + '")',
+    function (err, rows) {
       if (err) { throw err; }
       console.log("Data inserted!");
-  });
+    });
   res.redirect('/join_check');
 });
 
 /* ID Check post. */
-router.post('/api/idck', function(req,res){
+router.post('/api/idck', function (req, res) {
   var data = req.body.data;
   console.log('idck Parameter = ' + data);
 
   var result = 0;
   var query = connection.query('select count(*) as namesCount FROM customer,seller WHERE customer_id = "'
-                                + data + '" or seller_id = "' + data + '"',
-                                function (err, rows, fields) {
-                                  if(err) { throw err;}
-                                  var result_data=rows[0].namesCount;
-                                  if(result_data>0) {
-                                    res.send({result:1});
-                                  }
-                                  else{
-                                    res.send({result:0});
-                                  }
-                                });
+    + data + '" or seller_id = "' + data + '"',
+    function (err, rows, fields) {
+      if (err) { throw err; }
+      var result_data = rows[0].namesCount;
+      if (result_data > 0) {
+        res.send({ result: 1 });
+      }
+      else {
+        res.send({ result: 0 });
+      }
+    });
 });
 
 /* email Check post. */
-router.post('/api/emailck', function(req,res){
+router.post('/api/emailck', function (req, res) {
   var data = req.body.data;
   console.log('emailck Parameter = ' + data);
 
   var result = 0;
   var query = connection.query('select count(*) as namesCount FROM customer,seller WHERE customer_email = "'
-                                + data + '" or seller_email = "' + data + '"',
-                                function (err, rows, fields) {
-                                  if(err) { throw err;}
-                                  var result_data=rows[0].namesCount;
-                                  if(result_data>0) {
-                                    res.send({result:1});
-                                  }
-                                  else{
-                                    res.send({result:0});
-                                  }
-                                });
+    + data + '" or seller_email = "' + data + '"',
+    function (err, rows, fields) {
+      if (err) { throw err; }
+      var result_data = rows[0].namesCount;
+      if (result_data > 0) {
+        res.send({ result: 1 });
+      }
+      else {
+        res.send({ result: 0 });
+      }
+    });
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //                              MAIN & INDEX SECTION                                   //
 /////////////////////////////////////////////////////////////////////////////////////////
 /* GET main page. */
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
   console.log('mainjs . path loaded');
   var display = [];
-  if(req.session._id) display = req.session._id + "님, 안녕하세요!";
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
   res.render('index', {
@@ -230,10 +238,10 @@ router.get('/', function(req, res) {
 });
 
 /* GET index page. */
-router.get('/index', function(req, res) {
+router.get('/index', function (req, res) {
   console.log('indexjs . path loaded');
   var display = [];
-  if(req.session._id) display = req.session._id + "님, 안녕하세요!";
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
   res.render('index', {
@@ -246,7 +254,7 @@ router.get('/index', function(req, res) {
 //                                   LOGIN SECTION                                     //
 /////////////////////////////////////////////////////////////////////////////////////////
 /* GET /login : 로그인 버튼 눌렀을 때 가장 최초 접근하는 로그인 페이지  */
-router.get('/login', function(req, res) {
+router.get('/login', function (req, res) {
   console.log('loginjs . path loaded');
   res.render('login', {
     title: 'login'
@@ -254,7 +262,7 @@ router.get('/login', function(req, res) {
 });
 
 /* GET /login_customer : 구매자 로그인 버튼 눌렀을 때 ajax 통신용  */
-router.get('/login_customer', function(req, res){
+router.get('/login_customer', function (req, res) {
   console.log('login_customer ajax on');
   res.render('login_customer', {
     title: 'login_customer'
@@ -262,7 +270,7 @@ router.get('/login_customer', function(req, res){
 });
 
 /* GET /login_seller : 판매자 로그인 버튼 눌렀을 때 ajax 통신용  */
-router.get('/login_seller', function(req, res){
+router.get('/login_seller', function (req, res) {
   console.log('login_seller ajax on');
   res.render('login_seller', {
     title: 'login_seller'
@@ -270,110 +278,110 @@ router.get('/login_seller', function(req, res){
 });
 
 /* POST /checksum_customer : 구매자 로그인 진행 */
-router.post('/checksum_customer', function(req, res) {
+router.post('/checksum_customer', function (req, res) {
   var id = req.body.id;
   var passwd = req.body.password;
   console.log("get id : " + id);
   console.log("get password : " + passwd);
   connection.query('SELECT * FROM customer WHERE customer_id = ?', [id],
-  function( error, result, fields) {
+    function (error, result, fields) {
       if (error) {
-          // console.log("error ocurred", error);
-          res.send({
-              code: 400,
-              failed: "error ocurred"
-          });
+        // console.log("error ocurred", error);
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
       } else {
-          // console.log('The solution is: ', results);
-          if(result.length > 0) {
-              if(result[0].customer_passwd == passwd) {
-                req.session._id = result[0].customer_id;
-                req.session._passwd = result[0].customer_passwd;
-                req.session._name = result[0].customer_name;
-                req.session._address = result[0].customer_address;
-                req.session._zipcode = result[0].customer_zipcode;
-                req.session._phone = result[0].customer_phone;
-                req.session._email = result[0].customer_email;
-                req.session._money = result[0].customer_money;
-                req.session._company_number = "";
-                req.session._company_name = "";
-                req.session.save(function(){
-                  res.json({
-                    title: 'index',
-                    message: 'success'
-                  });
-                });
-              } else {
-                res.json({
-                  title: 'index',
-                  message: 'password'
-                });
-              }
+        // console.log('The solution is: ', results);
+        if (result.length > 0) {
+          if (result[0].customer_passwd == passwd) {
+            req.session._id = result[0].customer_id;
+            req.session._passwd = result[0].customer_passwd;
+            req.session._name = result[0].customer_name;
+            req.session._address = result[0].customer_address;
+            req.session._zipcode = result[0].customer_zipcode;
+            req.session._phone = result[0].customer_phone;
+            req.session._email = result[0].customer_email;
+            req.session._money = result[0].customer_money;
+            req.session._company_number = "";
+            req.session._company_name = "";
+            req.session.save(function () {
+              res.json({
+                title: 'index',
+                message: 'success'
+              });
+            });
           } else {
             res.json({
               title: 'index',
-              message: 'failed'
+              message: 'password'
             });
           }
-      }    
-  }); 
+        } else {
+          res.json({
+            title: 'index',
+            message: 'failed'
+          });
+        }
+      }
+    });
 });
 
 /* POST /seller_customer : 판매자 로그인 진행 */
-router.post('/checksum_seller', function(req, res) {
+router.post('/checksum_seller', function (req, res) {
   var id = req.body.id;
   var passwd = req.body.password;
   console.log("get id : " + id);
   console.log("get password : " + passwd);
   connection.query('SELECT * FROM seller WHERE seller_id = ?', [id],
-  function( error, result, fields) {
+    function (error, result, fields) {
       if (error) {
-          // console.log("error ocurred", error);
-          res.send({
-              code: 400,
-              failed: "error ocurred"
-          });
+        // console.log("error ocurred", error);
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
       } else {
-          // console.log('The solution is: ', results);
-          if(result.length > 0) {
-              if(result[0].seller_passwd == passwd) {
-                req.session._id = result[0].seller_id;
-                req.session._passwd = result[0].seller_passwd;
-                req.session._name = result[0].seller_name;
-                req.session._address = result[0].seller_address;
-                req.session._zipcode = result[0].seller_zipcode;
-                req.session._phone = result[0].seller_mobile;
-                req.session._email = result[0].seller_email;
-                req.session._company_number = result[0].company_number;
-                req.session._company_name = result[0].company_name;
-                req.session.save(function(){
-                  res.json({
-                    title: 'index',
-                    message: 'success'
-                  });
-                });
-              } else {
-                res.json({
-                  title: 'index',
-                  message: 'password'
-                });
-              }
+        // console.log('The solution is: ', results);
+        if (result.length > 0) {
+          if (result[0].seller_passwd == passwd) {
+            req.session._id = result[0].seller_id;
+            req.session._passwd = result[0].seller_passwd;
+            req.session._name = result[0].seller_name;
+            req.session._address = result[0].seller_address;
+            req.session._zipcode = result[0].seller_zipcode;
+            req.session._phone = result[0].seller_mobile;
+            req.session._email = result[0].seller_email;
+            req.session._company_number = result[0].company_number;
+            req.session._company_name = result[0].company_name;
+            req.session.save(function () {
+              res.json({
+                title: 'index',
+                message: 'success'
+              });
+            });
           } else {
             res.json({
               title: 'index',
-              message: 'failed'
+              message: 'password'
             });
           }
-      }    
-  }); 
+        } else {
+          res.json({
+            title: 'index',
+            message: 'failed'
+          });
+        }
+      }
+    });
 });
 
 /* GET /logout : 구매자 & 판매자 로그아웃 진행 */
-router.get('/logout', function(req, res){
-  if(req.session._id){
-    req.session.destroy(function(err){
-      if(err) { console.log(err); } 
-      else    { res.redirect('/'); }
+router.get('/logout', function (req, res) {
+  if (req.session._id) {
+    req.session.destroy(function (err) {
+      if (err) { console.log(err); }
+      else { res.redirect('/'); }
     });
   }
   else { res.redirect('/'); }
@@ -383,7 +391,7 @@ router.get('/logout', function(req, res){
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   TEST SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
-router.get('/test', function(req, res){
+router.get('/test', function (req, res) {
   console.log('sex');
   res.render('transaction_log', {
     title: 'transaction_log'
