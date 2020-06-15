@@ -267,6 +267,20 @@ router.post('/seller_modify_product', up_img.array('product_img', 3), function(r
   res.redirect('/seller_page');
 });
 
+/* product delete post. */
+router.post('/api/delete_product', function (req, res) {
+  var data = req.body.data;
+  console.log('delete Parameter = ' + data);
+  
+  var query = connection.query('delete from product where product_no ='
+    + data + ';',
+    function (err, rows) {
+      if (err) { throw err; }
+      console.log("Data delete!");
+      res.send({ result: 0 });
+    });
+});
+
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   JOIN SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
