@@ -104,7 +104,7 @@ router.get('/join', function(req, res) {
   });
 });
 
-/* GET join page. */
+/* GET join_seller page. */
 router.get('/join_seller', function(req, res) {
   console.log('join_sellerjs . path loaded');
   res.render('join_seller', {
@@ -137,12 +137,80 @@ router.post('/join', function(req,res, next){
                               + customer_id + '","' + customer_passwd + '","'
                               + customer_name + '","' + customer_address + '","'
                               + customer_zipcode + '","' + customer_phone + '","'
-                              + customer_email + '")',
+                              + customer_email + '")', 
                               function (err, rows) {
       if (err) { throw err; }
       console.log("Data inserted!");
   });
   res.redirect('/join_check');
+});
+
+/* POST join_seller page. */
+router.post('/join_seller', function(req,res, next){
+  console.log('# User join_seller reuqest arrive.');
+  console.log(req.body);
+  var body = req.body;
+  var seller_id = body.seller_id;
+  var seller_passwd = body.seller_passwd;
+  var seller_name = body.seller_name;
+  var seller_address = body.addr1 + " " + body.addr2;
+  var seller_zipcode = body.zip;
+  var seller_mobile = body.seller_mobile;
+  var seller_email = body.seller_email;
+  var company_number = body.company_number;
+  var company_name = body.company_name;
+
+  var query = connection.query('insert into seller (seller_id, seller_passwd, seller_name, seller_address, seller_zipcode, seller_mobile, seller_email, company_number, company_name) values ("'
+                              + seller_id + '","' + seller_passwd + '","'
+                              + seller_name + '","' + seller_address + '","'
+                              + seller_zipcode + '","' + seller_mobile + '","'
+                              + seller_email + '","' + company_number + '","'
+                              + company_name + '")', 
+                              function (err, rows) {
+      if (err) { throw err; }
+      console.log("Data inserted!");
+  });
+  res.redirect('/join_check');
+});
+
+/* ID Check post. */
+router.post('/api/idck', function(req,res){
+  var data = req.body.data;
+  console.log('idck Parameter = ' + data);
+
+  var result = 0;
+  var query = connection.query('select count(*) as namesCount FROM customer,seller WHERE customer_id = "'
+                                + data + '" or seller_id = "' + data + '"',
+                                function (err, rows, fields) {
+                                  if(err) { throw err;}
+                                  var result_data=rows[0].namesCount;
+                                  if(result_data>0) {
+                                    res.send({result:1});
+                                  }
+                                  else{
+                                    res.send({result:0});
+                                  }
+                                });
+});
+
+/* email Check post. */
+router.post('/api/emailck', function(req,res){
+  var data = req.body.data;
+  console.log('emailck Parameter = ' + data);
+
+  var result = 0;
+  var query = connection.query('select count(*) as namesCount FROM customer,seller WHERE customer_email = "'
+                                + data + '" or seller_email = "' + data + '"',
+                                function (err, rows, fields) {
+                                  if(err) { throw err;}
+                                  var result_data=rows[0].namesCount;
+                                  if(result_data>0) {
+                                    res.send({result:1});
+                                  }
+                                  else{
+                                    res.send({result:0});
+                                  }
+                                });
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
