@@ -574,45 +574,41 @@
  							<h3 class="title">판매자 메뉴</h3>
  						</div>
 						<div class="pull-right">
-							<button class="primary-btn" onclick="location.href='/seller_add_product' ">상품 등록</button>
+							<a class="primary-btn" href='/seller_add_product'>상품 등록</a>
 						</div>
  						<table class="shopping-cart-table table">
  							<thead>
  								<tr>
  									<th>&nbsp&nbsp제품</th>
  									<th></th>
- 									<th class="text-center">가격</th>
+ 									<th class="text-center">할인 전 가격</th>
+									<th class="text-center">할인 후 가격</th>
  									<th class="text-right"></th>
  								</tr>
  							</thead>
  							<tbody>
+								<% if(result.length==0) { %>
+									<tr>
+										<td class=details>
+											등록한 상품이 없습니다.
+										</td>
+									</tr>
+
+								<% }
+								else{
+					        for(var i = 0; i < result.length; i++){ %>
  								<tr>
- 									<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
+ 									<td class="thumb"><img src="/img/proj3_img/<%=result[i].sdiv_no%>/<%=result[i].product_thumb_img%>" alt=""></td>
  									<td class="details">
- 										<a href="#">Product Name Goes Here</a>
+ 										<a href="#"><%=result[i].product_name%></a>
  									</td>
- 									<td class="price text-center"><strong>$32.50</strong><br><del class="font-weak"><small>$40.00</small></del></td>
- 									<td class="total text-center"><strong class="primary-color">$32.50</strong></td>
- 									<td class="text-right"><a href="#" class="text-uppercase">수정</a> | <a href="#" class="text-uppercase">삭제</a></td>
+ 									<td class="price text-center" id=product_price><strong><%=result[i].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</strong></td>
+ 									<td class="total text-center" id=sale_price><strong class="primary-color"><%=(result[i].product_price*((100-result[i].product_sale)/100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</strong></td>
+ 									<td class="text-right"><a href="/seller_modify_product/?product_no=<%=result[i].product_no%>" class="text-uppercase">수정</a> | <a href="#" class="text-uppercase">삭제</a></td>
  								</tr>
- 								<tr>
- 									<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
- 									<td class="details">
- 										<a href="#">Product Name Goes Here</a>
- 									</td>
- 									<td class="price text-center"><strong>$32.50</strong></td>
- 									<td class="total text-center"><strong class="primary-color">$32.50</strong></td>
- 									<td class="text-right"><a href="#" class="text-uppercase">수정</a> | <a href="#" class="text-uppercase">삭제</a></td>
- 								</tr>
- 								<tr>
- 									<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
- 									<td class="details">
- 										<a href="#">Product Name Goes Here</a>
- 									</td>
- 									<td class="price text-center"><strong>$32.50</strong></td>
- 									<td class="total text-center"><strong class="primary-color">$32.50</strong></td>
- 									<td class="text-right"><a href="#" class="text-uppercase">수정</a> | <a href="#" class="text-uppercase">삭제</a></td>
- 								</tr>
+								<%
+							} }
+					      %>
  							</tbody>
  							<tfoot>
  						</table>

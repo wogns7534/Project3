@@ -13,20 +13,20 @@
 	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
 
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
 
 	<!-- Slick -->
-	<link type="text/css" rel="stylesheet" href="css/slick.css" />
-	<link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
+	<link type="text/css" rel="stylesheet" href="/css/slick.css" />
+	<link type="text/css" rel="stylesheet" href="/css/slick-theme.css" />
 
 	<!-- nouislider -->
-	<link type="text/css" rel="stylesheet" href="css/nouislider.min.css" />
+	<link type="text/css" rel="stylesheet" href="/css/nouislider.min.css" />
 
 	<!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
 
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link type="text/css" rel="stylesheet" href="/css/style.css" />
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,55 +37,55 @@
   <script src="/javascripts/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript">
 	function chnType(sVal){
-	  var target = document.getElementById("sdiv_no");
+		var target = document.getElementById("sdiv_no");
 
-	  if(sVal == ""){
-	    num = new Array("소분류");
-	    vnum = new Array("");
-	  }
-	  else if(sVal == "1"){
-	    num = new Array("daItso 조립PC");
-	    vnum = new Array("11");
-	  }
-	  else if(sVal == "2"){
-	    num = new Array("Windows10 탑재PC");
-	    vnum = new Array("21");
-	  }
-	  else if(sVal == "3"){
-	    num = new Array("본체 + 모니터 패키지");
-	    vnum = new Array("31");
-	  }
-	  else if(sVal == "4"){
-	    num = new Array("CPU", "메인보드", "메모리", "그래픽카드", "SSD", "하드디스크",
-	  "케이스", "파워서플라이", "공/수냉 쿨러");
-	    vnum = new Array("41","42","43","44","45","46","47","48","49");
-	  }
-	  else if(sVal == "5"){
-	    num = new Array("키보드", "마우스", "키보드 + 마우스 세트", "외장형 저장장치");
-	    vnum = new Array("51","52","53","54");
-	  }
-	  else if(sVal == "6"){
-	    num = new Array("모니터");
-	    vnum = new Array("61");
-	  }
-	  else if(sVal == "7"){
-	    num = new Array("게이밍 의자 책상");
-	    vnum = new Array("71");
-	  }
-	  else if(sVal == "8"){
-	    num = new Array("레이저/잉크젯 프린터", "복합기", "스캐너");
-	    vnum = new Array("81","82","83");
-	  }
-	  else if(sVal == "9"){
-	    num = new Array("스피커", "마이크", "헤드셋 이어폰", "사운드카드");
-	    vnum = new Array("91","92","93","94");
-	  }
-	  else if(sVal == "10"){
-	    num = new Array("공유기", "랜 카드", "랜 케이블", "스위치 허브");
-	    vnum = new Array("101","102","103","104");
-	  }
+ 	 if(sVal == ""){
+ 		 num = new Array("소분류");
+ 		 vnum = new Array("");
+ 	 }
+ 	 else if(sVal == "1"){
+ 		 num = new Array("daItso 조립PC");
+ 		 vnum = new Array("11");
+ 	 }
+ 	 else if(sVal == "2"){
+ 		 num = new Array("Windows10 탑재PC");
+ 		 vnum = new Array("21");
+ 	 }
+ 	 else if(sVal == "3"){
+ 		 num = new Array("본체 + 모니터 패키지");
+ 		 vnum = new Array("31");
+ 	 }
+ 	 else if(sVal == "4"){
+ 		 num = new Array("CPU", "메인보드", "메모리", "그래픽카드", "SSD", "하드디스크",
+ 	 "케이스", "파워서플라이", "공/수냉 쿨러");
+ 		 vnum = new Array("41","42","43","44","45","46","47","48","49");
+ 	 }
+ 	 else if(sVal == "5"){
+ 		 num = new Array("키보드", "마우스", "키보드 + 마우스 세트", "외장형 저장장치");
+ 		 vnum = new Array("51","52","53","54");
+ 	 }
+ 	 else if(sVal == "6"){
+ 		 num = new Array("모니터");
+ 		 vnum = new Array("61");
+ 	 }
+ 	 else if(sVal == "7"){
+ 		 num = new Array("게이밍 의자 책상");
+ 		 vnum = new Array("71");
+ 	 }
+ 	 else if(sVal == "8"){
+ 		 num = new Array("레이저/잉크젯 프린터", "복합기", "스캐너");
+ 		 vnum = new Array("81","82","83");
+ 	 }
+ 	 else if(sVal == "9"){
+ 		 num = new Array("스피커", "마이크", "헤드셋 이어폰", "사운드카드");
+ 		 vnum = new Array("91","92","93","94");
+ 	 }
+ 	 else if(sVal == "10"){
+ 		 num = new Array("공유기", "랜 카드", "랜 케이블", "스위치 허브");
+ 		 vnum = new Array("101","102","103","104");
+ 	 }
 
-		$('#sdiv_no').empty();
+ 	 $('#sdiv_no').empty();
 
 		for(a in num){
 			var opt = document.createElement("option");
@@ -125,7 +125,7 @@
 					<!-- Logo -->
 					<div class="header-logo">
 						<a class="logo" href="#">
-							<img src="./img/logo.png" alt="">
+							<img src="/img/logo.png" alt="">
 						</a>
 					</div>
 					<!-- /Logo -->
@@ -177,7 +177,7 @@
 									<div class="shopping-cart-list">
 										<div class="product product-widget">
 											<div class="product-thumb">
-												<img src="./img/thumb-product01.jpg" alt="">
+												<img src="/img/thumb-product01.jpg" alt="">
 											</div>
 											<div class="product-body">
 												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
@@ -187,7 +187,7 @@
 										</div>
 										<div class="product product-widget">
 											<div class="product-thumb">
-												<img src="./img/thumb-product01.jpg" alt="">
+												<img src="/img/thumb-product01.jpg" alt="">
 											</div>
 											<div class="product-body">
 												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
@@ -261,7 +261,7 @@
 									<div class="col-md-12">
 										<hr>
 										<a class="banner banner-1" href="#">
-											<img src="./img/banner_assembly.jpg" alt="">
+											<img src="/img/banner_assembly.jpg" alt="">
 											<div class="banner-caption text-center">
 												<h2 class="white-color">고사양 PC 여기 다 모였다!</h2>
 												<h3 class="white-color font-weak">역시 daITso!</h3>
@@ -297,7 +297,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_windows10.jpg" alt="">
+											<img src="/img/banner_windows10.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">WINDOWS 10<br>탑재된 PC<br>daITso에 다있소!</h3>
 											</div>
@@ -331,7 +331,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_package.jpg" alt="">
+											<img src="/img/banner_package.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">본체와 모니터<br>한 번에 daITso</h3>
 											</div>
@@ -361,7 +361,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_GPU.jpg" alt="">
+											<img src="/img/banner_GPU.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">최신 그래픽카드<br>daITso!</h3>
 											</div>
@@ -369,7 +369,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_CPU.jpg" alt="">
+											<img src="/img/banner_CPU.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">최신 CPU<br>daITso!</h3>
 											</div>
@@ -394,7 +394,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_keyboard.jpg" alt="">
+											<img src="/img/banner_keyboard.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">게이밍 키보드<br>daITso</h3>
 											</div>
@@ -402,7 +402,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_mouse.png" alt="">
+											<img src="/img/banner_mouse.png" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">게이밍 마우스<br>daITso</h3>
 											</div>
@@ -427,7 +427,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_monitor01.jpg" alt="">
+											<img src="/img/banner_monitor01.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">커브드 모니터<br>daITso</h3>
 											</div>
@@ -435,7 +435,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_monitor02.jpg" alt="">
+											<img src="/img/banner_monitor02.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">와이드 모니터<br>daITso</h3>
 											</div>
@@ -461,7 +461,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_chair.jpg" alt="">
+											<img src="/img/banner_chair.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">게이밍 의자<br>daITso</h3>
 											</div>
@@ -469,7 +469,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_desk.jpg" alt="">
+											<img src="/img/banner_desk.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">게임용 책상<br>daITso</h3>
 											</div>
@@ -493,14 +493,14 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_printer01.jpg" alt="">
+											<img src="/img/banner_printer01.jpg" alt="">
 											<div class="banner-caption">
 											</div>
 										</a>
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_printer02.jpg" alt="">
+											<img src="/img/banner_printer02.jpg" alt="">
 											<div class="banner-caption">
 											</div>
 										</a>
@@ -524,7 +524,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_headset.jpg" alt="">
+											<img src="/img/banner_headset.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">게이밍 헤드셋<br>daITso</h3>
 											</div>
@@ -532,7 +532,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_MIC.jpg" alt="">
+											<img src="/img/banner_MIC.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">방송용 장비<br>daITso</h3>
 											</div>
@@ -557,7 +557,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_LAN01.jpg" alt="">
+											<img src="/img/banner_LAN01.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">초고속 공유기<br>daITso</h3>
 											</div>
@@ -565,7 +565,7 @@
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
-											<img src="./img/banner_LAN02.jpg" alt="">
+											<img src="/img/banner_LAN02.jpg" alt="">
 											<div class="banner-caption">
 												<h3 class="white-color">대용량 공유기<br>daITso</h3>
 											</div>
@@ -602,13 +602,14 @@
     <div class="container">
       <!-- row -->
       <div class="row">
-        <form id="add_product-form" class="clearfix" method="POST" enctype="multipart/form-data" action="/seller_add_product">
+        <form id="add_product-form" class="clearfix" method="POST" enctype="multipart/form-data" action="/seller_modify_product">
           <div class="col-md-6">
             <div class="billing-details">
               <div class="section-title">
-                <h3 class="title">상품 등록</h3>
+                <h3 class="title">상품 수정</h3>
               </div>
               <br>
+							<input type="hidden" name="product_no" id="product_no" value=<%=p_no%> >
               <div class="form-group"><h4> 제목 </h4>
                 <input class="input" type="text" name="product_name" id="product_name" placeholder="글의 제목을 입력하세요.">
               </div>
@@ -626,7 +627,7 @@
 					<div class="col-md-6">
 						<br><br><br><br>
 						<div class="category-filter">
-							<select class="input" onchange="chnType(this.value)" id=bdiv_no name=bdiv_no>
+							<select class="input" onchange="chnType(this.value)" id="bdiv_no" name="bdiv_no">
 								<option value="">대분류</option>
 								<option value="1">daITso 조립PC</option>
 								<option value="2">Windows10 탑재PC</option>
@@ -654,7 +655,7 @@
 							<input class="main-btn" type="file" name="product_img" id="product_detail_img">
 						</div>
 					</div>
-					<input type="submit" value="상품 등록" class="primary-btn" >
+					<input type="submit" value="상품 수정" class="primary-btn" >
         </form>
       </div>
       <!-- /row -->
@@ -676,7 +677,7 @@
 						<!-- footer logo -->
 						<div class="footer-logo">
 							<a class="logo" href="#">
-		            <img src="./img/logo.png" alt="">
+		            <img src="/img/logo.png" alt="">
 		          </a>
 						</div>
 						<!-- /footer logo -->
@@ -757,12 +758,12 @@
 	<!-- /FOOTER -->
 
 	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/nouislider.min.js"></script>
-	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/slick.min.js"></script>
+	<script src="/js/nouislider.min.js"></script>
+	<script src="/js/jquery.zoom.min.js"></script>
+	<script src="/js/main.js"></script>
 
 </body>
 </html>
