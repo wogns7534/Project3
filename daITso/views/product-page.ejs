@@ -796,9 +796,6 @@
 													} }
 													%>
 												</div>
-
-
-
 												<ul class="reviews-pages">
 													<li class="active">1</li>
 													<li><a href="#">2</a></li>
@@ -807,7 +804,7 @@
 												</ul>
 											</div>
 										</div>
-										<% if (session!= '계정정보 관리메뉴'){ %>
+										<% if (review_check==1){ %>
 										<div class="col-md-6">
 											<h4 class="text-uppercase">리뷰 작성하기</h4>
 											<form class="review-form" method="post" action="/product-page">

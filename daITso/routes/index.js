@@ -87,14 +87,18 @@ router.post('/seller_add_product', up_img.array('product_img', 3), function(req,
   var product_thumb_img = req.files[0].originalname;
   var product_img = req.files[1].originalname;
   var product_detail_img = req.files[2].originalname;
+  var product_sale_price=0;
+  var bdiv_no = body.bdiv_no;
   var sdiv_no = body.sdiv_no;
-  var query = connection.query('insert into product (product_name, detail_description, product_price, product_sale, product_img, product_thumb_img, product_detail_img, sdiv_no) values ("' +
+  product_sale_price = (product_price * ((100 - product_sale)/100));
+  var query = connection.query('insert into product (product_name, detail_description, product_price, product_sale_price, product_sale, product_img, product_thumb_img, product_detail_img, bdiv_no, sdiv_no) values ("' +
     product_name + '","' +
     detail_description + '","' + product_price + '","' +
-    prduct_sale + '","' + product_img + '","' +
+    product_sale_price + '","' +
+    product_sale + '","' + product_img + '","' +
     product_thumb_img + '","' +
     product_detail_img + '","' +
-    sdiv_no + '")',
+    bdiv_no + '","' +sdiv_no + '")',
     function(err, rows) {
       if (err) {
         throw err;
@@ -127,6 +131,7 @@ router.get('/seller_page', function(req, res) {
 
 router.get('/product-page', function(req, res) {
   console.log('product-page . path loaded');
+
   var display=[];
   if(req.session._id) display=req.session_id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴"
@@ -135,7 +140,7 @@ router.get('/product-page', function(req, res) {
       if (error) {
         res.send({
           code: 400,
-          failed: "error ocurred"
+          failed: "error ocurred1"
         });
       } else {
         console.log(result);
@@ -144,7 +149,7 @@ router.get('/product-page', function(req, res) {
             if (error2) {
               res.send({
                 code: 400,
-                failed: "error ocurred"
+                failed: "error ocurred2"
               });
             } else {
 
@@ -159,19 +164,36 @@ router.get('/product-page', function(req, res) {
               if(len!=0){
                 total_grade=Math.ceil(total_grade/result2.length);
               }
-              console.log(arr);
-              console.log(total_grade);
-              console.log(len);
-              res.render('product-page', {
-                title: 'review',
-                review: result2,
-                result: result,
-                grade: arr,
-                p_no: req.query.product_no,
-                total_grade: total_grade,
-                review_cnt: len,
-                session: display
-              });
+              connection.query('select * from transaction where customer_id=? and product_no=?', [req.session._id, req.query.product_no],
+            function(error3, result3, fields){
+              if(error3){
+                res.send({
+                  code: 400,
+                  failed: "error ocurred3"
+                });
+              } else{
+                var check=0;
+                console.log(result3);
+                if(result3.length!=0){  //구매 한 적 있음
+                  check=1;
+                }
+                else{         //구매 한 적 없음
+                  check=0;
+                }
+                res.render('product-page', {
+                  title: 'review',
+                  review: result2,
+                  result: result,
+                  grade: arr,
+                  p_no: req.query.product_no,
+                  total_grade: total_grade,
+                  review_cnt: len,
+                  session: display,
+                  review_check:check
+                });
+              }
+            });
+
             }
           });
       }
