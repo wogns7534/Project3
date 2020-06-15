@@ -556,75 +556,7 @@
 		<div class="container">
 			<ul class="breadcrumb">
 				<li><a href="/">홈</a></li>
-				<% if( Math.ceil(m_sdiv_no/10)-1 < 1) { %>
-					<%if(m_sdiv_no == 1) {%><li class="active">DAITSO 조립PC</li><%}%>
-					<%if(m_sdiv_no == 2) {%><li class="active">WINDOWS10 탑재PC</li><%}%>
-					<%if(m_sdiv_no == 3) {%><li class="active">본체 + 모니터 패키지</li><%}%>
-					<%if(m_sdiv_no == 4) {%><li class="active">컴퓨터 주요 부품</li><%}%>
-					<%if(m_sdiv_no == 5) {%><li class="active">키보드 ㆍ 마우스 ㆍ 주변기기</li><%}%>
-					<%if(m_sdiv_no == 6) {%><li class="active">모니터 ㆍ 악세서리</li><%}%>
-					<%if(m_sdiv_no == 7) {%><li class="active">게이밍 의자 ㆍ 책상</li><%}%>
-					<%if(m_sdiv_no == 8) {%><li class="active">프린터 ㆍ 복합기 ㆍ 스캐너</li><%}%>
-					<%if(m_sdiv_no == 9) {%><li class="active">음향 ㆍ 방송용 장비</li><%}%>
-					<%if(m_sdiv_no == 10) {%><li class="active">네트워크 ㆍ 공유기</li><%}%>	
-				<%} else {%>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 1 ){ %>
-						<% if(m_sdiv_no == 11) %> <li class="active">DAITSO 조립PC</li>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 2 ){ %>
-						<% if(m_sdiv_no == 21) %> <li class="active">WINDOWS10 탑재PC</li>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 3 ){ %>
-						<% if(m_sdiv_no == 31) %> <li class="active">본체 + 모니터 패키지</li>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 4 ){ %>
-						<li ><a href="?sdiv_no=4&page=1&page_size=<%=page_size%>&order_by=purchase_count">컴퓨터 주요부품</a></li>
-						<% if(m_sdiv_no == 41) {%><li class="active">CPU</li><%}%>
-						<% if(m_sdiv_no == 42) {%><li class="active">메인보드</li><%}%>
-						<% if(m_sdiv_no == 43) {%><li class="active">메모리</li><%}%>
-						<% if(m_sdiv_no == 44) {%><li class="active">그래픽카드</li><%}%>
-						<% if(m_sdiv_no == 45) {%><li class="active">SSD</li><%}%>
-						<% if(m_sdiv_no == 46) {%><li class="active">하드디스크</li><%}%>
-						<% if(m_sdiv_no == 47) {%><li class="active">케이스</li><%}%>
-						<% if(m_sdiv_no == 48) {%><li class="active">파워서플라이</li><%}%>
-						<% if(m_sdiv_no == 49) {%><li class="active">공/수냉 쿨러</li><%}%>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 5 ){ %>
-						<li ><a href="?sdiv_no=5&page=1&page_size=<%=page_size%>&order_by=purchase_count">키보드 ㆍ 마우스 ㆍ 주변기기</a></li>
-						<% if(m_sdiv_no == 51) {%><li class="active">키보드</li><%}%>
-						<% if(m_sdiv_no == 52) {%><li class="active">마우스</li><%}%>
-						<% if(m_sdiv_no == 53) {%><li class="active">키보드 + 마우스 세트</li><%}%>
-						<% if(m_sdiv_no == 54) {%><li class="active">외장형 저장장치</li><%}%>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 6 ){ %>
-						<li ><a href="?sdiv_no=6&page=1&page_size=<%=page_size%>&order_by=purchase_count">모니터 ㆍ 악세서리</a></li>
-						<% if(m_sdiv_no == 61) {%><li class="active">모니터</li><%}%>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 7 ){ %>
-						<li ><a href="?sdiv_no=7&page=1&page_size=<%=page_size%>&order_by=purchase_count">게이밍 의자 ㆍ 책상</a></li>
-						<% if(m_sdiv_no == 71) {%><li class="active">게이밍 의자 ㆍ 책상</li><%}%>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 8 ){ %>
-						<li ><a href="?sdiv_no=8&page=1&page_size=<%=page_size%>&order_by=purchase_count">프린터 ㆍ 복합기 ㆍ 스캐너</a></li>
-						<% if(m_sdiv_no == 81) {%><li class="active">레이저/잉크젯 프린터</li><%}%>
-						<% if(m_sdiv_no == 82) {%><li class="active">복합기</li><%}%>
-						<% if(m_sdiv_no == 83) {%><li class="active">스캐너</li><%}%>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 9 ){ %>
-						<li ><a href="?sdiv_no=9&page=1&page_size=<%=page_size%>&order_by=purchase_count">음향 ㆍ 방송용 장비</a></li>
-						<% if(m_sdiv_no == 91) {%><li class="active">스피커</li><%}%>
-						<% if(m_sdiv_no == 92) {%><li class="active">마이크</li><%}%>
-						<% if(m_sdiv_no == 93) {%><li class="active">헤드셋 ㆍ 이어폰</li><%}%>
-						<% if(m_sdiv_no == 94) {%><li class="active">사운드카드</li><%}%>
-					<% } %>
-					<% if( Math.ceil(m_sdiv_no/10)-1 == 10 ){ %>
-						<li ><a href="?sdiv_no=10&page=1&page_size=<%=page_size%>&order_by=purchase_count">네트워크 ㆍ 공유기</a></li>
-						<% if(m_sdiv_no == 101) {%><li class="active">공유기</li><%}%>
-						<% if(m_sdiv_no == 102) {%><li class="active">랜 카드</li><%}%>
-						<% if(m_sdiv_no == 103) {%><li class="active">랜 케이블</li><%}%>
-						<% if(m_sdiv_no == 104) {%><li class="active">스위칭 허브</li><%}%>
-					<% } %>
-				<% } %>
+				<li class="active">전체 상품 검색</li>
 			</ul>
 		</div>
 	</div>
@@ -643,17 +575,17 @@
 						<h3 class="aside-title">상품 정렬</h3>
 						<ul class="list-links">
 							<% if(order_by == "purchase_count") {%><li style="font-size:150%; color:#0088FF">판매베스트순</li>
-							<% } else { %><li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=current_page%>&page_size=<%=page_size%>&order_by=purchase_count&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">판매베스트순</a></li><% } %>
+							<% } else { %><li><a href="?page=<%=current_page%>&page_size=<%=page_size%>&order_by=purchase_count&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">판매베스트순</a></li><% } %>
 							<% if(order_by == "total_grade") {%><li style="font-size:150%; color:#0088FF">평점높은순</li>
-							<% } else { %> <li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=current_page%>&page_size=<%=page_size%>&order_by=total_grade&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">평점높은순</a></li><% } %>
+							<% } else { %> <li><a href="?page=<%=current_page%>&page_size=<%=page_size%>&order_by=total_grade&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">평점높은순</a></li><% } %>
 							<% if(order_by == "registration_time") {%><li style="font-size:150%; color:#0088FF">신상품순</li>
-							<% } else { %><li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=current_page%>&page_size=<%=page_size%>&order_by=registration_time&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">신상품순</a></li><% } %>
+							<% } else { %><li><a href="?page=<%=current_page%>&page_size=<%=page_size%>&order_by=registration_time&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">신상품순</a></li><% } %>
 							<% if(order_by == "product_price_low") {%><li style="font-size:150%; color:#0088FF">낮은가격</li>
-							<% } else { %><li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=current_page%>&page_size=<%=page_size%>&order_by=product_price_low&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">낮은가격</a></li><% } %>
+							<% } else { %><li><a href="?page=<%=current_page%>&page_size=<%=page_size%>&order_by=product_price_low&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">낮은가격</a></li><% } %>
 							<% if(order_by == "product_price_high") {%><li style="font-size:150%; color:#0088FF">높은가격</li>
-							<% } else { %><li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=current_page%>&page_size=<%=page_size%>&order_by=product_price_high&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">높은가격</a></li><% } %>
+							<% } else { %><li><a href="?page=<%=current_page%>&page_size=<%=page_size%>&order_by=product_price_high&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">높은가격</a></li><% } %>
 							<% if(order_by == "product_name") {%><li style="font-size:150%; color:#0088FF">상품명순</li>
-							<% } else { %><li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=current_page%>&page_size=<%=page_size%>&order_by=product_name&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">상품명순</a></li><% } %>
+							<% } else { %><li><a href="?page=<%=current_page%>&page_size=<%=page_size%>&order_by=product_name&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">상품명순</a></li><% } %>
 						</ul>
 					</div>
 					<!-- /aside widget -->
@@ -661,11 +593,10 @@
 					<div class="aside">
 						<h3 class="aside-title">가격대별 검색</h3>
 						<form id="price_slider" action="/products" method="get">
-							<input type="hidden" name="sdiv_no" value="<%=m_sdiv_no%>"/>
 							<input type="hidden" name="page" value="1"/>
 							<input type="hidden" name="page_size" value="<%=page_size%>"/>
 							<input type="hidden" name="order_by" value="<%=order_by%>"/>
-							<input type="hidden" name="ct_search" value="<%=ct_search%>"/>
+							<input type="hidden" name="main_search" value="<%=main_search%>"/>
 							<div class="form-group">
 								<input id="sprice" name="sprice" class="input" type="text" placeholder="  최저가 : 숫자만 입력"/>
 								<input id="eprice" name="eprice" class="input" type="text" placeholder="  최고가 : 숫자만 입력"/>
@@ -675,11 +606,10 @@
 							</div>
 						</form>
 						<form id="price_slider" action="/products" method="get">
-							<input type="hidden" name="sdiv_no" value="<%=m_sdiv_no%>"/>
 							<input type="hidden" name="page" value="1"/>
 							<input type="hidden" name="page_size" value="<%=page_size%>"/>
 							<input type="hidden" name="order_by" value="<%=order_by%>"/>
-							<input type="hidden" name="ct_search" value="<%=ct_search%>"/>
+							<input type="hidden" name="main_search" value="<%=main_search%>"/>
 							<input type="hidden" name="sprice" value=""/>
 							<input type="hidden" name="eprice" value=""/>
 							<div class="form-group">
@@ -688,36 +618,6 @@
 						</form>
 					</div>
 					<br><br>
-				<div class="aside">
-					<h3 class="aside-title">카테고리 내 검색</h3>
-				
-				<form action="/products" method="get" id="category_search" name="category_search">
-					<input type="hidden" name="sdiv_no" value="<%=m_sdiv_no%>"/>
-					<input type="hidden" name="page" value="1"/>
-					<input type="hidden" name="page_size" value="<%=page_size%>"/>
-					<input type="hidden" name="order_by" value="<%=order_by%>"/>
-					<input type="hidden" name="sprice" value="<%=sprice%>"/>
-					<input type="hidden" name="eprice" value="<%=eprice%>"/>
-					<div class="form-group">
-					<input name="ct_search" class="input search-input" type="text" placeholder="카테고리 내에서 검색!">
-					</div>
-					<div class="form-group">
-						<button type="submit" class="primary-btn pull-left" style="width:50%;">적용</button>
-					</div>
-				</form>
-				<form id="category_search" name="category_search" action="/products" method="get">
-					<input type="hidden" name="sdiv_no" value="<%=m_sdiv_no%>"/>
-					<input type="hidden" name="page" value="1"/>
-					<input type="hidden" name="page_size" value="<%=page_size%>"/>
-					<input type="hidden" name="order_by" value="<%=order_by%>"/>
-					<input type="hidden" name="ct_search" value=""/>
-					<input type="hidden" name="sprice" value="<%=sprice%>"/>
-					<input type="hidden" name="eprice" value="<%=eprice%>"/>
-					<div class="form-group">
-						<button type="submit" class="main-btn pull-right" style="width:50%;">초기화</button>
-					</div>
-				</form>
-			</div>
 			</div>
 				<!-- /ASIDE -->
 
@@ -734,8 +634,8 @@
 								<select onchange="location.href=this.value" style="width: 110px;">
 										<option>보기 개수 선택</option>
 										<% if(products.length != 0) { %>
-										<option value="?sdiv_no=<%=products[0].sdiv_no%>&page=1&page_size=6&order_by=<%=order_by%>&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">6개씩 보기</option>
-										<option value="?sdiv_no=<%=products[0].sdiv_no%>&page=1&page_size=12&order_by=<%=order_by%>&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">12개씩 보기</option>
+										<option value="?page=1&page_size=6&order_by=<%=order_by%>&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">6개씩 보기</option>
+										<option value="?page=1&page_size=12&order_by=<%=order_by%>&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>">12개씩 보기</option>
 										<% } %>
 									
 								</select>
@@ -799,7 +699,7 @@
 						<div class="text-center">
 							<ul class="store-pages">
 								<% if(start_page > 5){ %>
-										<li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=start_page-1%>&page_size=<%=page_size%>&order_by=<%=order_by%>&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>"><i class="fa fa-caret-left"></i></a></li>
+										<li><a href="?page=<%=start_page-1%>&page_size=<%=page_size%>&order_by=<%=order_by%>&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>"><i class="fa fa-caret-left"></i></a></li>
 								<% } %>
 
 								<% for(var p = start_page; p <= end_page; p++){ %>
@@ -807,11 +707,11 @@
 									<% if(p == current_page) { %>
 										<li class="active"><%=p%></li>
 									<% } else { %>
-										<li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=p%>&page_size=<%=page_size%>&order_by=<%=order_by%>&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>"><%=p%></a></li>
+										<li><a href="?page=<%=p%>&page_size=<%=page_size%>&order_by=<%=order_by%>&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>"><%=p%></a></li>
 								<% }} %>
 
 								<% if(end_page < total_page){ %>
-										<li><a href="?sdiv_no=<%=m_sdiv_no%>&page=<%=end_page+1%>&page_size=<%=page_size%>&order_by=<%=order_by%>&ct_search=<%=ct_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>"><i class="fa fa-caret-right"></i></a></li>
+										<li><a href="?page=<%=end_page+1%>&page_size=<%=page_size%>&order_by=<%=order_by%>&main_search=<%=main_search%>&sprice=<%=sprice%>&eprice=<%=eprice%>"><i class="fa fa-caret-right"></i></a></li>
 								<% } %>
 							</ul>
 						</div>
