@@ -47,7 +47,7 @@ connection.connect();
 /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/products', function(req, res) {
   console.log('products . path loaded');
-  
+
   var order_query = req.query.order_by;
   var order_sort = "ASC";
 
@@ -102,7 +102,7 @@ router.get('/products', function(req, res) {
             eprice : default_eprice,
             products : result
           });
-      }    
+      }
   });
 });
 
@@ -309,7 +309,7 @@ router.post('/seller_modify_product', up_img.array('product_img', 3), function(r
 router.post('/api/delete_product', function (req, res) {
   var data = req.body.data;
   console.log('delete Parameter = ' + data);
-  
+
   var query = connection.query('delete from product where product_no ='
     + data + ';',
     function (err, rows) {
@@ -317,6 +317,33 @@ router.post('/api/delete_product', function (req, res) {
       console.log("Data delete!");
       res.send({ result: 0 });
     });
+});
+
+router.get('/more_review', function(req, res) {
+  console.log('more_review . path loaded');
+  var date=[]
+  connection.query('SELECT * FROM review WHERE product_no = ?', req.query.product_no,
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        for (var i =0; i<result.length; i++){
+        var year=result[i].review_time.getFullYear();
+        var month=result[i].review_time.getMonth()+1;
+        var day=result[i].review_time.getDate();
+        date[i]=year+"년"+month+"월"+day+"일"
+      }
+        console.log(result[0].review_time);
+        res.render('more_review', {
+          title: 'more_review',
+          review: result,
+          date: date
+        });
+      }
+     });
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -532,7 +559,7 @@ router.get('/main_search', function(req, res){
             eprice : default_eprice,
             products : result
           });
-      }    
+      }
   });
 });
 
@@ -823,7 +850,7 @@ router.post('/purchase', function (req, res, next) {
   console.log('# User purchase reuqest arrive.');
   console.log(req.body);
   var sql = 'select * from shoppingcart';
-  
+
 });
 
 router.post('/insert_shoppingcart', function(req,res){
