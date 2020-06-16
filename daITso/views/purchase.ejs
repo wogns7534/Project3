@@ -596,36 +596,36 @@
                            </tr>
                         </thead>
                         <tbody>
+                           <% var total_price = 0; %>
+                           <% for(var i = 0; i < result2.length; i++){ %>
                            <tr>
-                              <td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
-                              <td class="qty text-center">
-                                 <a href="#">Product Name Goes Here1</a>
+                              <td class="thumb"><img
+                                    src="img/proj3_img/<%=result2[i][0].sdiv_no%>/<%=result2[i][0].product_thumb_img%>"
+                                    alt=""></td>
+                              <td class="details">
+                                 <a href="#"><%=result2[i][0].product_name%></a>
+                                 <ul>
+                                    <li><span><%=result2[i][0].detail_description%></span></li>
+                                 </ul>
                               </td>
-                              <td class="price text-center"><strong>$32.50</strong></td>
-                              <td class="price text-center"><strong>1</strong></td>
-                              <td class="total text-center"><strong class="primary-color">$32.50</strong></td>
-
-                           </tr>
-                           <tr>
-                              <td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
-                              <td class="qty text-center">
-                                 <a href="#">Product Name Goes Here2</a>
+                              <td class="price text-center">
+                                 <strong><%=(result2[i][0].product_price*((100-result2[i][0].product_sale)/100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</strong><br><del
+                                    class="font-weak">
+                                    <% if(result2[i][0].product_sale > 0){ %>
+                                    <small><%=result2[i][0].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</small></del>
+                                 <% } %>
                               </td>
-                              <td class="price text-center"><strong>$32.50</strong></td>
-                              <td class="price text-center"><strong>2</strong></td>
-                              <td class="total text-center"><strong class="primary-color">$32.50</strong></td>
 
-                           </tr>
-                           <tr>
-                              <td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
                               <td class="qty text-center">
-                                 <a href="#">Product Name Goes Here3</a>
+                                 <h4><%=result[i].shoppingcart_quantity%></h4>
                               </td>
-                              <td class="price text-center"><strong>$32.50</strong></td>
-                              <td class="price text-center"><strong>1</strong></td>
-                              <td class="total text-center"><strong class="primary-color">$32.50</strong></td>
 
+                              <td class="total text-center"><strong class="primary-color"><%=(result2[i][0].product_price*((100-result2[i][0].product_sale)/100)*result[i].shoppingcart_quantity)
+                                 .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</strong>
+                              </td>
+                              <% total_price += result2[i][0].product_price*((100-result2[i][0].product_sale)/100)*result[i].shoppingcart_quantity; %>
                            </tr>
+                           <% } %>
                         </tbody>
                      </table>
                   </div>
@@ -636,6 +636,7 @@
       </div>
       <!-- /container -->
    </div>
+
    <!-- /section -->
    <div class="section">
       <!-- container -->
@@ -643,73 +644,46 @@
          <!-- row -->
          <div class="row">
             <div class="col-md-6">
-               <div class=shopping-cart-table width="50%">
-                  <h4 class="pull-left">[구매자 정보]</h4><br><br><br>
+               <div class=shopping-cart-table>
+                  <h4 class="pull-left">[구매자 및 배송지 정보]</h4><br><br><br>
                   <div class="form-group">
-                     <h4 class="pull-left">주문자 이름</h4><br>
-                     <input class="input" type="text" name="customer_name">
+                     <h4 class="pull-left">- 주문자 이름</h4><br><br>
+                     <h4 class="pull-left"><%=result3[0].customer_id%></h4><br><br>
                   </div>
                   <div class="form-group">
-                     <h4 class="pull-left">이메일</h4><br>
-                     <input class="input" type="text" name="customer_name">
+                     <h4 class="pull-left">- 이메일</h4><br><br>
+                     <h4 class="pull-left"><%=result3[0].customer_email%></h4><br><br>
                   </div>
                   <div class="form-group">
-                     <h4 class="pull-left">전화번호</h4><br>
-                     <input class="input" type="text" name="customer_name">
-                  </div>
-                  <div class="form-group">
-                     <h4 class="pull-left">* 주소</h4><br>
-                  </div>
-
-                  <div class="form-group">
-                     <input class="input" type="text" name="zip" style="width:40%;" placeholder="우편번호" />
-                     <button class="main-btn" :hover type="button" onclick="openZipSearch()">우편번호 검색</button>
-                  </div>
-                  <div class="form-group">
-                     <input class="input" type="text" name="addr1" readonly />
-                  </div>
-                  <div class="form-group">
-                     <input class="input" type="text" name="addr2" />
+                     <h4 class="pull-left">- 전화번호</h4><br><br>
+                     <h4 class="pull-left"><%=result3[0].customer_phone%></h4><br><br>
                   </div>
                </div>
             </div>
 
             <div class="col-md-6">
-               <div class=shopping-cart-table width="50%">
-                  <h4 class="pull-left">[배송지 정보]</h4><br><br><br>
-                  <div class="form-group">
-                     <h4 class="pull-left">받으실분 이름</h4><br>
-                     <input class="input" type="text" name="customer_name">
-                  </div>
-
-                  <div class="form-group">
-                     <h4 class="pull-left">전화번호</h4><br>
-                     <input class="input" type="text" name="customer_name">
-                  </div>
-                  <div class="form-group">
-                     <h4 class="pull-left">* 주소</h4><br>
-                  </div>
-                  <div class="form-group">
-                     <input class="input" type="text" name="zip" style="width:40%;" placeholder="우편번호" />
-                     <button class="main-btn" :hover type="button" onclick="openZipSearch()">우편번호 검색</button>
-                  </div>
-                  <div class="form-group">
-                     <input class="input" type="text" name="addr1" readonly />
-                  </div>
-                  <div class="form-group">
-                     <input class="input" type="text" name="addr2" />
-                  </div>
-
-                  <div class="form-group">
-                     <h4 class="pull-left">메모</h4><br>
-                     <input class="input" type="text" name="customer_name">
-                  </div>
+               <div class="form-group">
+                  <br><br><br>
+                  <h4 class="pull-left">- 주소</h4><br>
+               </div>
+               <div class="form-group">
+                  <h4 class="pull-left">우편번호: <%=result3[0].customer_zipcode%></h4><br><br>
+               </div>
+               <div class="form-group">
+                  <h4 class="pull-left">상세주소: <%=result3[0].customer_address%></h4><br><br>
+               </div>
+               <div class="form-group">
+                  <br><br>
+                  <h4 class="pull-left">배송 메모</h4><br>
+                  <input class="input" type="text" name="delivery_memo", id="delivery_memo">
                </div>
             </div>
          </div>
+
       </div>
    </div>
    </div>
+
 
    <div class="section">
       <!-- container -->
@@ -735,11 +709,28 @@
             </div>
 
             <div class="col-md-6" style="display:flexbox;">
-               <div class=shopping-cart-table width="50%">
+               <div class="shopping-cart-table table" width="50%">
                   <h4 class="pull-left">[결제금액 확인]</h4><br><br><br>
-                  <h5 class="pull-left">총 상품금액</h5><br><br>
-                  <h5 class="pull-left">배송비</h5><br><br>
-                  <h4 class="pull-left">총 결제금액</h4><br>
+                  <tr>
+                     <h5 class="pull-left">총 상품금액</h5>
+                     <h4 class="pull-right" colspan="2" class="total">
+                        <%=(total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원%></h4><br><br>
+                  </tr>
+                  <tr>
+                     <h5 class="pull-left">배송비</h5>
+                     <h4 class="pull-right" colspan="2" class="total">
+                        무료</h4><br><br>
+                  </tr>
+                  <tr>
+                     <h4 class="pull-left">총 결제금액</h4>
+                     <h4 colspan="2" class="pull-right">
+                        <%=(total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원%></h4><br>
+                  </tr>
+               </div>
+               <div class="pull-right">
+                     <input type="submit" value="결제" class="primary-btn"  onclick="location.href='/purchase_check'">
+                     <button type="button" class="main-btn"
+                     onclick="location.href='/shoppingcart'">취소</button>
                </div>
             </div>
          </div>
