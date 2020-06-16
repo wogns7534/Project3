@@ -674,8 +674,10 @@
                </div>
                <div class="form-group">
                   <br><br>
-                  <h4 class="pull-left">배송 메모</h4><br>
-                  <input class="input" type="text" name="delivery_memo", id="delivery_memo">
+                  <form action="/purchase" name="delivery_memo" method="POST">
+                     <h4 class="pull-left">배송 메모</h4><br>
+                     <input class="input" type="text" name="delivery_memo" , id="delivery_memo">
+
                </div>
             </div>
          </div>
@@ -728,10 +730,10 @@
                   </tr>
                </div>
                <div class="pull-right">
-                     <input type="submit" value="결제" class="primary-btn"  onclick="location.href='/purchase_check'">
-                     <button type="button" class="main-btn"
-                     onclick="location.href='/shoppingcart'">취소</button>
+                  <input type="submit" value="결제" name="purchase_btn" class="primary-btn" >
+                  <button type="button" class="main-btn" onclick="location.href='/shoppingcart'">취소</button>
                </div>
+               </form>
             </div>
          </div>
       </div>
