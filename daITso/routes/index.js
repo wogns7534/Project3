@@ -459,7 +459,8 @@ router.get('/', function (req, res) {
 
   res.render('index', {
     title: 'index',
-    session: display
+    session: display,
+    company: req.session._company_number
   });
 });
 
@@ -472,7 +473,8 @@ router.get('/index', function (req, res) {
 
   res.render('index', {
     title: 'index',
-    session: display
+    session: display,
+    company: req.session._company_number
   });
 });
 
