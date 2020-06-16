@@ -577,6 +577,144 @@ router.get('/logout', function (req, res) {
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
+//                            SHOPPINGCART, PURCHASE SECTION                           //
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/* GET shoppingcart page. */
+router.get('/shoppingcart', function (req, res) {
+  var result = new Array();
+  var result2 = new Array();
+  var cnt = 0;
+  var sql = 'select * from product where product_no=?';
+  console.log('shoppingcartjs . path loaded');
+  connection.query('select * from shoppingcart where customer_id=?', req.session._id,
+    function (error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      }
+      else {
+        console.log(result);
+        var len = result.length;
+        for (var i = 0; i < len; i++) {
+          connection.query(sql, result[i].product_no, function (error2, result_temp, fields) {
+            result2[cnt++] = result_temp;
+            if (cnt == len) {
+              res.render('shoppingcart', {
+                title: 'shoppingcart',
+                result2: result2,
+                result: result
+              });
+              console.log(result2[1][0]);
+              console.log(result[0]);
+            }
+          });
+        }
+      }
+    });
+});
+
+/* Modify Quantity shoppingcart page. */
+router.post('/api/modify_quantity_num', function (req, res) {
+  var data = req.body.data;
+  var data2 = req.body.data2;
+  console.log('modify Parameter1 = ' + data);
+  console.log('modify Parameter2 = ' + data2);
+
+  var query = connection.query('update shoppingcart set shoppingcart_quantity=' + data2 + ' where product_no='
+    + data + ';',
+    function (err, rows) {
+      if (err) { throw err; }
+      console.log("Data update!");
+      res.send({ result: 0 });
+    });
+});
+
+/* Delete shoppingcart page. */
+router.post('/api/delete_shopping_cart', function (req, res) {
+  var data = req.body.data;
+
+  console.log('Delete Parameter1 = ' + data);
+
+  var query = connection.query('delete from shoppingcart where product_no=' + data + ';',
+    function (err, rows) {
+      if (err) { throw err; }
+      console.log("Data delete!");
+      res.send({ result: 0 });
+    });
+});
+
+/* GET purchase_check page. */
+router.get('/purchase_check', function (req, res, next) {
+  console.log('purchase_checkjs . path loaded');
+  res.render('purchase_check', {
+    title: 'purchase_check'
+  });
+});
+
+/* GET purchase page. */
+router.get('/purchase', function (req, res) {
+  var result = new Array();
+  var result2 = new Array();
+  var cnt = 0;
+  var sql = 'select * from product where product_no=?';
+
+  console.log('purchasejs . path loaded');
+  connection.query('select * from customer where customer_id=?', req.session._id,
+    function (error, result3, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      }
+      else {
+        connection.query('select * from shoppingcart where customer_id=?', req.session._id,
+          function (error, result, fields) {
+            if (error) {
+              res.send({
+                code: 400,
+                failed: "error ocurred"
+              });
+            }
+            else {
+              console.log(result);
+              var len = result.length;
+              for (var i = 0; i < len; i++) {
+                connection.query(sql, result[i].product_no, function (error2, result_temp, fields) {
+                  result2[cnt++] = result_temp;
+                  if (cnt == len) {
+                    res.render('purchase', {
+                      title: 'purchase',
+                      result3: result3,
+                      result2: result2,
+                      result: result
+                    });
+                    console.log(result3);
+                    console.log(result2[1][0]);
+                    console.log(result[0]);
+                  }
+                });
+              }
+            }
+          });
+      }
+    });
+});
+
+/* POST purchase page. */
+router.post('/purchase', function (req, res, next) {
+  console.log('# User purchase reuqest arrive.');
+  console.log(req.body);
+  var sql = 'select * from shoppingcart';
+  
+});
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 //                                   TEST SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/test', function (req, res) {
