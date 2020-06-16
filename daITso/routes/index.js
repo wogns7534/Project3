@@ -148,11 +148,13 @@ router.post('/seller_add_product', up_img.array('product_img', 3), function(req,
       }
       console.log("Data inserted!");
     });
-  res.redirect('/seller_page');
+  res.redirect('/seller_page?page=1');
 });
 
 router.get('/seller_page', function(req, res) {
   console.log('seller_page . path loaded');
+  var start_page = Math.ceil(req.query.page/5) * 5 - 4;
+  var end_page = start_page + 4;
   var display = [];
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
@@ -169,7 +171,11 @@ router.get('/seller_page', function(req, res) {
           title: 'seller_page',
           result: result,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          start_page: start_page,
+          end_page: end_page,
+          total_page : Math.ceil(result.length / 10),
+          current_page : req.query.page
         });
       }
     });
@@ -317,7 +323,7 @@ router.post('/seller_modify_product', up_img.array('product_img', 3), function(r
     }
     console.log("Data modified!");
   });
-  res.redirect('/seller_page');
+  res.redirect('/seller_page?page=1');
 });
 
 /* product delete post. */
@@ -913,7 +919,7 @@ router.post('/purchase', function (req, res, next) {
           function (err, rows) {
             if (err) { throw err; }
             else {
-              var query_3 = connection.query('update product, transaction' 
+              var query_3 = connection.query('update product, transaction'
                 + ' set purchase_count = purchase_count + transaction_quantity'
                 + ' where product.product_no = transaction.product_no' + ';',
                 function (err, rows) {

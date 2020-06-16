@@ -140,7 +140,7 @@
                            </div>
                            <strong class="text-uppercase">상품 관리 페이지</strong>
                            <br>
-                           <span><a href="/seller_page">내 상품 관리</a></span>
+                           <span><a href="/seller_page?page=1">내 상품 관리</a></span>
                         </a>
                      </li>
                   <% } %>
@@ -542,7 +542,6 @@
 			<!-- row -->
 			<div class="row">
 				<form id="checkout-form" class="clearfix">
-
 					<div class="col-md-12">
 						<div class="order-summary clearfix">
 							<div class="section-title">
@@ -571,7 +570,8 @@
 
 									<% }
 								else{
-					        for(var i = 0; i < result.length; i++){ %>
+										for(var i=(current_page-1)*10; i<(current_page)*10; i++){ %>
+										<% if(result.length == i) break; %>
 									<tr>
 										<td class="thumb"><img
 												src="/img/proj3_img/<%=result[i].sdiv_no%>/<%=result[i].product_thumb_img%>"
@@ -596,6 +596,35 @@
 								</tbody>
 								<tfoot>
 							</table>
+							<!-- store bottom filter -->
+							<div class="store-filter clearfix">
+								<div class="pull-left">
+									<div class="row-filter">
+									</div>
+								</div>
+								<% if(result.length != 0) {%>
+								<div class="text-center">
+									<ul class="store-pages">
+										<% if(start_page > 5){ %>
+												<li><a href="?page=<%=start_page-1%>"><i class="fa fa-caret-left"></i></a></li>
+										<% } %>
+
+										<% for(var p = start_page; p <= end_page; p++){ %>
+											<% if(p > total_page) break; %>
+											<% if(p == current_page) { %>
+												<li class="active"><%=p%></li>
+											<% } else { %>
+												<li><a href="?page=<%=p%>"><%=p%></a></li>
+										<% }} %>
+
+										<% if(end_page < total_page){ %>
+												<li><a href="?page=<%=end_page+1%>"><i class="fa fa-caret-right"></i></a></li>
+										<% } %>
+									</ul>
+								</div>
+								<% } %>
+							</div>
+							<!-- /store bottom filter -->
 						</div>
 
 					</div>

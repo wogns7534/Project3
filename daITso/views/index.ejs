@@ -97,7 +97,7 @@
 								<a href="/login" class="text-uppercase">로그인</a> / <a href="/join" class="text-uppercase">회원가입</a>
 							<% } else { %>
 								<a href="/logout" class="text-uppercase">로그아웃</a>
-							
+
 							<ul class="custom-menu">
 								<li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 							<% if(company != "") {%>	<!-- if seller -->
@@ -117,7 +117,7 @@
 						</li>
 						<!-- /Account -->
 
-						<% if(company == "") { %> 
+						<% if(company == "") { %>
 							<% if(session != "admin님, 안녕하세요!") {%>
 						<!-- Cart -->
 						<li class="header-cart dropdown default-dropdown">
@@ -139,11 +139,11 @@
 									</div>
 									<strong class="text-uppercase">상품 관리 페이지</strong>
 									<br>
-									<span><a href="/seller_page">내 상품 관리</a></span>
+									<span><a href="/seller_page?page=1">내 상품 관리</a></span>
 								</a>
 							</li>
 						<% } %>
-						<% } %>	
+						<% } %>
 						<!-- /Cart -->
 
 						<!-- Mobile nav toggle-->
@@ -223,9 +223,9 @@
 											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=900000&eprice=1099999">90~100만원대 탑재PC</a></li>
 											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1000000&eprice=1299999">100~120만원대 탑재PC</a></li>
 											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1300000&eprice=1599999">130~150만원대 탑재PC</a></li>
-											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 탑재PC</a></li>	
+											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 탑재PC</a></li>
 										</ul>
-										
+
 										<hr class="hidden-md hidden-lg">
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
@@ -255,7 +255,7 @@
 											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=900000&eprice=1099999">90~100만원대 패키지</a></li>
 											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1000000&eprice=1299999">100~120만원대 패키지</a></li>
 											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1300000&eprice=1599999">130~150만원대 패키지</a></li>
-											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 패키지</a></li>	
+											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 패키지</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
