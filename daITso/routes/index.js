@@ -47,7 +47,7 @@ connection.connect();
 /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/products', function(req, res) {
   console.log('products . path loaded');
-  
+
   var order_query = req.query.order_by;
   var order_sort = "ASC";
 
@@ -68,13 +68,13 @@ router.get('/products', function(req, res) {
   if(req.query.sprice != "") default_sprice = req.query.sprice;
   if(req.query.eprice != "") default_eprice = req.query.eprice;
 
-  var default_query = "SELECT * FROM product WHERE sdiv_no=? and product_sale_price between ? and ? ORDER BY ? ? ";
-  var query_array = [req.query.sdiv_no, default_sprice, default_eprice, order_query, order_sort];
+  var default_query = "SELECT * FROM product WHERE sdiv_no=? and product_sale_price between ? and ? ORDER BY " + order_query + " " + order_sort;
+  var query_array = [req.query.sdiv_no, default_sprice, default_eprice];
 
 
   if(req.query.ct_search != "") {
-    default_query = "SELECT * FROM product WHERE sdiv_no=? and product_sale_price between ? and ? and product_name like ? ORDER BY ? ?";
-    query_array = [req.query.sdiv_no, default_sprice, default_eprice, "%"+req.query.ct_search+"%", order_query, order_sort];
+    default_query = "SELECT * FROM product WHERE sdiv_no=? and product_sale_price between ? and ? and product_name like ? ORDER BY " + order_query + " " + order_sort;
+    query_array = [req.query.sdiv_no, default_sprice, default_eprice, "%"+req.query.ct_search+"%"];
   }
 
   console.log(default_query);
@@ -102,7 +102,7 @@ router.get('/products', function(req, res) {
             eprice : default_eprice,
             products : result
           });
-      }    
+      }
   });
 });
 
@@ -309,7 +309,7 @@ router.post('/seller_modify_product', up_img.array('product_img', 3), function(r
 router.post('/api/delete_product', function (req, res) {
   var data = req.body.data;
   console.log('delete Parameter = ' + data);
-  
+
   var query = connection.query('delete from product where product_no ='
     + data + ';',
     function (err, rows) {
@@ -317,6 +317,33 @@ router.post('/api/delete_product', function (req, res) {
       console.log("Data delete!");
       res.send({ result: 0 });
     });
+});
+
+router.get('/more_review', function(req, res) {
+  console.log('more_review . path loaded');
+  var date=[]
+  connection.query('SELECT * FROM review WHERE product_no = ?', req.query.product_no,
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        for (var i =0; i<result.length; i++){
+        var year=result[i].review_time.getFullYear();
+        var month=result[i].review_time.getMonth()+1;
+        var day=result[i].review_time.getDate();
+        date[i]=year+"년"+month+"월"+day+"일"
+      }
+        console.log(result[0].review_time);
+        res.render('more_review', {
+          title: 'more_review',
+          review: result,
+          date: date
+        });
+      }
+     });
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -459,7 +486,8 @@ router.get('/', function (req, res) {
 
   res.render('index', {
     title: 'index',
-    session: display
+    session: display,
+    company: req.session._company_number
   });
 });
 
@@ -472,7 +500,8 @@ router.get('/index', function (req, res) {
 
   res.render('index', {
     title: 'index',
-    session: display
+    session: display,
+    company: req.session._company_number
   });
 });
 
@@ -486,7 +515,7 @@ router.get('/main_search', function(req, res){
   if(req.query.order_by == "product_price_low") order_query = "product_sale_price";
   if(req.query.order_by == "product_price_high") {
     order_sort = "DESC";
-    order_query = "product_sale_price"
+    order_query = "product_sale_price";
   }
 
   var start_page = Math.ceil(req.query.page/5) * 5 - 4;
@@ -497,17 +526,15 @@ router.get('/main_search', function(req, res){
   if(req.query.sprice != "") default_sprice = req.query.sprice;
   if(req.query.eprice != "") default_eprice = req.query.eprice;
 
-  var default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? ORDER BY ? ? ";
+  var default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? ORDER BY " + order_query + " " + order_sort;
   var query_array = [default_sprice, default_eprice, order_query, order_sort];
 
 
   if(req.query.main_search != "") {
-    default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? and product_name like ? ORDER BY ? ?";
+    default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? and product_name like ? ORDER BY " + order_query + " " + order_sort;
     query_array = [default_sprice, default_eprice, "%"+req.query.main_search+"%", order_query, order_sort];
   }
 
-  console.log(default_query);
-  console.log(query_array);
   connection.query(default_query, query_array,
   function( error, result, fields) {
       if (error) {
@@ -516,7 +543,9 @@ router.get('/main_search', function(req, res){
               failed: "error ocurred"
           });
       } else {
-          console.log(result);
+        console.log(result[0]);
+        console.log(result[1]);
+        console.log(result[2]);
           res.render('main_products', {
             title : 'main_products',
             total_page : Math.ceil(result.length / req.query.page_size),
@@ -530,7 +559,7 @@ router.get('/main_search', function(req, res){
             eprice : default_eprice,
             products : result
           });
-      }    
+      }
   });
 });
 
@@ -672,12 +701,19 @@ router.get('/logout', function (req, res) {
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//                                    FAQ SECTION                                      //
+//                               FAQ & QA SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/FAQ', function(req, res){
   console.log('FAQ load');
   res.render('FAQ', {
     title: 'FAQ'
+  });
+});
+
+router.get('/QA', function(req, res){
+  console.log('QA load');
+  res.render('QA', {
+    title : 'QA'
   });
 });
 
@@ -814,10 +850,17 @@ router.post('/purchase', function (req, res, next) {
   console.log('# User purchase reuqest arrive.');
   console.log(req.body);
   var sql = 'select * from shoppingcart';
-  
+
 });
 
+router.post('/insert_shoppingcart', function(req,res){
+  console.log('# User insert shoppping cart');
 
+
+//   insert into shoppingcart values(3,'admin',2,251000);
+// insert into shoppingcart values(4,'admin',1,748000);
+// insert into shoppingcart values(5,'admin',6,468000);
+})
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   TEST SECTION                                      //

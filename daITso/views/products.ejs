@@ -771,22 +771,20 @@
 												</div>
 											</div>
 											<!-- <input type="hidden" name="product_no" value="1"/> -->
-											<button class="main-btn quick-view" ><i class="fa fa-search-plus"></i> 상세 보기</button>
-											<img src="<%=products[i].product_thumb_img%>" alt="">
+											<button class="main-btn quick-view"><a href="/product-page?product_no=<%=products[i].product_no%>"><i class="fa fa-search-plus"></i> 상세 보기</a></button>
+											<img src="/img/proj3_img/<%=products[i].sdiv_no%>/<%=products[i].product_thumb_img%>" alt="">
 										</div>
-										<div class="product-body">
+										<div class="product-body" style="height: 160px;">
 											<h3 class="product-price"><%=products[i].product_sale_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</h3>
 											<div class="product-rating">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o empty"></i>
+												<% for(var s=0; s < products[i].total_grade; s++) {%>
+													<i class="fa fa-star"></i>
+												<% } %>
+												<% for(var o=0; o < 5 - products[i].total_grade; o++){ %>
+													<i class="fa fa-star-o empty"></i>
+												<% } %>
 											</div>
 											<h2 class="product-name"><%=products[i].product_name%></a></h2>
-											<div class="product-btns">
-												<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>
-											</div>
 										</div>
 									</div>
 								</div>
