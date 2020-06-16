@@ -89,7 +89,7 @@
               alert("환영합니다, " + $("#id").val() + "님!");
               location.href="/index";
             }
-            
+
         },
         error: function(request, status, error) {
             alert(request.status + "  /  " + error);
@@ -128,7 +128,7 @@
             alert("환영합니다, " + $("#id").val() + "님!");
             location.href="/index";
           }
-          
+
       },
       error: function(request, status, error) {
           alert(request.status + "  /  " + error);

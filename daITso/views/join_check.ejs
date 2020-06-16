@@ -585,14 +585,21 @@
                         <img src="./img/join_check.jpg" alt="" width="30%" height="100%"><br><br>
                         <h2 class="title">회원가입이 완료되었습니다.</h2>
                         <br>
-                        <p>daITso 회원가입을 화영합니다.</p>
+                        <p>daITso 회원가입을 환영합니다.</p>
                         <p>아래 버튼을 누르시면 원하는 페이지로 이동합니다.</p>
                      </div>
                   <br>
-
                   <div class="pull-center">
-                     <button class="primary-btn"> &nbsp;&nbsp;&nbsp; 로그인 &nbsp;&nbsp;&nbsp; </button>
-			            <button class="main-btn"> &nbsp;&nbsp;&nbsp; 홈으로 &nbsp;&nbsp;&nbsp; </button>
+                     <input type="button" id='btn' class="primary-btn" value="로그인" onClick="loginpage()">
+                     <input type="button" id='btn' class="primary-btn" value="홈으로" onClick="homepage()">
+                  <script type="text/javascript">
+                     function loginpage() {
+                        location.href = "/login"
+                     }
+                     function homepage() {
+                        location.href = "/";
+                     }
+                  </script>
                   </div>
                </div>
          </div>
