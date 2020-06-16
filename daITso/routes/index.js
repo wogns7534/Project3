@@ -108,8 +108,13 @@ router.get('/products', function(req, res) {
 
 router.get('/seller_add_product', function (req, res) {
   console.log('seller_add_product . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
   res.render('seller_add_product', {
-    title: 'seller_add_product'
+    title: 'seller_add_product',
+    session: display,
+    company: req.session._company_number
   });
 });
 
@@ -148,7 +153,9 @@ router.post('/seller_add_product', up_img.array('product_img', 3), function(req,
 
 router.get('/seller_page', function(req, res) {
   console.log('seller_page . path loaded');
-
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
   connection.query('SELECT * FROM product WHERE seller_id = ?', req.session._id,
     function(error, result, fields) {
       if (error) {
@@ -160,7 +167,9 @@ router.get('/seller_page', function(req, res) {
         console.log(result);
         res.render('seller_page', {
           title: 'seller_page',
-          result: result
+          result: result,
+          session: display,
+          company: req.session._company_number
         });
       }
     });
@@ -227,7 +236,8 @@ router.get('/product-page', function(req, res) {
                   total_grade: total_grade,
                   review_cnt: len,
                   session: display,
-                  review_check:check
+                  review_check:check,
+                  company: req.session._company_number
                 });
               }
             });
@@ -261,6 +271,9 @@ router.post('/product-page', function(req, res, next){
 
 router.get('/seller_modify_product', function(req, res) {
   console.log('seller_modify_product . page loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
   connection.query('SELECT * FROM product WHERE product_no = ?', req.query.product_no,
     function(error, result, fields) {
       if (error) {
@@ -273,7 +286,9 @@ router.get('/seller_modify_product', function(req, res) {
         res.render('seller_modify_product', {
           title: 'seller_modify_product',
           result: result,
-          p_no: req.query.product_no
+          p_no: req.query.product_no,
+          session: display,
+          company: req.session._company_number
         });
       }
     });
@@ -322,6 +337,9 @@ router.post('/api/delete_product', function (req, res) {
 router.get('/more_review', function(req, res) {
   console.log('more_review . path loaded');
   var date=[]
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
   connection.query('SELECT * FROM review WHERE product_no = ?', req.query.product_no,
     function(error, result, fields) {
       if (error) {
@@ -340,7 +358,9 @@ router.get('/more_review', function(req, res) {
         res.render('more_review', {
           title: 'more_review',
           review: result,
-          date: date
+          date: date,
+          session: display,
+          company: req.session._company_number
         });
       }
      });
