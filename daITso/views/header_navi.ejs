@@ -99,15 +99,17 @@
 								<a href="/logout" class="text-uppercase">로그아웃</a>
 							
 							<ul class="custom-menu">
-								<li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 							<% if(company != "") {%>	<!-- if seller -->
+								<li><a href="/view_info_seller"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 								<li><a href="#"><i class="fa fa-check"></i> 판매내역 / 매출통계</a></li>
 							<% } else {%>
 								<% if(session == "admin님, 안녕하세요!") {%> <!-- if admin -->
+									<li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 									<li><a href="#"><i class="fa fa-list"></i>구매자 목록 조회</a></li>
 									<li><a href="#"><i class="fa fa-list"></i>판매자 목록 조회</a></li>
 									<li><a href="#"><i class="fa fa-star"></i>포인트 충전 관리 </a></li>
 								<% } else { %>	<!-- if customer -->
+									<li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 									<li><a href="#"><i class="fa fa-exchange"></i> 구매내역 조회</a></li>
 									<li><a href="#"><i class="fa fa-star"></i>포인트 충전 신청 </a></li>
 								<% } %>

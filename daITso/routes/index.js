@@ -712,19 +712,27 @@ router.get('/shoppingcart', function (req, res) {
       else {
         console.log(result);
         var len = result.length;
-        for (var i = 0; i < len; i++) {
-          connection.query(sql, result[i].product_no, function (error2, result_temp, fields) {
-            result2[cnt++] = result_temp;
-            if (cnt == len) {
-              res.render('shoppingcart', {
-                title: 'shoppingcart',
-                result2: result2,
-                result: result
-              });
-              console.log(result2[1][0]);
-              console.log(result[0]);
-            }
+        if (len == 0) {
+          res.render('shoppingcart', {
+            title: 'shoppingcart',
+            result2: 0,
+            result: 0
           });
+        } else {
+          for (var i = 0; i < len; i++) {
+            connection.query(sql, result[i].product_no, function (error2, result_temp, fields) {
+              result2[cnt++] = result_temp;
+              if (cnt == len) {
+                res.render('shoppingcart', {
+                  title: 'shoppingcart',
+                  result2: result2,
+                  result: result
+                });
+                //console.log(result2[1][0]);
+                //console.log(result[0]);
+              }
+            });
+          }
         }
       }
     });
@@ -734,10 +742,13 @@ router.get('/shoppingcart', function (req, res) {
 router.post('/api/modify_quantity_num', function (req, res) {
   var data = req.body.data;
   var data2 = req.body.data2;
+  var data3 = req.body.data3;
   console.log('modify Parameter1 = ' + data);
   console.log('modify Parameter2 = ' + data2);
+  console.log('modify Parameter3 = ' + data3);
 
-  var query = connection.query('update shoppingcart set shoppingcart_quantity=' + data2 + ' where product_no='
+  var query = connection.query('update shoppingcart set shoppingcart_quantity=' + data2 + ', order_amount = ' + data3
+    + ' where product_no='
     + data + ';',
     function (err, rows) {
       if (err) { throw err; }
@@ -794,23 +805,42 @@ router.get('/purchase', function (req, res) {
               });
             }
             else {
-              console.log(result);
-              var len = result.length;
-              for (var i = 0; i < len; i++) {
-                connection.query(sql, result[i].product_no, function (error2, result_temp, fields) {
-                  result2[cnt++] = result_temp;
-                  if (cnt == len) {
-                    res.render('purchase', {
-                      title: 'purchase',
-                      result3: result3,
-                      result2: result2,
-                      result: result
+              var display = [];
+              if (result.length == 0) {
+                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                res.write("<script>");
+                res.write("alert('장바구니에 먼저 상품을 담으세요!'); location.href='/shoppingcart';");
+                res.write("</script>");
+                return;
+              }
+              else {
+                console.log(result);
+                var len = result.length;
+                for (var i = 0; i < len; i++) {
+                  connection.query(sql, result[i].product_no,
+                    function (error2, result_temp, fields) {
+                      if (error) {
+                        res.send({
+                          code: 400,
+                          failed: "error ocurred"
+                        });
+                      }
+                      else {
+                        result2[cnt++] = result_temp;
+                        if (cnt == len) {
+                          res.render('purchase', {
+                            title: 'purchase',
+                            result3: result3,
+                            result2: result2,
+                            result: result
+                          });
+                          //console.log(result3);
+                          //console.log(result2[1][0]);
+                          //console.log(result[0]);
+                        }
+                      }
                     });
-                    console.log(result3);
-                    console.log(result2[1][0]);
-                    console.log(result[0]);
-                  }
-                });
+                }
               }
             }
           });
@@ -821,19 +851,36 @@ router.get('/purchase', function (req, res) {
 /* POST purchase page. */
 router.post('/purchase', function (req, res, next) {
   console.log('# User purchase reuqest arrive.');
-  console.log(req.body);
-  var sql = 'select * from shoppingcart';
-  
+  console.log(req.body.delivery_memo);
+  var body = req.body;
+  var customer_memo = body.delivery_memo;
+
+  var query = connection.query('insert into transaction (product_no, customer_id, transaction_quantity, order_amount)'
+    + ' select product_no, customer_id, shoppingcart_quantity, order_amount' + ' from shoppingcart'
+    + ' where customer_id = ?', req.session._id,
+    function (err, rows) {
+      if (err) { throw err; }
+      else {
+        var query_2 = connection.query('update transaction set delivery_memo= ' + connection.escape(customer_memo)
+          + ' where customer_id = ?', req.session._id,
+          function (err, rows) {
+            if (err) { throw err; }
+            else {
+              var query_3 = connection.query('update product, transaction' 
+                + ' set purchase_count = purchase_count + transaction_quantity'
+                + ' where product.product_no = transaction.product_no' + ';',
+                function (err, rows) {
+                  if (err) { throw err; }
+                  else {
+                  }
+                });
+            }
+          });
+      }
+      console.log("Purchase Complete!");
+    });
+  res.redirect('/purchase_check');
 });
-
-router.post('/insert_shoppingcart', function(req,res){
-  console.log('# User insert shoppping cart');
-
-
-//   insert into shoppingcart values(3,'admin',2,251000);
-// insert into shoppingcart values(4,'admin',1,748000);
-// insert into shoppingcart values(5,'admin',6,468000);
-})
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   TEST SECTION                                      //
