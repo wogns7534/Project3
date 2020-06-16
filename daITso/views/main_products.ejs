@@ -652,15 +652,21 @@
 							<% if(products.length == 0) { %>
 								<h4 class="text-center">등록된 상품 정보가 없습니다.</h4>
 							<% } else { %>
-								<% if(page_size == 12) var psize=3;
-								  else var psize=4; %>
+								<% var psize=4;
+								   if(page_size == 12) psize=3; %>
 							<% for(var i = (current_page-1)*page_size; i < (current_page)*page_size; i++){ %>
 							<%	if(products.length == i) break; %>
 								<div class="col-md-<%=psize%> col-sm-6 col-xs-6">
 									<div class="product product-single">
 										<div class="product-thumb">
 											<div class="product-label">
-												<!-- <span>신상</span> -->
+												<% var date = new Date(); %>
+												<% if( date.getDate() - products[i].registration_time.getDate() < 3 ) {%>
+												<span>New!</span>
+												<% } %>
+												<% if(products[i].product_sale != 0){ %>
+												<span class="sale"><%=products[i].product_sale%>%</span>
+												<% } %>
 											</div>
 											<!-- <input type="hidden" name="product_no" value="1"/> -->
 											<button class="main-btn quick-view" ><i class="fa fa-search-plus"></i> 상세 보기</button>

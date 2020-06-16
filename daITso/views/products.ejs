@@ -760,7 +760,15 @@
 									<div class="product product-single">
 										<div class="product-thumb">
 											<div class="product-label">
-												<!-- <span>신상</span> -->
+												<div class="product-label">
+													<% var date = new Date(); %>
+													<% if( date.getDate() - products[i].registration_time.getDate() < 3 ) {%>
+													<span>New!</span>
+													<% } %>
+													<% if(products[i].product_sale != 0){ %>
+													<span class="sale"><%=products[i].product_sale%>%</span>
+													<% } %>
+												</div>
 											</div>
 											<!-- <input type="hidden" name="product_no" value="1"/> -->
 											<button class="main-btn quick-view" ><i class="fa fa-search-plus"></i> 상세 보기</button>

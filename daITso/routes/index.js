@@ -42,68 +42,6 @@ var up_img = multer({storage:storage});
 
 connection.connect();
 
-
-/////////////////////////////////////////////////////////////////////////////////////////
-//                                   MAIN SEARCH SECTION                               //
-/////////////////////////////////////////////////////////////////////////////////////////
-router.get('/main_search', function(req, res){
-  var order_query = req.query.order_by;
-  var order_sort = "ASC";
-
-  if(req.query.order_by == "purchase_count") order_sort = "DESC";
-  if(req.query.order_by == "total_grade") order_sort = "DESC";
-  if(req.query.order_by == "registration_time") order_sort = "DESC";
-  if(req.query.order_by == "product_price_low") order_query = "product_sale_price";
-  if(req.query.order_by == "product_price_high") {
-    order_sort = "DESC";
-    order_query = "product_sale_price"
-  }
-
-  var start_page = Math.ceil(req.query.page/5) * 5 - 4;
-  var end_page = start_page + 4;
-
-  var default_sprice = 0;
-  var default_eprice = 99999999;
-  if(req.query.sprice != "") default_sprice = req.query.sprice;
-  if(req.query.eprice != "") default_eprice = req.query.eprice;
-
-  var default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? ORDER BY ? ? ";
-  var query_array = [default_sprice, default_eprice, order_query, order_sort];
-
-
-  if(req.query.main_search != "") {
-    default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? and product_name like ? ORDER BY ? ?";
-    query_array = [default_sprice, default_eprice, "%"+req.query.main_search+"%", order_query, order_sort];
-  }
-
-  console.log(default_query);
-  console.log(query_array);
-  connection.query(default_query, query_array,
-  function( error, result, fields) {
-      if (error) {
-          res.send({
-              code: 400,
-              failed: "error ocurred"
-          });
-      } else {
-          console.log(result);
-          res.render('main_products', {
-            title : 'main_products',
-            total_page : Math.ceil(result.length / req.query.page_size),
-            current_page : req.query.page,
-            page_size: req.query.page_size,
-            start_page : start_page,
-            end_page : end_page,
-            order_by : req.query.order_by,
-            main_search : req.query.main_search,
-            sprice : default_sprice,
-            eprice : default_eprice,
-            products : result
-          });
-      }    
-  });
-});
-
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   PRODUCT SECTION                                   //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -288,6 +226,64 @@ router.get('/index', function(req, res) {
   });
 });
 
+router.get('/main_search', function(req, res){
+  var order_query = req.query.order_by;
+  var order_sort = "ASC";
+
+  if(req.query.order_by == "purchase_count") order_sort = "DESC";
+  if(req.query.order_by == "total_grade") order_sort = "DESC";
+  if(req.query.order_by == "registration_time") order_sort = "DESC";
+  if(req.query.order_by == "product_price_low") order_query = "product_sale_price";
+  if(req.query.order_by == "product_price_high") {
+    order_sort = "DESC";
+    order_query = "product_sale_price"
+  }
+
+  var start_page = Math.ceil(req.query.page/5) * 5 - 4;
+  var end_page = start_page + 4;
+
+  var default_sprice = 0;
+  var default_eprice = 99999999;
+  if(req.query.sprice != "") default_sprice = req.query.sprice;
+  if(req.query.eprice != "") default_eprice = req.query.eprice;
+
+  var default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? ORDER BY ? ? ";
+  var query_array = [default_sprice, default_eprice, order_query, order_sort];
+
+
+  if(req.query.main_search != "") {
+    default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? and product_name like ? ORDER BY ? ?";
+    query_array = [default_sprice, default_eprice, "%"+req.query.main_search+"%", order_query, order_sort];
+  }
+
+  console.log(default_query);
+  console.log(query_array);
+  connection.query(default_query, query_array,
+  function( error, result, fields) {
+      if (error) {
+          res.send({
+              code: 400,
+              failed: "error ocurred"
+          });
+      } else {
+          console.log(result);
+          res.render('main_products', {
+            title : 'main_products',
+            total_page : Math.ceil(result.length / req.query.page_size),
+            current_page : req.query.page,
+            page_size: req.query.page_size,
+            start_page : start_page,
+            end_page : end_page,
+            order_by : req.query.order_by,
+            main_search : req.query.main_search,
+            sprice : default_sprice,
+            eprice : default_eprice,
+            products : result
+          });
+      }    
+  });
+});
+
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   LOGIN SECTION                                     //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -438,9 +434,9 @@ router.get('/FAQ', function(req, res){
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   TEST SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
-router.get('/test', function(req, res){
+router.get('/view_info_c', function(req, res){
   console.log('sex');
-  res.render('transaction_log', {
+  res.render('view_customerlist_admin', {
     title: 'transaction_log'
   });
 });
