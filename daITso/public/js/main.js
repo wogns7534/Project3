@@ -136,6 +136,37 @@
     });
   });
 
+  $(document).on('click', "#price_slider_btn", function(){
+    // $("#sprice").val()
+    // $("#bprice").val()
+
+    // $.ajax({
+    //   url: "/checksum_seller",
+    //   dataType: "json",
+    //   type: "POST",
+    //   data:$('#login_seller').serialize(),
+
+    //   success: function(data) {
+    //       if(data.message == "password"){
+    //         alert("비밀번호가 일치하지 않습니다.");
+    //         return;
+    //       }
+    //       if(data.message == "failed"){
+    //         alert("계정정보가 존재하지 않습니다.");
+    //         return;
+    //       }
+    //       if(data.message == "success"){
+    //         alert("환영합니다, " + $("#id").val() + "님!");
+    //         location.href="/index";
+    //       }
+          
+    //   },
+    //   error: function(request, status, error) {
+    //       alert(request.status + "  /  " + error);
+    //   }
+    // });
+  });
+
 
   // HOME SLICK
   $('#home-slick').slick({
@@ -233,7 +264,7 @@
       tooltips: [true, true],
       format: {
         to: function(value) {
-          return parseInt(value) + ' 만원';
+          return parseInt(value) + "만원";
         },
         from: function(value) {
           return value

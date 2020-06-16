@@ -45,12 +45,11 @@
 		<div id="top-header">
 			<div class="container">
 				<div class="pull-left">
-					<span><a href="index.html">당신이 원하는 PC, 여기 daITso!</a></span>
+					<span><a href="/">당신이 원하는 PC, 여기 daITso!</a></span>
 				</div>
 				<div class="pull-right">
 					<ul class="header-top-links">
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">FAQ</a></li>
+						<li><a href="/FAQ">FAQ</a></li>
 						<li><a href="#">고객센터</a></li>
 					</ul>
 				</div>
@@ -64,7 +63,7 @@
 				<div class="pull-left">
 					<!-- Logo -->
 					<div class="header-logo">
-						<a class="logo" href="#">
+						<a class="logo" href="/">
 							<img src="./img/logo.png" alt="">
 						</a>
 					</div>
@@ -72,9 +71,14 @@
 
 					<!-- Search -->
 					<div class="header-search">
-						<form>
-							<input class="input search-input" type="text" placeholder="검색 상품을 입력해주세요">
-							<button class="search-btn"><i class="fa fa-search"></i></button>
+						<form action="/main_search" method="get" id="main_search" name="main_search">
+							<input type="hidden" name="page" value="1"/>
+							<input type="hidden" name="page_size" value="6"/>
+							<input type="hidden" name="order_by" value="purchase_count"/>
+							<input type="hidden" name="sprice" value=""/>
+							<input type="hidden" name="eprice" value=""/>
+							<input name="main_search" class="input search-input" type="text" placeholder="검색 상품을 입력해주세요">
+							<button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
 						</form>
 					</div>
 					<!-- /Search -->
@@ -90,17 +94,14 @@
 								<strong class="text-uppercase"><%=session%><i class="fa fa-caret-down"></i></strong>
 							</div>
 							<% if(session == '계정정보 관리메뉴'){%>
-								<a href="/login" class="text-uppercase">로그인</a> / <a href="#" class="text-uppercase">회원가입</a>
+								<a href="/login" class="text-uppercase">로그인</a> / <a href="/join" class="text-uppercase">회원가입</a>
 							<% } else { %>
 								<a href="/logout" class="text-uppercase">로그아웃</a>
 							<% } %>	
 							<ul class="custom-menu">
-								<li><a href="#"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
-								<li><a href="#"><i class="fa fa-heart-o"></i> 위시 리스트</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> 배송(판매) 내역</a></li>
-								<li><a href="#"><i class="fa fa-check"></i> 구매/판매 내역</a></li>
-								<li><a href="#"><i class="fa fa-unlock-alt"></i> 로그인</a></li>
-								<li><a href="#"><i class="fa fa-user-plus"></i> 회원가입</a></li>
+								<!-- <li><a href="/view_info_customer?<%=111111111111%>"><i class="fa fa-user-o"></i> 내 계정정보</a></li> -->
+								<!-- <li><a href="#"><i class="fa fa-exchange"></i> 배송(판매) 내역</a></li>
+								<li><a href="#"><i class="fa fa-check"></i> 구매/판매 내역</a></li> -->
 							</ul>
 						</li>
 						<!-- /Account -->
@@ -110,42 +111,11 @@
 							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 								<div class="header-btns-icon">
 									<i class="fa fa-shopping-cart"></i>
-									<span class="qty">3</span>
 								</div>
 								<strong class="text-uppercase">장바구니</strong>
 								<br>
-								<span>목록보기</span>
+								<span><a href="#">살펴보기</a></span>
 							</a>
-							<div class="custom-menu">
-								<div id="shopping-cart">
-									<div class="shopping-cart-list">
-										<div class="product product-widget">
-											<div class="product-thumb">
-												<img src="./img/thumb-product01.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-											</div>
-											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
-										</div>
-										<div class="product product-widget">
-											<div class="product-thumb">
-												<img src="./img/thumb-product01.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-											</div>
-											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
-										</div>
-									</div>
-									<div class="shopping-cart-btns">
-										<button class="main-btn">View Cart</button>
-										<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
-									</div>
-								</div>
-							</div>
 						</li>
 						<!-- /Cart -->
 
@@ -180,11 +150,11 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">daITso 조립PC - 100만원 이하</h3></li>
-											<li><a href="#">20만원 이하 조립PC</a></li>
-											<li><a href="#">30만원 이하 조립PC</a></li>
-											<li><a href="#">50만원 이하 조립PC</a></li>
-											<li><a href="#">80만원 이하 조립PC</a></li>
-											<li><a href="#">100만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=200000">20만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=200001&eprice=300000">30만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=300001&eprice=500000">50만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=500001&eprice=800000">80만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=800001&eprice=1000000">100만원 이하 조립PC</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -192,11 +162,11 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">daITso 조립PC - 100만원 이상</h3></li>
-											<li><a href="#">120만원 이하 조립PC</a></li>
-											<li><a href="#">150만원 이하 조립PC</a></li>
-											<li><a href="#">180만원 이하 조립PC</a></li>
-											<li><a href="#">200만원 이하 조립PC</a></li>
-											<li><a href="#">250만원 이상 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1000001&eprice=1200000">120만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1200001&eprice=1500000">150만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1500001&eprice=1800000">180만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1800001&eprice=2000000">200만원 이하 조립PC</a></li>
+											<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=2500001&eprice=">250만원 이상 조립PC</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -221,23 +191,20 @@
 									<div class="col-md-4">
 										<ul class="list-links">
 											<li><h3 class="list-links-title">WINDOWS10 탑재PC</h3></li>
-											<li><a href="#">30~60만원대 탑재PC</a></li>
-											<li><a href="#">70~80만원대 탑재PC</a></li>
-											<li><a href="#">90~100만원대 탑재PC</a></li>
-											<li><a href="#">100~120만원대 탑재PC</a></li>
-											<li><a href="#">130~150만원대 탑재PC</a></li>
-											<li><a href="#">160만원 이상 탑재PC</a></li>	
+											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=300000&eprice=699999">30~60만원대 탑재PC</a></li>
+											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=700000&eprice=899999">70~80만원대 탑재PC</a></li>
+											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=900000&eprice=1099999">90~100만원대 탑재PC</a></li>
+											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1000000&eprice=1299999">100~120만원대 탑재PC</a></li>
+											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1300000&eprice=1599999">130~150만원대 탑재PC</a></li>
+											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 탑재PC</a></li>	
 										</ul>
 										
 										<hr class="hidden-md hidden-lg">
 									</div>
-									<div class="col-md-4">
-										<ul class="list-links">
-											<li>
-												<h3 class="list-links-title">Intel vs AMD</h3></li>
-											<li><a href="#">Intel 계열 PC</a></li>
-											<li><a href="#">AMD 계열 PC</a></li>
-										</ul>
+									<div class="col-md-4 hidden-sm hidden-xs">
+										<a class="banner banner-2" href="#">
+											<img src="./img/banner_mypccafe.jpg" alt="">
+										</a>
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
@@ -256,22 +223,19 @@
 									<div class="col-md-4">
 										<ul class="list-links">
 											<li><h3 class="list-links-title">본체 + 모니터 패키지</h3></li>
-											<li><a href="#">30~60만원대 패키지</a></li>
-											<li><a href="#">70~80만원대 패키지</a></li>
-											<li><a href="#">90~100만원대 패키지</a></li>
-											<li><a href="#">100~120만원대 패키지</a></li>
-											<li><a href="#">130~150만원대 패키지</a></li>
-											<li><a href="#">160만원 이상 패키지</a></li>	
+											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=300000&eprice=699999">30~60만원대 패키지</a></li>
+											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=700000&eprice=899999">70~80만원대 패키지</a></li>
+											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=900000&eprice=1099999">90~100만원대 패키지</a></li>
+											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1000000&eprice=1299999">100~120만원대 패키지</a></li>
+											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1300000&eprice=1599999">130~150만원대 패키지</a></li>
+											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 패키지</a></li>	
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
-									<div class="col-md-4">
-										<ul class="list-links">
-											<li>
-												<h3 class="list-links-title">Intel vs AMD</h3></li>
-											<li><a href="#">Intel 계열 PC</a></li>
-											<li><a href="#">AMD 계열 PC</a></li>
-										</ul>
+									<div class="col-md-4 hidden-sm hidden-xs">
+										<a class="banner banner-2" href="#">
+											<img src="./img/banner_highend.jpg" alt="">
+										</a>
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
 										<a class="banner banner-2" href="#">
@@ -291,15 +255,15 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">컴퓨터 주요부품</h3></li>
-											<li><a href="#">CPU</a></li>
-											<li><a href="#">메인보드</a></li>
-											<li><a href="#">메모리</a></li>
-											<li><a href="#">그래픽카드</a></li>
-											<li><a href="#">SSD</a></li>
-											<li><a href="#">하드디스크</a></li>
-											<li><a href="#">케이스</a></li>
-											<li><a href="#">파워서플라이</a></li>
-											<li><a href="#">공/수냉 쿨러</a></li>
+											<li><a href="/products?sdiv_no=41&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">CPU</a></li>
+											<li><a href="/products?sdiv_no=42&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">메인보드</a></li>
+											<li><a href="/products?sdiv_no=43&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">메모리</a></li>
+											<li><a href="/products?sdiv_no=44&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">그래픽카드</a></li>
+											<li><a href="/products?sdiv_no=45&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">SSD</a></li>
+											<li><a href="/products?sdiv_no=46&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">하드디스크</a></li>
+											<li><a href="/products?sdiv_no=47&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">케이스</a></li>
+											<li><a href="/products?sdiv_no=48&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">파워서플라이</a></li>
+											<li><a href="/products?sdiv_no=49&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">공/수냉 쿨러</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -329,10 +293,10 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">키보드 ㆍ 마우스 ㆍ 주변기기</h3></li>
-											<li><a href="#">키보드</a></li>
-											<li><a href="#">마우스</a></li>
-											<li><a href="#">키보드 + 마우스 세트</a></li>
-											<li><a href="#">외장형 저장장치</a></li>
+											<li><a href="/products?sdiv_no=51&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">키보드</a></li>
+											<li><a href="/products?sdiv_no=52&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">마우스</a></li>
+											<li><a href="/products?sdiv_no=53&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">키보드 + 마우스 세트</a></li>
+											<li><a href="/products?sdiv_no=54&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">외장형 저장장치</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -362,10 +326,7 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">모니터 ㆍ 악세서리</h3></li>
-											<li><a href="#">19~22인치 모니터</a></li>
-											<li><a href="#">24~26인치 모니터</a></li>
-											<li><a href="#">27~29인치 모니터</a></li>
-											<li><a href="#">30~39인치 모니터</a></li>
+											<li><a href="/products?sdiv_no=61&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">19인치에서 39인치 다양한 모니터</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -395,11 +356,8 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">게이밍 의자 ㆍ 책상 </h3></li>
-											<li><a href="#">제닉스</a></li>
-											<li><a href="#">ABKO HACKER</a></li>
-											<li><a href="#">GEEKSTAR</a></li>
-											<li><a href="#">기타브랜드</a></li>
-											<li><a href="#">제닉스 게이밍 책상 ㆍ 스툴</a></li>
+											<li><a href="/products?sdiv_no=71&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">게이밍 의자</a></li>
+											<li><a href="/products?sdiv_no=72&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">게이밍 책상</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -429,9 +387,9 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">프린터 ㆍ 복합기 ㆍ 스캐너 </h3></li>
-											<li><a href="#">레이저/잉크젯 프린터</a></li>
-											<li><a href="#">복합기</a></li>
-											<li><a href="#">스캐너</a></li>
+											<li><a href="/products?sdiv_no=81&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">레이저/잉크젯 프린터</a></li>
+											<li><a href="/products?sdiv_no=82&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">복합기</a></li>
+											<li><a href="/products?sdiv_no=83&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">스캐너</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -459,10 +417,10 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">음향 ㆍ 방송용 장비 </h3></li>
-											<li><a href="#">스피커</a></li>
-											<li><a href="#">마이크</a></li>
-											<li><a href="#">헤드셋 ㆍ 이어폰</a></li>
-											<li><a href="#">사운드카드</a></li>
+											<li><a href="/products?sdiv_no=91&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">스피커</a></li>
+											<li><a href="/products?sdiv_no=92&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">마이크</a></li>
+											<li><a href="/products?sdiv_no=93&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">헤드셋 ㆍ 이어폰</a></li>
+											<li><a href="/products?sdiv_no=94&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">사운드카드</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -492,10 +450,10 @@
 										<ul class="list-links">
 											<li>
 												<h3 class="list-links-title">네트워크 ㆍ 공유기 </h3></li>
-											<li><a href="#">공유기</a></li>
-											<li><a href="#">랜 카드</a></li>
-											<li><a href="#">랜 케이블</a></li>
-											<li><a href="#">스위칭 허브</a></li>
+											<li><a href="/products?sdiv_no=101&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">공유기</a></li>
+											<li><a href="/products?sdiv_no=102&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">랜 카드</a></li>
+											<li><a href="/products?sdiv_no=103&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">랜 케이블</a></li>
+											<li><a href="/products?sdiv_no=104&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">스위칭 허브</a></li>
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -526,11 +484,10 @@
 				<div class="menu-nav">
 					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
 					<ul class="menu-list">
-						<li><a href="#">베스트 PC</a></li>
-						<li><a href="#">이벤트 PC</a></li>
-						<li><a href="#">게임별 PC</a></li>
-						<li><a href="#">사무용 PC</a></li>
-						<li><a href="#">전문가용 PC</a></li>
+						<li><a href="/main_search?page=1&page_size=6&order_by=purchase_count&main_search=&sprice=&eprice=">베스트 상품</a></li>
+						<li><a href="/main_search?page=1&page_size=6&order_by=total_grade&main_search=&sprice=&eprice=">평점킹 상품</a></li>
+						<li><a href="/main_search?page=1&page_size=6&order_by=product_price_low&main_search=&sprice=&eprice=">착한 가격 상품</a></li>
+						<li><a href="/products?sdiv_no=11&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=&eprice=">daITso 추천 상품!</a></li>
 					</ul>
 				</div>
 				<!-- menu nav -->
@@ -1209,7 +1166,7 @@
 					<div class="footer">
 						<h3 class="footer-header">SW Project3 information</h3>
 						<ul class="list-links">
-							<li><a href="#">Team Github Repository</a></li>
+							<li><a href="https://github.com/wogns7534/project3">Team Github Repository</a></li>
 							<li><a href="#">Team SW Project3 Presentation</a></li>
 						</ul>
 					</div>
@@ -1223,10 +1180,10 @@
 					<div class="footer">
 						<h3 class="footer-header">Team members</h3>
 						<ul class="list-links">
-							<li><a href="#">2015722001 주재훈 - 팀장</a></li>
-							<li><a href="#">2015722099 박동현 - 팀원</a></li>
-							<li><a href="#">2015722065 최진호 - 팀원</a></li>
-							<li><a href="#">2015722010 최현구 - 팀원</a></li>
+							<li><a href="https://github.com/wogns7534">2015722001 주재훈 - 팀장</a></li>
+							<li><a href="https://github.com/pdache">2015722099 박동현 - 팀원</a></li>
+							<li><a href="https://github.com/wlsgh6346">2015722065 최진호 - 팀원</a></li>
+							<li><a href="https://github.com/hyeon9mak">2015722010 최현구 - 팀원</a></li>
 						</ul>
 					</div>
 				</div>
@@ -1235,12 +1192,13 @@
 				<!-- footer subscribe -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="footer">
-						<h3 class="footer-header">Used Languages</h3>
+						<h3 class="footer-header">Used Tech & LANGUAGE</h3>
 						<ul class="list-links">
-							<li><a href="#">JavaScript</a></li>
-							<li><a href="#">HTML</a></li>
-							<li><a href="#">CSS</a></li>
-							<li><a href="#">PHP</a></li>
+							<li><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript"></a>JavaScript</a></li>
+							<li><a href="https://ko.wikipedia.org/wiki/HTML">HTML</a></li>
+							<li><a href="https://developer.mozilla.org/ko/docs/Web/CSS">CSS</a></li>
+							<li><a href="https://jquery.com/">JQUERY</a></li>
+							<li><a href="https://ko.wikipedia.org/wiki/Ajax">AJAX</a></li>
 						</ul>
 					</div>
 				</div>
