@@ -531,7 +531,7 @@
 		<div class="container">
 			<ul class="breadcrumb">
 				<li><a href="/">&nbsp 홈</a></li>
-				<li class="active"> 고객센터</li>
+				<li class="active"> <a href="/QA">고객센터</a></li>
 			</ul>
 		</div>
 	</div>
@@ -543,53 +543,72 @@
 		<!-- container -->
 		<div class="container">
 			<!-- row -->
-			<div class="col-md-12 text-center">
-				<img src="/img/banner_qa.jpg" style="width: 20%;">
-				<br><br><br>
-				<h2>문의 사항이 있으신가요?</h2>
-				<h1 class="title">고객센터</h1>
-				<hr>
-			</div>
-			<div class="pull-right">
-				<br><a class="primary-btn" href='/QA_add'>문의 등록</a><br><br>
-			</div>
 			<div class="row">
-				<form id="checkout-form" class="clearfix" action="/QA_add" method="POST">
+				<form id="checkout-form" class="clearfix">
 					<div class="col-md-12">
-						<div class="shiping-methods">
-
-							<table class="shopping-cart-table table">
-								<thead>
-								<tr>
-								  <td>번호</td>
-								  <td style="width: 60%;">제목</td>
-								  <td>작성자</td>
-								  <td>답변여부</td>
-								</tr>
-							</thead>
-							<tbody>
-								<% if(qa.length==0){ %>
-									<tr><td></td><td class=details>
-										등록된 문의가 없습니다.
-									</td><td></td><td></td></tr>
-									<% } else{%>
-								<% for(var i=0; i< qa.length; i++){ %>
-								<tr>
-								  <td><%=qa[i].QA_no%></td>
-									<% if(user==qa[i].QA_writer){ %>
-								  	<td><a href="/QA_read?QA_no=<%= qa[i].QA_no %>"><%=qa[i].QA_title%></a></td>
-									<% } else{ %>
-										<td><a><%=qa[i].QA_title%> </a><img src="./img/icon_secret.gif" align="absmiddle"></td>
-										<% } %>
-								  <td><a><%=qa[i].QA_writer%></a></td>
-								  <td><a><%=qa[i].QA_check%></a></td>
-								</tr>
-								<% } } %>
-							</tbody>
-							  </table>
-						</div>
+            <div class="billing-details">
+               <div class="section-title">
+                  <h3 class="title">문의 글 상세보기</h3>
+               </div>
+               <br>
+               <div class="form-group">
+                  <h4> 작성자 </h4>
+                  <h5><%= qa.QA_writer %></h5>
+               </div>
+               <br>
+               <div class="form-group">
+                  <h4> 제목 </h4>
+                  <h5><%= qa.QA_title %></h5>
+               </div>
+               <br>
+               <div class="form-group">
+                  <h4> 내용 </h4>
+                  <h5><%= qa.QA_content %></h5>
+               </div>
+               <br><br><br>
+            </div>
 					</div>
 				</form>
+        <% if((user=="admin")&&(qa.QA_reply==null)){ %>
+        <form id="QA_reply-form" class="clearfix" method="POST" action="/QA_read">
+          <div class="col-md-12">
+            <div class="billing-details">
+              <div class="section-title">
+                 <h3 class="title">답변</h3>
+              </div>
+              <div class="form-group">
+								<h4 class="pull-left"> 답변 작성자: <%=user %></h4>
+							</div>
+              <br><br>
+              <div class="form-group">
+                <h4> 답변 내용 </h4>
+                <textarea class="inputt" name="QA_reply" id=QA_reply
+                  placeholder="답변 내용을 입력하세요"></textarea>
+              </div>
+            </div>
+            <input type="hidden" id="QA_no" name="QA_no" value="<%=qa.QA_no%>">
+            <input type="submit" value="답변 등록" class="primary-btn" id="reply_add" name="reply_add">
+          </div>
+        </form>
+        <% }
+        if(qa.QA_reply!=null){ %>
+          <div class="col-md-12">
+            <div class="billing-details">
+              <div class="section-title">
+                 <h3 class="title">답변</h3>
+              </div>
+              <div class="form-group">
+								<h4 class="pull-left"> 답변 작성자: <%=qa.QA_reply_writer %></h4>
+							</div>
+              <br><br>
+              <div class="form-group">
+                <h4> 답변 내용 </h4>
+                <h5><%=qa.QA_reply%></h5>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
 			</div>
 			<!-- /row -->
 

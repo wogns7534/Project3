@@ -531,188 +531,42 @@
 		<div class="container">
 			<ul class="breadcrumb">
 				<li><a href="/">&nbsp 홈</a></li>
-				<li class="active"> 고객센터</li>
+				<li class="active"> <a href="/QA">고객센터</a></li>
+        <li><a>문의 등록</a></li>
 			</ul>
 		</div>
 	</div>
     <!-- /BREADCRUMB -->
-
-
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="col-md-12 text-center">
-				<img src="/img/banner_qa.jpg" style="width: 20%;">
-				<br><br><br>
-				<h2>문의 사항이 있으신가요?</h2>
-				<h1 class="title">고객센터</h1>
-				<hr>
-			</div>
-			<div class="pull-right">
-				<br><a class="primary-btn" href='/QA_add'>문의 등록</a><br><br>
-			</div>
-			<div class="row">
-				<form id="checkout-form" class="clearfix" action="/QA_add" method="POST">
-					<div class="col-md-12">
-						<div class="shiping-methods">
-
-							<table class="shopping-cart-table table">
-								<thead>
-								<tr>
-								  <td>번호</td>
-								  <td style="width: 60%;">제목</td>
-								  <td>작성자</td>
-								  <td>답변여부</td>
-								</tr>
-							</thead>
-							<tbody>
-								<% if(qa.length==0){ %>
-									<tr><td></td><td class=details>
-										등록된 문의가 없습니다.
-									</td><td></td><td></td></tr>
-									<% } else{%>
-								<% for(var i=0; i< qa.length; i++){ %>
-								<tr>
-								  <td><%=qa[i].QA_no%></td>
-									<% if(user==qa[i].QA_writer){ %>
-								  	<td><a href="/QA_read?QA_no=<%= qa[i].QA_no %>"><%=qa[i].QA_title%></a></td>
-									<% } else{ %>
-										<td><a><%=qa[i].QA_title%> </a><img src="./img/icon_secret.gif" align="absmiddle"></td>
-										<% } %>
-								  <td><a><%=qa[i].QA_writer%></a></td>
-								  <td><a><%=qa[i].QA_check%></a></td>
-								</tr>
-								<% } } %>
-							</tbody>
-							  </table>
-						</div>
-					</div>
-				</form>
-			</div>
-			<!-- /row -->
-
-
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /section -->
-
-
-
-
-	<!-- FOOTER -->
-	<footer id="footer" class="section section-grey">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<!-- footer logo -->
-						<div class="footer-logo">
-							<a class="logo" href="#">
-		            <img src="./img/logo.png" alt="">
-		          </a>
-						</div>
-						<!-- /footer logo -->
-						<p>광운대학교 컴퓨터정보공학부<br>소프트웨어공학 3차 프로젝트<br>인터넷 쇼핑몰 웹 애플리케이션</p>
-						<!-- footer social -->
-						<!-- <ul class="footer-social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-						</ul> -->
-						<!-- /footer social -->
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">SW Project3 information</h3>
-						<ul class="list-links">
-							<li><a href="#">Team Github Repository</a></li>
-							<li><a href="#">Team SW Project3 Presentation</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<div class="clearfix visible-sm visible-xs"></div>
-
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">Team members</h3>
-						<ul class="list-links">
-							<li><a href="#">2015722001 주재훈 - 팀장</a></li>
-							<li><a href="#">2015722099 박동현 - 팀원</a></li>
-							<li><a href="#">2015722065 최진호 - 팀원</a></li>
-							<li><a href="#">2015722010 최현구 - 팀원</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<!-- footer subscribe -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">Used Languages</h3>
-						<ul class="list-links">
-							<li><a href="#">JavaScript</a></li>
-							<li><a href="#">HTML</a></li>
-							<li><a href="#">CSS</a></li>
-							<li><a href="#">PHP</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer subscribe -->
-			</div>
-			<!-- /row -->
-			<hr>
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<!-- footer copyright -->
-					<div class="footer-copyright">
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved by 주재훈, 박동현, 최진호, 최현구
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</div>
-					<!-- /footer copyright -->
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</footer>
-	<!-- /FOOTER -->
-
-	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/nouislider.min.js"></script>
-	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
-	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-	<script>
-		function openZipSearch() {
-	new daum.Postcode({
-		oncomplete: function(data) {
-			$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
-			$('[name=addr1]').val(data.address);
-			$('[name=addr2]').val(data.buildingName);
-		}
-	}).open();
-}
-	</script>
-
-</body>
-</html>
+<!-- section -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <form id="add_QA-form" class="clearfix" method="POST" action="/QA_add">
+        <div class="col-md-12">
+          <div class="billing-details">
+            <div class="section-title">
+              <h3 class="title">문의 등록</h3>
+            </div>
+            <br>
+            <div class="form-group">
+              <h4> 제목 </h4>
+              <input class="input" type="text" name="QA_title" id="QA_title"
+                placeholder="daITso에 궁금한 점 문의드립니다.">
+            </div>
+            <div class="form-group">
+              <h4> 문의 내용 </h4>
+              <textarea class="inputt" name="QA_content" id=QA_content
+                placeholder="문의할 글의 상세 내용을 입력하세요"></textarea>
+            </div>
+          </div>
+          <input type="submit" value="문의 등록" class="primary-btn" id="QAadd" name="QAadd">
+        </div>
+      </form>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /section -->
