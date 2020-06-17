@@ -761,11 +761,100 @@ router.get('/FAQ', function(req, res){
 
 router.get('/QA', function(req, res){
   console.log('QA load');
-  res.render('QA', {
-    title : 'QA'
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+  var user = req.session._name;
+
+
+  connection.query('SELECT * FROM QA',
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        console.log(result);
+        res.render('QA', {
+          title : 'QA',
+          session: display,
+          company: req.session._company_number,
+          user: user,
+          qa: result
+        });
+      }
+     });
+});
+
+router.get('/QA_read', function(req, res){
+  console.log('QA_read load');
+  var display = [];
+  var user=req.session._id;
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  console.log(req.query);
+  connection.query('SELECT * FROM QA WHERE QA_no=?', req.query.QA_no,
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        console.log(user);
+        console.log(result[0]);
+        res.render('QA_read', {
+          title : 'QA_read',
+          session: display,
+          company: req.session._company_number,
+          qa: result[0],
+          user: user
+        });
+      }
+     });
+});
+
+router.post('/QA_read', function(req, res, next){
+  var QA_reply=req.body.QA_reply;
+  var QA_reply_writer=req.session._id;
+  var QA_no=req.body.QA_no;
+  var QA_check="답변완료";
+  var result = 0;
+  console.log(QA_no+'-----------------');
+  var query = connection.query('update QA set QA_reply='+'"'+QA_reply+'"'+', QA_reply_writer='+'"'+QA_reply_writer+'"'+', QA_check='+'"'+QA_check+'"'+' where QA_no=?',[QA_no],
+    function (err, rows, fields) {
+      if (err) { throw err; }
+      res.redirect('/QA');
+    });
+});
+
+router.get('/QA_add', function(req, res){
+  console.log('QA_add . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+  res.render('QA_add', {
+    title: 'QA_add',
+    session: display,
+    company: req.session._company_number
   });
 });
 
+router.post('/QA_add', function(req, res){
+  console.log('QA_add request arrived!');
+  var QA_writer=req.session._name;
+  var QA_title=req.body.QA_title;
+  var QA_content=req.body.QA_content;
+
+  var query = connection.query('insert into QA(QA_writer, QA_title, QA_content) values(?,?,?)',
+  [QA_writer, QA_title, QA_content],
+    function (err, rows, fields) {
+      if (err) { throw err; }
+      res.redirect('/QA');
+    });
+});
 /////////////////////////////////////////////////////////////////////////////////////////
 //                            SHOPPINGCART, PURCHASE SECTION                           //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -947,7 +1036,7 @@ router.post('/purchase', function (req, res, next) {
             if (err) { throw err; }
             else {
               var query_3 = connection.query('update product, transaction'
-                + ' set purchase_count = purchase_count + (select sum(transaction_quantity) from transaction where customer_id = ' 
+                + ' set purchase_count = purchase_count + (select sum(transaction_quantity) from transaction where customer_id = '
                 + '"' + req.session._id + '"' + ')'
                 + ' where product.product_no = transaction.product_no' + ';',
                 function (err, rows) {
