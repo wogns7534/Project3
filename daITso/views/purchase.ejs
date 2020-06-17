@@ -660,7 +660,7 @@
                   </div>
                </div>
             </div>
-
+            <form class="shoppingcart-form" method="post" action="/purchase">
             <div class="col-md-6">
                <div class="form-group">
                   <br><br><br>
@@ -674,10 +674,8 @@
                </div>
                <div class="form-group">
                   <br><br>
-                  <form action="/purchase" name="delivery_memo" method="POST">
-                     <h4 class="pull-left">배송 메모</h4><br>
-                     <input class="input" type="text" name="delivery_memo" , id="delivery_memo">
-
+                  <h4 class="pull-left">배송 메모</h4><br>
+                  <input class="input" type="text" name="delivery_memo", id="delivery_memo">
                </div>
             </div>
          </div>
@@ -729,11 +727,13 @@
                         <%=(total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원%></h4><br>
                   </tr>
                </div>
+            
                <div class="pull-right">
-                  <input type="submit" value="결제" name="purchase_btn" class="primary-btn" >
-                  <button type="button" class="main-btn" onclick="location.href='/shoppingcart'">취소</button>
+                     <input type="submit" value="결제" class="primary-btn"  >
+                     <button type="button" class="main-btn"
+                     onclick="location.href='/shoppingcart'">취소</button>
                </div>
-               </form>
+            </form>
             </div>
          </div>
       </div>
