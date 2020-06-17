@@ -254,7 +254,7 @@ router.get('/product-page', function(req, res) {
   });
 });
 
-router.post('/product-page', function(req, res, next){
+router.post('/product-page', function (req, res, next) {
   console.log('# product review request arrive.');
   console.log(req.body);
   var body = req.body;
@@ -262,17 +262,40 @@ router.post('/product-page', function(req, res, next){
   var review_comment = body.review_comment;
   var review_grade = body.rating;
   var product_no = body.product_no;
-  var query = connection.query('insert into review (customer_id, product_no, review_comment, review_grade) values("' +
-    customer_id + '","' +
-    product_no + '","' + review_comment + '","' +
-    review_grade + '")',
-    function(err, rows){
-      if(err){
-        throw err;``
-      }
-      console.log("review inserted!");
-    });
-    res.redirect('/product-page?product_no='+product_no);
+  var product_number = body.product_number;
+  var product_sale_price = body.product_sale_price;
+  var product_price = Number(body.product_sale_price) * Number(product_number);
+  console.log(body.product_sale_price);
+  console.log(product_number);
+  console.log(product_price);
+  if (product_number > 0) {
+    var query = connection.query('insert into shoppingcart (product_no, customer_id,  shoppingcart_quantity, order_amount) values("' +
+      product_no + '","' +
+      req.session._id + '","' + product_number + '","' +
+      product_price + '")',
+      function (err, rows) {
+        if (err) {
+          throw err; ``
+        } else {
+          console.log(rows);
+          console.log("shoppingcart inserted!");
+          res.redirect('/shoppingcart');
+        }
+      });
+  } else {
+    var query = connection.query('insert into review (customer_id, product_no, review_comment, review_grade) values("' +
+      customer_id + '","' +
+      product_no + '","' + review_comment + '","' +
+      review_grade + '")',
+      function (err, rows) {
+        if (err) {
+          throw err; ``
+        } else {
+        }
+        console.log("review inserted!");
+      });
+  }
+
 });
 
 router.get('/seller_modify_product', function(req, res) {
@@ -753,6 +776,9 @@ router.get('/shoppingcart', function (req, res) {
   var result2 = new Array();
   var cnt = 0;
   var sql = 'select * from product where product_no=?';
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
   console.log('shoppingcartjs . path loaded');
   connection.query('select * from shoppingcart where customer_id=?', req.session._id,
     function (error, result, fields) {
@@ -779,10 +805,10 @@ router.get('/shoppingcart', function (req, res) {
                 res.render('shoppingcart', {
                   title: 'shoppingcart',
                   result2: result2,
-                  result: result
+                  result: result,
+                  session: display,
+                  company: req.session._company_number
                 });
-                //console.log(result2[1][0]);
-                //console.log(result[0]);
               }
             });
           }
@@ -838,7 +864,9 @@ router.get('/purchase', function (req, res) {
   var result2 = new Array();
   var cnt = 0;
   var sql = 'select * from product where product_no=?';
-
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
   console.log('purchasejs . path loaded');
   connection.query('select * from customer where customer_id=?', req.session._id,
     function (error, result3, fields) {
@@ -885,11 +913,10 @@ router.get('/purchase', function (req, res) {
                             title: 'purchase',
                             result3: result3,
                             result2: result2,
-                            result: result
+                            result: result,
+                            session: display,
+                            company: req.session._company_number
                           });
-                          //console.log(result3);
-                          //console.log(result2[1][0]);
-                          //console.log(result[0]);
                         }
                       }
                     });
@@ -920,11 +947,13 @@ router.post('/purchase', function (req, res, next) {
             if (err) { throw err; }
             else {
               var query_3 = connection.query('update product, transaction'
-                + ' set purchase_count = purchase_count + transaction_quantity'
+                + ' set purchase_count = purchase_count + (select sum(transaction_quantity) from transaction where customer_id = ' 
+                + '"' + req.session._id + '"' + ')'
                 + ' where product.product_no = transaction.product_no' + ';',
                 function (err, rows) {
                   if (err) { throw err; }
                   else {
+                    res.redirect('/purchase_check');
                   }
                 });
             }
@@ -932,8 +961,8 @@ router.post('/purchase', function (req, res, next) {
       }
       console.log("Purchase Complete!");
     });
-  res.redirect('/purchase_check');
 });
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   INFO SECTION                                      //
