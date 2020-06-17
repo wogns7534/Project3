@@ -401,33 +401,96 @@ router.get('/more_review', function(req, res) {
 /* GET join page. */
 router.get('/join', function (req, res) {
   console.log('joinjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
   res.render('join', {
-    title: 'join'
+    title: 'join',
+    session: display,
+    company: req.session._company_number
+  });
+});
+
+/* GET join_admin page. */
+router.get('/join_admin', function (req, res) {
+  console.log('join_adminjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  res.render('join_admin', {
+    title: 'join_admin',
+    session: display,
+    company: req.session._company_number
   });
 });
 
 /* GET join_customer page. */
 router.get('/join_customer', function (req, res) {
   console.log('join_customerjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
   res.render('join_customer', {
-    title: 'join_customer'
+    title: 'join_customer',
+    session: display,
+    company: req.session._company_number
   });
 });
 
 /* GET join_seller page. */
 router.get('/join_seller', function (req, res) {
   console.log('join_sellerjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
   res.render('join_seller', {
-    title: 'join_seller'
+    title: 'join_seller',
+    session: display,
+    company: req.session._company_number
   });
 });
 
 /* GET join_check page. */
 router.get('/join_check', function (req, res, next) {
   console.log('join_checkjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
   res.render('join_check', {
-    title: 'join_check'
+    title: 'join_check',
+    session: display,
+    company: req.session._company_number
   });
+});
+
+/* POST join_admin page. */
+router.post('/join_admin', function (req, res, next) {
+  console.log('# User join_admin reuqest arrive.');
+  console.log(req.body);
+  var body = req.body;
+  var admin_id = body.admin_id;
+  var admin_passwd = body.admin_passwd;
+  var admin_name = body.admin_name;
+  var admin_address = body.addr1 + " " + body.addr2;
+  var admin_zipcode = body.zip;
+  var admin_phone = body.admin_phone;
+  var admin_email = body.admin_email;
+
+  var query = connection.query('insert into admin (admin_id, admin_passwd, admin_name, admin_address, admin_zipcode, admin_phone, admin_email) values ("'
+    + admin_id + '","' + admin_passwd + '","'
+    + admin_name + '","' + admin_address + '","'
+    + admin_zipcode + '","' + admin_phone + '","'
+    + admin_email + '")',
+    function (err, rows) {
+      if (err) { throw err; }
+      console.log("Data inserted!");
+    });
+  res.redirect('/join_check');
 });
 
 /* POST join_customer page. */
@@ -489,8 +552,8 @@ router.post('/api/idck', function (req, res) {
   console.log('idck Parameter = ' + data);
 
   var result = 0;
-  var query = connection.query('select count(*) as namesCount FROM customer,seller WHERE customer_id = "'
-    + data + '" or seller_id = "' + data + '"',
+  var query = connection.query('select count(*) as namesCount FROM customer,seller,admin WHERE customer_id = "'
+    + data + '" or seller_id = "' + data + '"' + 'or admin_id = "' + data + '"',
     function (err, rows, fields) {
       if (err) { throw err; }
       var result_data = rows[0].namesCount;
@@ -509,8 +572,8 @@ router.post('/api/emailck', function (req, res) {
   console.log('emailck Parameter = ' + data);
 
   var result = 0;
-  var query = connection.query('select count(*) as namesCount FROM customer,seller WHERE customer_email = "'
-    + data + '" or seller_email = "' + data + '"',
+  var query = connection.query('select count(*) as namesCount FROM customer,seller,admin WHERE customer_email = "'
+    + data + '" or seller_email = "' + data + '"' + 'or admin_email = "' + data + '"',
     function (err, rows, fields) {
       if (err) { throw err; }
       var result_data = rows[0].namesCount;
@@ -1052,7 +1115,6 @@ router.post('/purchase', function (req, res, next) {
     });
 });
 
-
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   INFO SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1080,6 +1142,67 @@ router.get('/view_info_customer', function (req, res, next) {
           customer_phone: result[0].customer_phone,
           customer_email: result[0].customer_email,
           customer_money: result[0].customer_money,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* GET view_info_admin page. */
+router.get('/view_info_admin', function (req, res, next) {
+  console.log('view_info_adminjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM  WHERE admin_id = '" + req.session._id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].admin_id);
+        res.render('view_info_admin', {
+          title: 'view_info_admin',
+          admin_id: result[0].admin_id,
+          admin_passwd: result[0].admin_passwd,
+          admin_name: result[0].admin_name,
+          admin_address: result[0].admin_address,
+          admin_zipcode: result[0].admin_zipcode,
+          admin_phone: result[0].admin_phone,
+          admin_email: result[0].admin_email,
+          admin_money: result[0].admin_money,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* GET view_info_seller page. */
+router.get('/view_info_seller', function (req, res, next) {
+  console.log('view_info_sellerjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM seller WHERE seller_id = '" + req.session._id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].seller_id);
+        res.render('view_info_seller', {
+          title: 'view_info_seller',
+          seller_id: result[0].seller_id,
+          seller_passwd: result[0].seller_passwd,
+          seller_name: result[0].seller_name,
+          seller_address: result[0].seller_address,
+          seller_zipcode: result[0].seller_zipcode,
+          seller_mobile: result[0].seller_mobile,
+          seller_email: result[0].seller_email,
+          company_number: result[0].company_number,
+          company_name: result[0].company_name,
           session: display,
           company: req.session._company_number
         });
@@ -1128,6 +1251,57 @@ router.get('/withdrawal', function (req, res, next) {
         }
       });
   }
+});
+
+/* GET modify_info_customer page. */
+router.get('/modify_info_customer', function (req, res, next) {
+  console.log('modify_info_customerjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM customer WHERE customer_id = '" + req.session._id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].customer_id);
+        res.render('modify_info_customer', {
+          title: 'modify_info_customer',
+          customer_id: result[0].customer_id,
+          customer_passwd: result[0].customer_passwd,
+          customer_name: result[0].customer_name,
+          customer_address: result[0].customer_address,
+          customer_zipcode: result[0].customer_zipcode,
+          customer_phone: result[0].customer_phone,
+          customer_email: result[0].customer_email,
+          customer_money: result[0].customer_money,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* POST modify_info_customer page. */
+router.post('/modify_info_customer', function (req, res, next) {
+  console.log('# User modify_info_customer reuqest arrive.');
+  console.log(req.body);
+  var body = req.body;
+  var customer_passwd = body.passwd;
+  var customer_email = body.email;
+  var customer_phone = body.tel;
+  var customer_zipcode = body.zip;
+  var customer_address = body.addr1 + body.addr2;
+
+  var sql = "update customer set customer_passwd=?, customer_email=?, customer_phone=?, customer_zipcode=?, customer_address=? where customer_id=?"
+  var query = connection.query(sql, [customer_passwd, customer_email, customer_phone, customer_zipcode, customer_address, req.session._id], function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    console.log("Data modified!");
+  });
+  res.redirect('/view_info_customer');
 });
 
 /* POST withdrawal page. */
@@ -1198,88 +1372,6 @@ router.post('/withdrawal_admin', function (req, res, next) {
         res.write("</script>");
       });
   }
-});
-
-/* GET modify_info_customer page. */
-router.get('/modify_info_customer', function (req, res, next) {
-  console.log('modify_info_customerjs . path loaded');
-  var display = [];
-  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
-  else display = "계정정보 관리메뉴";
-
-  connection.query("SELECT * FROM customer WHERE customer_id = '" + req.session._id + "'",
-    function (error, result, fields) {
-      if (error) {
-        res.send({ code: 400, failed: "error ocurred1" });
-      } else {
-        console.log(result[0].customer_id);
-        res.render('modify_info_customer', {
-          title: 'modify_info_customer',
-          customer_id: result[0].customer_id,
-          customer_passwd: result[0].customer_passwd,
-          customer_name: result[0].customer_name,
-          customer_address: result[0].customer_address,
-          customer_zipcode: result[0].customer_zipcode,
-          customer_phone: result[0].customer_phone,
-          customer_email: result[0].customer_email,
-          customer_money: result[0].customer_money,
-          session: display,
-          company: req.session._company_number
-        });
-      }
-    });
-});
-
-/* POST modify_info_customer page. */
-router.post('/modify_info_customer', function (req, res, next) {
-  console.log('# User modify_info_customer reuqest arrive.');
-  console.log(req.body);
-  var body = req.body;
-  var customer_passwd = body.passwd;
-  var customer_email = body.email;
-  var customer_phone = body.tel;
-  var customer_zipcode = body.zip;
-  var customer_address = body.addr1 + body.addr2;
-
-  var sql = "update customer set customer_passwd=?, customer_email=?, customer_phone=?, customer_zipcode=?, customer_address=? where customer_id=?"
-  var query = connection.query(sql, [customer_passwd, customer_email, customer_phone, customer_zipcode, customer_address, req.session._id], function (err, rows) {
-    if (err) {
-      throw err;
-    }
-    console.log("Data modified!");
-  });
-  res.redirect('/view_info_customer');
-});
-
-/* GET view_info_seller page. */
-router.get('/view_info_seller', function (req, res, next) {
-  console.log('view_info_sellerjs . path loaded');
-  var display = [];
-  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
-  else display = "계정정보 관리메뉴";
-
-  connection.query("SELECT * FROM seller WHERE seller_id = '" + req.session._id + "'",
-    function (error, result, fields) {
-      if (error) {
-        res.send({ code: 400, failed: "error ocurred1" });
-      } else {
-        console.log(result[0].seller_id);
-        res.render('view_info_seller', {
-          title: 'view_info_seller',
-          seller_id: result[0].seller_id,
-          seller_passwd: result[0].seller_passwd,
-          seller_name: result[0].seller_name,
-          seller_address: result[0].seller_address,
-          seller_zipcode: result[0].seller_zipcode,
-          seller_mobile: result[0].seller_mobile,
-          seller_email: result[0].seller_email,
-          company_number: result[0].company_number,
-          company_name: result[0].company_name,
-          session: display,
-          company: req.session._company_number
-        });
-      }
-    });
 });
 
 /* GET modify_info_seller page. */
