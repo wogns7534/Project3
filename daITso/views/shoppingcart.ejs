@@ -584,7 +584,7 @@
 
                <div class="col-md-12">
                   <div class="order-summary clearfix">
-					<div class=shopping-cart-table>
+               <div class=shopping-cart-table>
                         <img src="./img/banner_shoppingcart.jpg" alt="" width="100%"><br><br>
                      </div>
                      <div class="section-title">
@@ -602,7 +602,14 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <% var total_price = 0; %>
+                     <% var total_price = 0; %>
+                     <% var product_total_price = 0; %>
+                     <% if(result2.length == 0){ %>
+                     <tr>
+                        <td>123123</td>
+                     </tr>
+                     <% } %>
+                     <% if(result2.length != 0){ %>
                            <% for(var i = 0; i < result2.length; i++){ %>
                            <tr>
                               <td class="thumb"><img
@@ -627,7 +634,7 @@
                                     name="update_quantity<%= i %>"
                                     value="<%=result[i].shoppingcart_quantity%>">
                                  <input type="button" value="변경" class="main-btn"
-                                    onclick="modifyquantity(<%=result2[i][0].product_no%>, <%= i %>)" />
+                                    onclick="modifyquantity(<%=result2[i][0].product_no%>, <%= i %>, <%=result2[i][0].product_sale_price%>)" />
                               </td>
                               
                               <td class="total text-center"><strong
@@ -638,7 +645,8 @@
                               <td class="text-right"><button class="main-btn icon-btn" onclick="delete_shopcart(<%=result2[i][0].product_no%>)"><i class="fa fa-close"></i></button>
                               </td>
                            </tr>
-                           <% } %>
+                     <% } %>
+                     <% } %>
                         </tbody>
                         <tfoot>
                            <tr>
@@ -775,13 +783,14 @@
    <script src="js/jquery.zoom.min.js"></script>
    <script src="js/main.js"></script>
    <script>
-      function modifyquantity(p_no, i) {
+      function modifyquantity(p_no, i, sale_price) {
          var product_number = p_no;
          var s = "update_quantity" + i;
-         var modify_quantity = document.getElementById(s).value;
+       var modify_quantity = document.getElementById(s).value;
+       var total_product_price = (Number(modify_quantity) * Number(sale_price));
          $.ajax({
             type: 'POST',
-            data: { data: product_number, data2: modify_quantity },
+            data: { data: product_number, data2: modify_quantity, data3: total_product_price },
             url: '/api/modify_quantity_num',
             dataType: 'json',
             success: function (result) {
