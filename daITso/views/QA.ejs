@@ -576,7 +576,7 @@
 								<% for(var i=0; i< qa.length; i++){ %>
 								<tr>
 								  <td><%=qa[i].QA_no%></td>
-									<% if(user==qa[i].QA_writer){ %>
+									<% if(user==qa[i].QA_writer || user=="관리자"){ %>
 								  	<td><a href="/QA_read?QA_no=<%= qa[i].QA_no %>"><%=qa[i].QA_title%></a></td>
 									<% } else{ %>
 										<td><a><%=qa[i].QA_title%> </a><img src="./img/icon_secret.gif" align="absmiddle"></td>
