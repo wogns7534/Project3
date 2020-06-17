@@ -534,11 +534,6 @@
 		<!-- /container -->
 	</div>
 	<!-- /NAVIGATION -->
-
-
-
-
-
 	<!-- BREADCRUMB -->
 	<div id="breadcrumb">
 		<div class="container">
@@ -557,7 +552,7 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<form id="checkout-form" class="clearfix">
+				<form id="checkout-form" class="clearfix"action="/withdrawal_admin?seller_id=<%=id%>" method="POST">
 					<div class="col-md-6">
 						<div class="billing-details">
 							<div class="section-title">
@@ -565,36 +560,36 @@
 							</div>
 							<br>
 							<div class="form-group"><h4> 아이디 </h4>
-								<h3>wlsghdoal</h3>
+								<h4><%=id%></h4>
 							</div>
 							<br>
 							<div class="form-group"><h4> 회사명 </h4>
-								<h3>혜정 해피 하우스</h3>
+								<h4><%=company_name%></h4>
 							</div>
 							<br>
-							<div class="form-group"><h4> 대표자명 </h4>
-								<h3>김혜정</h3>
+							<div class="form-group"><h4> 판매자명 </h4>
+								<h3><%=seller_name%></h3>
 							</div>
 							<br>
 							<div class="form-group"><h4> 사업자 등록번호 </h4>
-								<h3>123-45-67890</h3>
+								<h3><%=company_number%></h3>
 							</div>
 							<br>
 							<div class="form-group"><h4> 회사 대표 이메일 </h4>
-								<h3>hye@jung.com</h3>
+								<h3><%=seller_email%></h3>
 							</div>
 							<br>
 							<div class="form-group"><h4> 회사 전화 번호 </h4>
-								<h3>070-1234-6789</h3>
+								<h3><%=seller_mobile%></h3>
 							</div>
 							<br>
 							<div class="form-group"><h4> 주소 </h4>
-								<h3>123-45-67890</h3>
+								<h3><%=seller_address%></h3>
 								<h3></h3>
 							</div>
 							<br>
 						</div>
-						<button class="primary-btn"> &nbsp;&nbsp;&nbsp; 회원 삭제 &nbsp;&nbsp;&nbsp; </button>
+						<button type="submit" class="primary-btn"> &nbsp;&nbsp;&nbsp; 회원 삭제 &nbsp;&nbsp;&nbsp; </button>
 					</div>
 					<div class="col-md-6">
 						<div class="order-summary clearfix">
