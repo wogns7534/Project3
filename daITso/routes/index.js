@@ -171,7 +171,7 @@ router.get('/product-page', function(req, res) {
   console.log('product-page . path loaded');
 
   var display=[];
-  if(req.session._id) display=req.session_id + "님, 안녕하세요!";
+  if(req.session._id) display=req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴"
   connection.query('SELECT * FROM product WHERE product_no = ?', req.query.product_no,
     function(error, result, fields) {
@@ -193,15 +193,12 @@ router.get('/product-page', function(req, res) {
 
               console.log(result2);
               var arr=new Array();
-              var total_grade=0;
               var len=result2.length;
+
               for(var i=0; i<result2.length; i++){
                 arr.push(result2[i].review_grade);
-                total_grade+=result2[i].review_grade;
               }
-              if(len!=0){
-                total_grade=Math.ceil(total_grade/result2.length);
-              }
+
               connection.query('select * from transaction where customer_id=? and product_no=?', [req.session._id, req.query.product_no],
             function(error3, result3, fields){
               if(error3){
@@ -224,7 +221,6 @@ router.get('/product-page', function(req, res) {
                   result: result,
                   grade: arr,
                   p_no: req.query.product_no,
-                  total_grade: total_grade,
                   review_cnt: len,
                   session: display,
                   review_check:check
@@ -244,19 +240,37 @@ router.post('/product-page', function(req, res, next){
   var body = req.body;
   var customer_id = body.customer_id;
   var review_comment = body.review_comment;
-  var review_grade = body.rating;
+  var total_grade = body.rating;
   var product_no = body.product_no;
-  var query = connection.query('insert into review (customer_id, product_no, review_comment, review_grade) values("' +
-    customer_id + '","' +
-    product_no + '","' + review_comment + '","' +
-    review_grade + '")',
-    function(err, rows){
-      if(err){
-        throw err;``
+
+  connection.query('select review_grade from review where product_no = ' + product_no,
+  function(err, q_grade){
+    if(err){throw err;}
+    else{
+      
+      for( var l = 0; l < q_grade.length; l++ ){
+        total_grade = total_grade + q_grade[i].review_grade;
       }
-      console.log("review inserted!");
-    });
-    res.redirect('/product-page?product_no='+product_no);
+      total_grade = total_grade / (q_grade.length + 1);
+      connection.query('insert into review (customer_id, product_no, review_comment, review_grade) values("' +
+      customer_id + '","' +
+      product_no + '","' + review_comment + '","' +
+      body.rating + '")',
+      function(err, rows){
+          if(err){ throw err;}
+          else {
+            connection.query('update product set total_grade=' + total_grade + ' where product_no=' + product_no,
+            function(err, result){
+              if(err){ throw err;}
+              else {
+                console.log("review inserted!");
+                res.redirect('/product-page?product_no='+product_no);
+              }
+            });
+          }
+      });
+    }
+  });
 });
 
 router.get('/seller_modify_product', function(req, res) {
@@ -457,24 +471,94 @@ router.get('/', function (req, res) {
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
-  res.render('index', {
-    title: 'index',
-    session: display,
-    company: req.session._company_number
+  connection.query('select * from product where total_grade = 5 limit 0, 10',
+  function(err, rating_result, fields){
+    if(err){ throw err; }
+    else {
+      connection.query('select * from product where product_sale > 0 order by product_sale DESC limit 0, 10',
+      function(err, sale_result, fields){
+        if(err){ throw err; }
+        else {
+          connection.query('select * from product where sdiv_no=11 order by purchase_count DESC limit 0, 5',
+          function(err, count_result, fields){
+            if(err){ throw err; }
+            else {
+              connection.query('select * from product where sdiv_no=41 order by purchase_count DESC limit 0, 5',
+              function(err, cpu_result, fields){
+                if(err){ throw err; }
+                else {
+                  connection.query('select * from product where sdiv_no=44 order by purchase_count DESC limit 0, 5',
+                  function(err, gpu_result, fields){
+                    if(err){ throw err; }
+                    else {
+                      res.render('index', {
+                        title: 'index',
+                        session: display,
+                        company: req.session._company_number,
+                        rating_result : rating_result,
+                        sale_result : sale_result,
+                        count_result : count_result,
+                        cpu_result : cpu_result,
+                        gpu_result : gpu_result
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
   });
 });
 
 /* GET index page. */
 router.get('/index', function (req, res) {
-  console.log('indexjs . path loaded');
+  console.log('mainjs . path loaded');
   var display = [];
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
-  res.render('index', {
-    title: 'index',
-    session: display,
-    company: req.session._company_number
+  connection.query('select * from product where total_grade = 5 limit 0, 10',
+  function(err, rating_result, fields){
+    if(err){ throw err; }
+    else {
+      connection.query('select * from product where product_sale > 0 order by product_sale DESC limit 0, 10',
+      function(err, sale_result, fields){
+        if(err){ throw err; }
+        else {
+          connection.query('select * from product where sdiv_no=11 order by purchase_count DESC limit 0, 5',
+          function(err, count_result, fields){
+            if(err){ throw err; }
+            else {
+              connection.query('select * from product where sdiv_no=41 order by purchase_count DESC limit 0, 5',
+              function(err, cpu_result, fields){
+                if(err){ throw err; }
+                else {
+                  connection.query('select * from product where sdiv_no=44 order by purchase_count DESC limit 0, 5',
+                  function(err, gpu_result, fields){
+                    if(err){ throw err; }
+                    else {
+                      res.render('index', {
+                        title: 'index',
+                        session: display,
+                        company: req.session._company_number,
+                        rating_result : rating_result,
+                        sale_result : sale_result,
+                        count_result : count_result,
+                        cpu_result : cpu_result,
+                        gpu_result : gpu_result
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
   });
 });
 
@@ -836,13 +920,220 @@ router.post('/insert_shoppingcart', function(req,res){
 })
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//                                   TEST SECTION                                      //
+//                                   POINT SECTION                                     //
 /////////////////////////////////////////////////////////////////////////////////////////
-router.get('/view_info_c', function(req, res){
-  console.log('sex');
-  res.render('view_customerlist_admin', {
-    title: 'transaction_log'
+/* 구매자 / 관리자 충전 로그 페이지 */
+router.get('/point_charge_log', function(req, res){
+  console.log('point charge log load...');
+
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  if(req.session._id == "admin"){   // 관리자 일 때
+    connection.query("SELECT * FROM point order by charge_time DESC",
+    function(err, result, field){
+      if(err) {throw err;}
+      else {
+        res.render('point_charge_log', {
+          title: '관리자 포인트 충전 관리',
+          session: display,
+          company: req.session._company_number,
+          result: result
+        });
+      }
+    });
+  }
+  else {          // 구매자 일 때
+    connection.query("SELECT * FROM point where customer_id = '" + req.session._id + "' ORDER BY charge_time DESC",
+      function(err, result, field){
+        if(err) {throw err;}
+        else{
+          res.render('point_charge_log', {
+            title: '포인트 충전 내역',
+            session: display,
+            company: req.session._company_number,
+            result: result
+          });
+        }
+      });
+  }
+});
+
+/* 구매자 충전신청 페이지 */
+router.get('/point_charge_request', function(req, res){
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+  // 구매자 일 때
+
+  connection.query("SELECT * FROM customer WHERE customer_id = '" + req.session._id + "'",
+    function(err, result, field){
+      if(err) { throw err; }
+      else{
+        res.render('point_charge_request', {
+          title: '포인트 충전 신청',
+          session: display,
+          company: req.session._company_number,
+          result: result
+        });
+      }
+    });
+});
+
+/* 구매자가 충전 신청 */
+router.post('/point_charge_request', function(req, res){
+  connection.query("INSERT INTO point (customer_id, charge_amount, charge_complete) VALUES ('" +
+                    req.body.customer_id + "', " + req.body.charge_amount + ", 0)",
+    function(err, result2, field){
+      if(err) {throw err;}
+      else { res.redirect('/point_charge_log'); }
   });
 });
 
+/* 관리자가 충전 */
+router.post('/point_charging', function(req, res){
+  var point = parseInt(req.body.charge_amount);
+
+  connection.query("Select * FROM customer WHERE customer_id='" + req.body.customer_id + "'",
+  function(err, result1, field){
+    if(err) {throw err;}
+    else {
+      point = point + result1[0].customer_money;
+      connection.query("UPDATE customer SET customer_money=" + point +" where customer_id='" + req.body.customer_id +"'",
+    function(err, result2, field){
+      if(err) {throw err;}
+      else { 
+        connection.query("UPDATE point SET charge_complete=1, charge_complete_time=NOW()" + 
+                         " WHERE customer_id='" + req.body.customer_id + "' and charge_no=" + req.body.charge_no + 
+                         " and charge_amount=" + req.body.charge_amount,
+          function(err, result3, field){
+            if(err) {throw err;}
+            else{ res.redirect('/point_charge_log'); }
+          });
+        }
+      });
+    }
+  });
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//                                 CASH WITHDRAWAL SECTION                             //
+/////////////////////////////////////////////////////////////////////////////////////////
+/* 판매자 / 관리자 인출 로그 페이지 */
+router.get('/cash_withdrawal_log', function(req, res){
+  console.log('cash withdrawal log load...');
+
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  if(req.session._id == "admin"){   // 관리자 일 때
+    connection.query("SELECT * FROM withdraw order by withdraw_time DESC",
+    function(err, result, field){
+      if(err) {throw err;}
+      else {
+        res.render('cash_withdrawal_log', {
+          title: '관리자 현금 인출 관리',
+          session: display,
+          company: req.session._company_number,
+          result: result
+        });
+      }
+    });
+  }
+  else {          // 판매자 일 때
+    connection.query("SELECT * FROM withdraw where seller_id = '" + req.session._id + "' ORDER BY withdraw_time DESC",
+      function(err, result, field){
+        if(err) {throw err;}
+        else{
+          res.render('cash_withdrawal_log', {
+            title: '현금 인출 내역',
+            session: display,
+            company: req.session._company_number,
+            result: result
+          });
+        }
+      });
+  }
+});
+
+/* 판매자 인출신청 페이지 */
+router.get('/cash_withdrawal_request', function(req, res){
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM seller WHERE seller_id = '" + req.session._id + "'",
+    function(err, result, field){
+      if(err) { throw err; }
+      else{
+        res.render('cash_withdrawal_request', {
+          title: '현금 인출 신청',
+          session: display,
+          company: req.session._company_number,
+          result: result
+        });
+      }
+    });
+});
+
+/* 판매가 인출 신청 */
+router.post('/cash_withdrawal_request', function(req, res){
+  if(parseInt(req.body.withdraw_amount) < 10){
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write("<script>");
+    res.write("alert('10원 미만은 출금 신청이 불가능합니다.'); location.href=history.back();");
+    res.write("</script>");
+  }
+  else {
+  connection.query("SELECT * FROM seller WHERE seller_id='" + req.body.seller_id + "'",
+    function(err, result1, field){
+      if(err) {throw err;}
+      else if (result1[0].seller_money < parseInt(req.body.withdraw_amount)){
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.write("<script>");
+        res.write("alert('소지한 금액보다 큰 금액은 신청할 수 없습니다.'); location.href=history.back();");
+        res.write("</script>");
+      }
+      else {
+        connection.query("INSERT INTO withdraw (seller_id, withdraw_amount, withdraw_complete) VALUES ('" +
+                    req.body.seller_id + "', " + req.body.withdraw_amount + ", 0)",
+    function(err, result2, field){
+      if(err) {throw err;}
+      else { 
+        res.redirect('/cash_withdrawal_log');
+      }
+  });
+      }
+    }
+  );
+  }
+});
+
+/* 관리자가 인출 */
+router.post('/cash_withdrawaling', function(req, res){
+  var point = parseInt(req.body.withdraw_amount);
+
+  connection.query("Select * FROM seller WHERE seller_id='" + req.body.seller_id + "'",
+  function(err, result1, field){
+    if(err) {throw err;}
+    else {
+      point = result1[0].seller_money - point;
+      connection.query("UPDATE seller SET seller_money=" + point +" where seller_id='" + req.body.seller_id +"'",
+    function(err, result2, field){
+      if(err) {throw err;}
+      else { 
+        connection.query("UPDATE withdraw SET withdraw_complete=1, withdraw_complete_time=NOW()" + 
+                         " WHERE seller_id='" + req.body.seller_id + "' and withdraw_no=" + req.body.withdraw_no + 
+                         " and withdraw_amount=" + req.body.withdraw_amount,
+          function(err, result3, field){
+            if(err) {throw err;}
+            else{ res.redirect('/cash_withdrawal_log'); }
+          });
+        }
+      });
+    }
+  });
+});
 module.exports = router;
