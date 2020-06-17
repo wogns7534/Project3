@@ -99,27 +99,25 @@
 								<a href="/logout" class="text-uppercase">로그아웃</a>
 							
 							<ul class="custom-menu">
+								<li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 							<% if(company != "") {%>	<!-- if seller -->
-								<li><a href="/view_info_seller"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 								<li><a href="#"><i class="fa fa-check"></i> 판매내역 / 매출통계</a></li>
 							<% } else {%>
 								<% if(session == "admin님, 안녕하세요!") {%> <!-- if admin -->
-									<li><a href="/view_customerlist_admin"><i class="fa fa-list"></i>구매자 목록 조회</a></li>
-									<li><a href="/view_sellerlist_admin"><i class="fa fa-list"></i>판매자 목록 조회</a></li>
+									<li><a href="#"><i class="fa fa-list"></i>구매자 목록 조회</a></li>
+									<li><a href="#"><i class="fa fa-list"></i>판매자 목록 조회</a></li>
 									<li><a href="#"><i class="fa fa-star"></i>포인트 충전 관리 </a></li>
 								<% } else { %>	<!-- if customer -->
-									<li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
 									<li><a href="#"><i class="fa fa-exchange"></i> 구매내역 조회</a></li>
 									<li><a href="#"><i class="fa fa-star"></i>포인트 충전 신청 </a></li>
 								<% } %>
 							<% } %>
-							</ul>
 
 							</ul>
 						</li>
 						<!-- /Account -->
 
-						<% if(company == "") { %>
+						<% if(company == "") { %> 
 							<% if(session != "admin님, 안녕하세요!") {%>
 						<!-- Cart -->
 						<li class="header-cart dropdown default-dropdown">
@@ -141,11 +139,11 @@
 									</div>
 									<strong class="text-uppercase">상품 관리 페이지</strong>
 									<br>
-									<span><a href="/seller_page?page=1">내 상품 관리</a></span>
+									<span><a href="/seller_page">내 상품 관리</a></span>
 								</a>
 							</li>
 						<% } %>
-						<% } %>
+						<% } %>	
 						<!-- /Cart -->
 
 						<!-- Mobile nav toggle-->
@@ -225,9 +223,9 @@
 											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=900000&eprice=1099999">90~100만원대 탑재PC</a></li>
 											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1000000&eprice=1299999">100~120만원대 탑재PC</a></li>
 											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1300000&eprice=1599999">130~150만원대 탑재PC</a></li>
-											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 탑재PC</a></li>
+											<li><a href="/products?sdiv_no=21&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 탑재PC</a></li>	
 										</ul>
-
+										
 										<hr class="hidden-md hidden-lg">
 									</div>
 									<div class="col-md-4 hidden-sm hidden-xs">
@@ -257,7 +255,7 @@
 											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=900000&eprice=1099999">90~100만원대 패키지</a></li>
 											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1000000&eprice=1299999">100~120만원대 패키지</a></li>
 											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1300000&eprice=1599999">130~150만원대 패키지</a></li>
-											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 패키지</a></li>
+											<li><a href="/products?sdiv_no=31&page=1&page_size=6&order_by=purchase_count&ct_search=&sprice=1600000&eprice=">160만원 이상 패키지</a></li>	
 										</ul>
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -526,345 +524,112 @@
 	</div>
 	<!-- /NAVIGATION -->
 
-	<!-- HOME -->
-	<div id="home">
-		<!-- container -->
-		<div class="container">
-			<!-- home wrap -->
-			<div class="home-wrap">
-				<!-- home slick -->
-				<div id="home-slick">
-					<!-- banner -->
-					<div class="banner banner-1">
-						<img src="./img/banner_lol.jpg" alt="">
-						<div class="banner-caption text-center">
-							<button class="primary-btn">여기 daITso !</button>
-						</div>
-					</div>
-					<!-- /banner -->
-
-					<!-- banner -->
-					<div class="banner banner-1">
-						<img src="./img/banner_battleground.jpg" alt="">
-						<div class="banner-caption">
-							<h1 class="primary-color"><br><br><br><span class="white-color font-weak"></span></h1>
-							<button class="primary-btn">여기 daITso !</button>
-						</div>
-					</div>
-					<!-- /banner -->
-
-					<!-- banner -->
-					<div class="banner banner-1">
-						<img src="./img/banner_summer.jpg" alt="">
-						<div class="banner-caption">
-							<h1 class="primary-color"><br><br><br><span class="white-color font-weak"></span></h1>
-							<button class="primary-btn">여기 daITso !</button>
-						</div>
-					</div>
-					<!-- /banner -->
-				</div>
-				<!-- /home slick -->
-			</div>
-			<!-- /home wrap -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /HOME -->
-
+	
 	<!-- section -->
 	<div class="section">
 		<!-- container -->
 		<div class="container">
 			<!-- row -->
-			<div class="row">
-				<!-- banner -->
-				<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
-					<a class="banner banner-1" href="/product-page?product_no=1">
-						<img src="./img/banner_event3.jpg" alt="">
-					</a>
-				</div>
-				<!-- /banner -->
-				
-
-				<!-- banner -->
-				<div class="col-md-4 col-sm-6">
-					<a class="banner banner-1" href="/product-page?product_no=4">
-						<img src="./img/banner_event1.jpg" alt="">
-					</a>
-				</div>
-				<!-- /banner -->
-<!-- banner -->
-<div class="col-md-4 col-sm-6">
-	<a class="banner banner-1" href="/product-page?product_no=3">
-		<img src="./img/banner_event2.jpg" alt="">
-	</a>
-</div>
-<!-- /banner -->
-				
-
+			<div class="col-md-12 text-center">
+				<img src="/img/banner_point.png" style="width: 10%;">
+				<br><br>
+				<% if(session != "admin님, 안녕하세요!") {%>
+					<a href="/point_charge_request"><div class= "primary-btn">포인트 충전 신청</div></a>
+				<% } %>
+				<br><br>
+				<h1 class="title"><%=title%></h1>
+				<hr>
+				<br><br>
 			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /section -->
-
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
 			<div class="row">
-				<!-- section-title -->
-				<div class="col-md-12">
-					<div class="section-title">
-						<h2 class="title">특가! 할인 상품</h2>
-						<div class="pull-right">
-							<div class="product-slick-dots-1 custom-dots"></div>
-						</div>
-					</div>
-				</div>
-				<!-- /section-title -->
-
-				<!-- banner -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="banner banner-2">
-						<img src="./img/banner_sw.jpg" alt="">
-					</div>
-				</div>
-				<!-- /banner -->
-
-				<!-- Product Slick -->
-				<div class="col-md-9 col-sm-6 col-xs-6">
-					<div class="row">
-						<div id="product-slick-1" class="product-slick">
-							<% for(var i = 0; i < sale_result.length; i++){ %>
-								<!-- Product Single -->
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<% var date = new Date(); %>
-											<% if( date.getDate() - sale_result[i].registration_time.getDate() < 2 ) {%>
-												<span>New!</span>
-											<% } %>
-											<% if(sale_result[i].product_sale != 0){ %>
-												<span class="sale"><%=sale_result[i].product_sale%>%</span>
-											<% } %>
-										</div>
-										<button class="main-btn quick-view"><a href="/product-page?product_no=<%=sale_result[i].product_no%>"><i class="fa fa-search-plus"></i> 자세히 보기</a></button>
-										<img src="/img/proj3_img/<%=sale_result[i].sdiv_no%>/<%=sale_result[i].product_thumb_img%>" alt="">
-									</div>
-									<div class="product-body" style="height: 160px;">
-									<h2 class="product-name"><a href="/product-page?product_no=<%=sale_result[i].product_no%>"><%=sale_result[i].product_name%></a></h2>
-										<% if(sale_result[i].product_sale != 0){ %>
-											<h3 class="product-price"><%=sale_result[i].product_sale_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원
-											<del class="product-old-price"><%=sale_result[i].product_sale_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</del></h3>
+					<div class="col-md-12">
+						<div class="shiping-methods">
+							<% if(result.length == 0){ %>
+								<div class="text-center">충전 내역이 없습니다.</div>
+							<% } else { %>
+								<table class="shopping-cart-table table">
+								<thead>
+									<tr>
+									<td>신청 일자</td>
+									<td>충전 일자</td>
+									<% if(session == "admin님, 안녕하세요!") {%>
+									<td>신청자 아이디</td>
+									<% } %>
+									<td>신청 금액</td>
+									<td>처리여부</td>
+									</tr>
+								</thead>
+								<tbody>
+								<% for(var i = 0; i < result.length; i++){ %>
+									<tr>
+									<td><%=result[i].charge_time.getFullYear()%>년 
+										<%=result[i].charge_time.getMonth() + 1%>월  
+										<%=result[i].charge_time.getDate()%>일 
+										<%=result[i].charge_time.getHours() + 9%>시 
+										<%=result[i].charge_time.getMinutes()%>분
+									</td>
+									<% if(result[i].charge_complete == 1) { %>
+									<td><%=result[i].charge_complete_time.getFullYear()%>년 
+										<%=result[i].charge_complete_time.getMonth() + 1%>월  
+										<%=result[i].charge_complete_time.getDate()%>일 
+										<%=result[i].charge_complete_time.getHours() + 9%>시 
+										<%=result[i].charge_complete_time.getMinutes()%>분
+									</td>
+									<% } else { %>
+									<td> - </td>
+									<% } %>
+									<% if(session == "admin님, 안녕하세요!") {%>
+										<td><%=result[i].customer_id%></td>
+									<% } %>
+									<td><%=result[i].charge_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%></td>
+									<% if(result[i].charge_complete == 0) { %>
+										<% if(session == "admin님, 안녕하세요!") {%>
+										<form action="/point_charging" method="POST">
+										<td style="color:coral">
+											<input type="hidden" name="customer_id" value="<%=result[i].customer_id%>"/>
+											<input type="hidden" name="charge_no" value="<%=result[i].charge_no%>"/>
+											<input type="hidden" name="charge_amount" value="<%=result[i].charge_amount%>"/>
+											<input type="submit" value="충전하기"/>
+										</td>
+										</form>
 										<% } else {%>
-											<h3 class="product-price"><%=sale_result[i].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</h3>
+										<td style="color:coral">충전대기</td>
 										<% } %>
-										<div class="product-rating">
-											<% for(var s=0; s < sale_result[i].total_grade; s++) {%>
-												<i class="fa fa-star"></i>
-											<% } %>
-											<% for(var o=0; o < 5 - sale_result[i].total_grade; o++){ %>
-												<i class="fa fa-star-o empty"></i>
-											<% } %>
-										</div>
-									</div>
-								</div>
-								<!-- /Product Single -->
-								<% } %>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Slick -->
-			</div>
-			<!-- /row -->
-
-			<!-- row -->
-			<div class="row">
-				<!-- section title -->
-				<div class="col-md-12">
-					<div class="section-title">
-						<h2 class="title">평점만점 상품</h2>
-						<div class="pull-right">
-							<div class="product-slick-dots-2 custom-dots">
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- section title -->						
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single product-hot">
-						<div class="product-thumb">
-							<div class="product-label">
-							<% var date = new Date(); %>
-							<% if( date.getDate() - rating_result[0].registration_time.getDate() < 2 ) {%>
-								<span>New!</span>
-							<% } %>
-							<% if(rating_result[0].product_sale != 0){ %>
-								<span class="sale"><%=rating_result[0].product_sale%>%</span>
-							<% } %>
-							</div>
-
-							<button class="main-btn quick-view"><a href="/product-page?product_no=<%=rating_result[0].product_no%>"><i class="fa fa-search-plus"></i> 자세히 보기</a></button>
-							<img src="/img/proj3_img/<%=rating_result[0].sdiv_no%>/<%=rating_result[0].product_thumb_img%>" alt="">
-							</div>
-							
-							<div class="product-body" style="height: 160px;">
-							<h2 class="product-name"><a href="/product-page?product_no=<%=rating_result[0].product_no%>"><%=rating_result[0].product_name%></a></h2>
-								
-								<% if(rating_result[0].product_sale != 0){ %>
-									<h3 class="product-price"><%=rating_result[0].product_sale_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원
-										<del class="product-old-price"><%=rating_result[0].product_sale_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</del></h3>
-								<% } else {%>
-									<h3 class="product-price"><%=rating_result[0].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</h3>
-								<% } %>
-								<div class="product-rating">
-									<% for(var s=0; s < rating_result[0].total_grade; s++) {%>
-										<i class="fa fa-star"></i>
-									<% } %>
-									<% for(var o=0; o < 5 - rating_result[0].total_grade; o++){ %>
-										<i class="fa fa-star-o empty"></i>
-									<% } %>
-								</div>
-							<br><br><br>
-							<div class="text-center">
-								<h1 style="color:#0088FF;">평점 1등 상품!</h1>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
-
-				<!-- Product Slick -->
-				<div class="col-md-9 col-sm-6 col-xs-6">
-					<div class="row">
-						<div id="product-slick-2" class="product-slick">
-							<% for(var i = 1; i < rating_result.length; i++){ %>
-							<!-- Product Single -->
-							<div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<% var date = new Date(); %>
-										<% if( date.getDate() - rating_result[i].registration_time.getDate() < 2 ) {%>
-											<span>New!</span>
-										<% } %>
-										<% if(rating_result[i].product_sale != 0){ %>
-											<span class="sale"><%=rating_result[i].product_sale%>%</span>
-										<% } %>
-									</div>
-									<button class="main-btn quick-view"><a href="/product-page?product_no=<%=rating_result[i].product_no%>"><i class="fa fa-search-plus"></i> 자세히 보기</a></button>
-									<img src="/img/proj3_img/<%=rating_result[i].sdiv_no%>/<%=rating_result[i].product_thumb_img%>" alt="">
-								</div>
-								<div class="product-body" style="height: 160px;">
-								<h2 class="product-name"><a href="/product-page?product_no=<%=rating_result[i].product_no%>"><%=rating_result[i].product_name%></a></h2>
-									<% if(rating_result[i].product_sale != 0){ %>
-										<h3 class="product-price"><%=rating_result[i].product_sale_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원
-										<del class="product-old-price"><%=rating_result[i].product_sale_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</del></h3>
 									<% } else {%>
-										<h3 class="product-price"><%=rating_result[i].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</h3>
+										<td style="color:green">충전완료</td>
 									<% } %>
-									<div class="product-rating">
-										<% for(var s=0; s < rating_result[i].total_grade; s++) {%>
-											<i class="fa fa-star"></i>
-										<% } %>
-										<% for(var o=0; o < 5 - rating_result[i].total_grade; o++){ %>
-											<i class="fa fa-star-o empty"></i>
-										<% } %>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-							<% } %>
+									</tr>
+								<% } } %>
+								</tbody>
+							</table>
 						</div>
 					</div>
-				</div>
-				<!-- /Product Slick -->
 			</div>
 			<!-- /row -->
+			
+			
 		</div>
 		<!-- /container -->
 	</div>
 	<!-- /section -->
 
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- section title -->
-			<div class="col-md-12">
-				<div class="section-title">
-					<h2 class="title">daITso 판매 순위 차트</h2>
-				</div>
-			</div>
-			<!-- section title -->
-			<section class="latest-product spad">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-4 col-md-6">
-							<h3>daITso 조립PC 판매 순위</h3>
-							<% for(var i = 0; i < count_result.length; i++){ %>
-								<br><br>
-								<a href="/product-page?product_no=<%=count_result[i].product_no%>">
-								<div class="latest-product__item__pic">
-									<img src="/img/proj3_img/<%=count_result[i].sdiv_no%>/<%=count_result[i].product_thumb_img%>" alt="">
-								</div>
-								<div class="latest-product__item__text">
-									<h1 style="color:#0088FF"><%=i+1%> 위</h1>
-									<h5 class="product-name" style="height: 20px;"><%=count_result[i].product_name%></h5>
-									<span><%=count_result[i].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</span>
-								</div>
 
-							</a>
-								<br><br>
-							<% } %>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<h3>CPU 판매 순위</h3>
-							<% for(var i = 0; i < cpu_result.length; i++){ %>
-								<br><br>
-								<a href="/product-page?product_no=<%=cpu_result[i].product_no%>">
-								<div class="latest-product__item__pic">
-									<img src="/img/proj3_img/<%=cpu_result[i].sdiv_no%>/<%=cpu_result[i].product_thumb_img%>" alt="">
-								</div>
-								<div class="latest-product__item__text">
-									<h1 style="color:#0088FF"><%=i+1%> 위</h1>
-									<h5 class="product-name" style="height: 20px;"><%=cpu_result[i].product_name%></h5>
-									<span><%=cpu_result[i].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</span>
-								</div>
 
-							</a>
-								<br><br>
-							<% } %>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<h3>GPU 판매 순위</h3>
-							<% for(var i = 0; i < gpu_result.length; i++){ %>
-								<br><br>
-								<a href="/product-page?product_no=<%=gpu_result[i].product_no%>">
-								<div class="latest-product__item__pic">
-									<img src="/img/proj3_img/<%=gpu_result[i].sdiv_no%>/<%=gpu_result[i].product_thumb_img%>" alt="">
-								</div>
-								<div class="latest-product__item__text">
-									<h1 style="color:#0088FF"><%=i+1%> 위</h1>
-									<h5 class="product-name" style="height: 20px;"><%=gpu_result[i].product_name%></h5>
-									<span><%=gpu_result[i].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%> 원</span>
-								</div>
 
-							</a>
-								<br><br>
-							<% } %>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- Latest Product Section End -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /section -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<!-- FOOTER -->
 	<footer id="footer" class="section section-grey">
