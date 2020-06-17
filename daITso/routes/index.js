@@ -45,65 +45,65 @@ connection.connect();
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   PRODUCT SECTION                                   //
 /////////////////////////////////////////////////////////////////////////////////////////
-router.get('/products', function(req, res) {
+router.get('/products', function (req, res) {
   console.log('products . path loaded');
 
   var order_query = req.query.order_by;
   var order_sort = "ASC";
 
-  if(req.query.order_by == "purchase_count") order_sort = "DESC";
-  if(req.query.order_by == "total_grade") order_sort = "DESC";
-  if(req.query.order_by == "registration_time") order_sort = "DESC";
-  if(req.query.order_by == "product_price_low") order_query = "product_sale_price";
-  if(req.query.order_by == "product_price_high") {
+  if (req.query.order_by == "purchase_count") order_sort = "DESC";
+  if (req.query.order_by == "total_grade") order_sort = "DESC";
+  if (req.query.order_by == "registration_time") order_sort = "DESC";
+  if (req.query.order_by == "product_price_low") order_query = "product_sale_price";
+  if (req.query.order_by == "product_price_high") {
     order_sort = "DESC";
     order_query = "product_sale_price"
   }
 
-  var start_page = Math.ceil(req.query.page/5) * 5 - 4;
+  var start_page = Math.ceil(req.query.page / 5) * 5 - 4;
   var end_page = start_page + 4;
 
   var default_sprice = 0;
   var default_eprice = 99999999;
-  if(req.query.sprice != "") default_sprice = req.query.sprice;
-  if(req.query.eprice != "") default_eprice = req.query.eprice;
+  if (req.query.sprice != "") default_sprice = req.query.sprice;
+  if (req.query.eprice != "") default_eprice = req.query.eprice;
 
   var default_query = "SELECT * FROM product WHERE sdiv_no=? and product_sale_price between ? and ? ORDER BY " + order_query + " " + order_sort;
   var query_array = [req.query.sdiv_no, default_sprice, default_eprice];
 
 
-  if(req.query.ct_search != "") {
+  if (req.query.ct_search != "") {
     default_query = "SELECT * FROM product WHERE sdiv_no=? and product_sale_price between ? and ? and product_name like ? ORDER BY " + order_query + " " + order_sort;
-    query_array = [req.query.sdiv_no, default_sprice, default_eprice, "%"+req.query.ct_search+"%"];
+    query_array = [req.query.sdiv_no, default_sprice, default_eprice, "%" + req.query.ct_search + "%"];
   }
 
   console.log(default_query);
   console.log(query_array);
   connection.query(default_query, query_array,
-  function( error, result, fields) {
+    function (error, result, fields) {
       if (error) {
-          res.send({
-              code: 400,
-              failed: "error ocurred"
-          });
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
       } else {
-          console.log(result);
-          res.render('products', {
-            title : 'products',
-            total_page : Math.ceil(result.length / req.query.page_size),
-            current_page : req.query.page,
-            page_size: req.query.page_size,
-            start_page : start_page,
-            end_page : end_page,
-            order_by : req.query.order_by,
-            m_sdiv_no : req.query.sdiv_no,
-            ct_search : req.query.ct_search,
-            sprice : default_sprice,
-            eprice : default_eprice,
-            products : result
-          });
+        console.log(result);
+        res.render('products', {
+          title: 'products',
+          total_page: Math.ceil(result.length / req.query.page_size),
+          current_page: req.query.page,
+          page_size: req.query.page_size,
+          start_page: start_page,
+          end_page: end_page,
+          order_by: req.query.order_by,
+          m_sdiv_no: req.query.sdiv_no,
+          ct_search: req.query.ct_search,
+          sprice: default_sprice,
+          eprice: default_eprice,
+          products: result
+        });
       }
-  });
+    });
 });
 
 router.get('/seller_add_product', function (req, res) {
@@ -118,7 +118,7 @@ router.get('/seller_add_product', function (req, res) {
   });
 });
 
-router.post('/seller_add_product', up_img.array('product_img', 3), function(req, res, next) {
+router.post('/seller_add_product', up_img.array('product_img', 3), function (req, res, next) {
   console.log('# Seller add product reuqest arrive.');
   console.log(req.body);
   console.log(req.files);
@@ -130,10 +130,10 @@ router.post('/seller_add_product', up_img.array('product_img', 3), function(req,
   var product_thumb_img = req.files[0].originalname;
   var product_img = req.files[1].originalname;
   var product_detail_img = req.files[2].originalname;
-  var product_sale_price=0;
+  var product_sale_price = 0;
   var bdiv_no = body.bdiv_no;
   var sdiv_no = body.sdiv_no;
-  product_sale_price = (product_price * ((100 - product_sale)/100));
+  product_sale_price = (product_price * ((100 - product_sale) / 100));
   var query = connection.query('insert into product (product_name, detail_description, product_price, product_sale_price, product_sale, product_img, product_thumb_img, product_detail_img, bdiv_no, sdiv_no) values ("' +
     product_name + '","' +
     detail_description + '","' + product_price + '","' +
@@ -141,8 +141,8 @@ router.post('/seller_add_product', up_img.array('product_img', 3), function(req,
     product_sale + '","' + product_img + '","' +
     product_thumb_img + '","' +
     product_detail_img + '","' +
-    bdiv_no + '","' +sdiv_no + '")',
-    function(err, rows) {
+    bdiv_no + '","' + sdiv_no + '")',
+    function (err, rows) {
       if (err) {
         throw err;
       }
@@ -151,15 +151,15 @@ router.post('/seller_add_product', up_img.array('product_img', 3), function(req,
   res.redirect('/seller_page?page=1');
 });
 
-router.get('/seller_page', function(req, res) {
+router.get('/seller_page', function (req, res) {
   console.log('seller_page . path loaded');
-  var start_page = Math.ceil(req.query.page/5) * 5 - 4;
+  var start_page = Math.ceil(req.query.page / 5) * 5 - 4;
   var end_page = start_page + 4;
   var display = [];
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
   connection.query('SELECT * FROM product WHERE seller_id = ?', req.session._id,
-    function(error, result, fields) {
+    function (error, result, fields) {
       if (error) {
         res.send({
           code: 400,
@@ -174,22 +174,22 @@ router.get('/seller_page', function(req, res) {
           company: req.session._company_number,
           start_page: start_page,
           end_page: end_page,
-          total_page : Math.ceil(result.length / 10),
-          current_page : req.query.page
+          total_page: Math.ceil(result.length / 10),
+          current_page: req.query.page
         });
       }
     });
 });
 
 
-router.get('/product-page', function(req, res) {
+router.get('/product-page', function (req, res) {
   console.log('product-page . path loaded');
 
-  var display=[];
-  if(req.session._id) display=req.session_id + "님, 안녕하세요!";
+  var display = [];
+  if (req.session._id) display = req.session_id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴"
   connection.query('SELECT * FROM product WHERE product_no = ?', req.query.product_no,
-    function(error, result, fields) {
+    function (error, result, fields) {
       if (error) {
         res.send({
           code: 400,
@@ -198,7 +198,7 @@ router.get('/product-page', function(req, res) {
       } else {
         console.log(result);
         connection.query('select * from review where product_no=?', req.query.product_no,
-          function(error2, result2, fields) {
+          function (error2, result2, fields) {
             if (error2) {
               res.send({
                 code: 400,
@@ -207,54 +207,54 @@ router.get('/product-page', function(req, res) {
             } else {
 
               console.log(result2);
-              var arr=new Array();
-              var total_grade=0;
-              var len=result2.length;
-              for(var i=0; i<result2.length; i++){
+              var arr = new Array();
+              var total_grade = 0;
+              var len = result2.length;
+              for (var i = 0; i < result2.length; i++) {
                 arr.push(result2[i].review_grade);
-                total_grade+=result2[i].review_grade;
+                total_grade += result2[i].review_grade;
               }
-              if(len!=0){
-                total_grade=Math.ceil(total_grade/result2.length);
+              if (len != 0) {
+                total_grade = Math.ceil(total_grade / result2.length);
               }
               connection.query('select * from transaction where customer_id=? and product_no=?', [req.session._id, req.query.product_no],
-            function(error3, result3, fields){
-              if(error3){
-                res.send({
-                  code: 400,
-                  failed: "error ocurred3"
+                function (error3, result3, fields) {
+                  if (error3) {
+                    res.send({
+                      code: 400,
+                      failed: "error ocurred3"
+                    });
+                  } else {
+                    var check = 0;
+                    console.log(result3);
+                    if (result3.length != 0) {  //구매 한 적 있음
+                      check = 1;
+                    }
+                    else {         //구매 한 적 없음
+                      check = 0;
+                    }
+                    res.render('product-page', {
+                      title: 'review',
+                      review: result2,
+                      result: result,
+                      grade: arr,
+                      p_no: req.query.product_no,
+                      total_grade: total_grade,
+                      review_cnt: len,
+                      session: display,
+                      review_check: check,
+                      company: req.session._company_number
+                    });
+                  }
                 });
-              } else{
-                var check=0;
-                console.log(result3);
-                if(result3.length!=0){  //구매 한 적 있음
-                  check=1;
-                }
-                else{         //구매 한 적 없음
-                  check=0;
-                }
-                res.render('product-page', {
-                  title: 'review',
-                  review: result2,
-                  result: result,
-                  grade: arr,
-                  p_no: req.query.product_no,
-                  total_grade: total_grade,
-                  review_cnt: len,
-                  session: display,
-                  review_check:check,
-                  company: req.session._company_number
-                });
-              }
-            });
 
             }
           });
       }
-  });
+    });
 });
 
-router.post('/product-page', function(req, res, next){
+router.post('/product-page', function (req, res, next) {
   console.log('# product review request arrive.');
   console.log(req.body);
   var body = req.body;
@@ -266,22 +266,22 @@ router.post('/product-page', function(req, res, next){
     customer_id + '","' +
     product_no + '","' + review_comment + '","' +
     review_grade + '")',
-    function(err, rows){
-      if(err){
-        throw err;``
+    function (err, rows) {
+      if (err) {
+        throw err; ``
       }
       console.log("review inserted!");
     });
-    res.redirect('/product-page?product_no='+product_no);
+  res.redirect('/product-page?product_no=' + product_no);
 });
 
-router.get('/seller_modify_product', function(req, res) {
+router.get('/seller_modify_product', function (req, res) {
   console.log('seller_modify_product . page loaded');
   var display = [];
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
   connection.query('SELECT * FROM product WHERE product_no = ?', req.query.product_no,
-    function(error, result, fields) {
+    function (error, result, fields) {
       if (error) {
         res.send({
           code: 400,
@@ -300,7 +300,7 @@ router.get('/seller_modify_product', function(req, res) {
     });
 });
 
-router.post('/seller_modify_product', up_img.array('product_img', 3), function(req, res, next) {
+router.post('/seller_modify_product', up_img.array('product_img', 3), function (req, res, next) {
   console.log('# Seller modify product reuqest arrive.');
   console.log(req.body);
   console.log(req.files);
@@ -317,7 +317,7 @@ router.post('/seller_modify_product', up_img.array('product_img', 3), function(r
   var sdiv_no = body.sdiv_no;
 
   var sql = "update product set product_name=?, product_price=?, product_sale=?, detail_description=?, product_thumb_img=?, product_img=?, product_detail_img=?, bdiv_no=?, sdiv_no=? where product_no=?"
-  var query = connection.query(sql, [product_name, product_price, product_sale, detail_description, product_thumb_img, product_img, product_detail_img, bdiv_no, sdiv_no, product_no], function(err, rows) {
+  var query = connection.query(sql, [product_name, product_price, product_sale, detail_description, product_thumb_img, product_img, product_detail_img, bdiv_no, sdiv_no, product_no], function (err, rows) {
     if (err) {
       throw err;
     }
@@ -340,26 +340,26 @@ router.post('/api/delete_product', function (req, res) {
     });
 });
 
-router.get('/more_review', function(req, res) {
+router.get('/more_review', function (req, res) {
   console.log('more_review . path loaded');
-  var date=[]
+  var date = []
   var display = [];
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
   connection.query('SELECT * FROM review WHERE product_no = ?', req.query.product_no,
-    function(error, result, fields) {
+    function (error, result, fields) {
       if (error) {
         res.send({
           code: 400,
           failed: "error ocurred"
         });
       } else {
-        for (var i =0; i<result.length; i++){
-        var year=result[i].review_time.getFullYear();
-        var month=result[i].review_time.getMonth()+1;
-        var day=result[i].review_time.getDate();
-        date[i]=year+"년"+month+"월"+day+"일"
-      }
+        for (var i = 0; i < result.length; i++) {
+          var year = result[i].review_time.getFullYear();
+          var month = result[i].review_time.getMonth() + 1;
+          var day = result[i].review_time.getDate();
+          date[i] = year + "년" + month + "월" + day + "일"
+        }
         console.log(result[0].review_time);
         res.render('more_review', {
           title: 'more_review',
@@ -369,7 +369,7 @@ router.get('/more_review', function(req, res) {
           company: req.session._company_number
         });
       }
-     });
+    });
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -531,62 +531,62 @@ router.get('/index', function (req, res) {
   });
 });
 
-router.get('/main_search', function(req, res){
+router.get('/main_search', function (req, res) {
   var order_query = req.query.order_by;
   var order_sort = "ASC";
 
-  if(req.query.order_by == "purchase_count") order_sort = "DESC";
-  if(req.query.order_by == "total_grade") order_sort = "DESC";
-  if(req.query.order_by == "registration_time") order_sort = "DESC";
-  if(req.query.order_by == "product_price_low") order_query = "product_sale_price";
-  if(req.query.order_by == "product_price_high") {
+  if (req.query.order_by == "purchase_count") order_sort = "DESC";
+  if (req.query.order_by == "total_grade") order_sort = "DESC";
+  if (req.query.order_by == "registration_time") order_sort = "DESC";
+  if (req.query.order_by == "product_price_low") order_query = "product_sale_price";
+  if (req.query.order_by == "product_price_high") {
     order_sort = "DESC";
     order_query = "product_sale_price";
   }
 
-  var start_page = Math.ceil(req.query.page/5) * 5 - 4;
+  var start_page = Math.ceil(req.query.page / 5) * 5 - 4;
   var end_page = start_page + 4;
 
   var default_sprice = 0;
   var default_eprice = 99999999;
-  if(req.query.sprice != "") default_sprice = req.query.sprice;
-  if(req.query.eprice != "") default_eprice = req.query.eprice;
+  if (req.query.sprice != "") default_sprice = req.query.sprice;
+  if (req.query.eprice != "") default_eprice = req.query.eprice;
 
   var default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? ORDER BY " + order_query + " " + order_sort;
   var query_array = [default_sprice, default_eprice, order_query, order_sort];
 
 
-  if(req.query.main_search != "") {
+  if (req.query.main_search != "") {
     default_query = "SELECT * FROM product WHERE product_sale_price between ? and ? and product_name like ? ORDER BY " + order_query + " " + order_sort;
-    query_array = [default_sprice, default_eprice, "%"+req.query.main_search+"%", order_query, order_sort];
+    query_array = [default_sprice, default_eprice, "%" + req.query.main_search + "%", order_query, order_sort];
   }
 
   connection.query(default_query, query_array,
-  function( error, result, fields) {
+    function (error, result, fields) {
       if (error) {
-          res.send({
-              code: 400,
-              failed: "error ocurred"
-          });
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
       } else {
         console.log(result[0]);
         console.log(result[1]);
         console.log(result[2]);
-          res.render('main_products', {
-            title : 'main_products',
-            total_page : Math.ceil(result.length / req.query.page_size),
-            current_page : req.query.page,
-            page_size: req.query.page_size,
-            start_page : start_page,
-            end_page : end_page,
-            order_by : req.query.order_by,
-            main_search : req.query.main_search,
-            sprice : default_sprice,
-            eprice : default_eprice,
-            products : result
-          });
+        res.render('main_products', {
+          title: 'main_products',
+          total_page: Math.ceil(result.length / req.query.page_size),
+          current_page: req.query.page,
+          page_size: req.query.page_size,
+          start_page: start_page,
+          end_page: end_page,
+          order_by: req.query.order_by,
+          main_search: req.query.main_search,
+          sprice: default_sprice,
+          eprice: default_eprice,
+          products: result
+        });
       }
-  });
+    });
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -729,17 +729,17 @@ router.get('/logout', function (req, res) {
 /////////////////////////////////////////////////////////////////////////////////////////
 //                               FAQ & QA SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
-router.get('/FAQ', function(req, res){
+router.get('/FAQ', function (req, res) {
   console.log('FAQ load');
   res.render('FAQ', {
     title: 'FAQ'
   });
 });
 
-router.get('/QA', function(req, res){
+router.get('/QA', function (req, res) {
   console.log('QA load');
   res.render('QA', {
-    title : 'QA'
+    title: 'QA'
   });
 });
 
@@ -1323,10 +1323,56 @@ router.get('/view_info_seller_admin', function (req, res, next) {
     });
 });
 
+/* GET admin_search page. */
+router.get('/admin_search', function (req, res) {
+  console.log('admin_searchjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  if (req.query.admin_search != "") {
+    if (req.query.Member_classification == 0) {
+      console.log("구매자입니다.");
+      connection.query("SELECT * FROM customer WHERE customer_id like " + "'%" + req.query.admin_search + "%'",
+        function (error, result, fields) {
+          if (error) {
+            res.send({ code: 400, failed: "error ocurred" });
+          } else {
+            console.log(result);
+            res.render('view_customerlist_admin', {
+              title: 'view_customerlist_admin',
+              result: result,
+              session: display,
+              company: req.session._company_number
+            });
+          }
+        });
+    }
+    else {
+      console.log("판매자입니다.");
+      connection.query("SELECT * FROM seller WHERE seller_id like " + "'%" + req.query.admin_search + "%'",
+        function (error, result, fields) {
+          if (error) {
+            res.send({ code: 400, failed: "error ocurred" });
+          } else {
+            console.log(result);
+            res.render('view_sellerlist_admin', {
+              title: 'view_sellerlist_admin',
+              result: result,
+              session: display,
+              company: req.session._company_number
+            });
+          }
+        });
+    }
+  }
+
+});
+
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   TEST SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
-router.get('/view_info_c', function(req, res){
+router.get('/view_info_c', function (req, res) {
   console.log('sex');
   res.render('view_customerlist_admin', {
     title: 'transaction_log'
