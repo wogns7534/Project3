@@ -616,6 +616,7 @@ router.get('/', function (req, res) {
                         title: 'index',
                         session: display,
                         company: req.session._company_number,
+                        type : req.session._type,
                         rating_result : rating_result,
                         sale_result : sale_result,
                         count_result : count_result,
@@ -665,6 +666,7 @@ router.get('/index', function (req, res) {
                         title: 'index',
                         session: display,
                         company: req.session._company_number,
+                        type : req.session._type,
                         rating_result : rating_result,
                         sale_result : sale_result,
                         count_result : count_result,
@@ -747,8 +749,14 @@ router.get('/main_search', function(req, res){
 /* GET /login : 로그인 버튼 눌렀을 때 가장 최초 접근하는 로그인 페이지  */
 router.get('/login', function (req, res) {
   console.log('loginjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
   res.render('login', {
-    title: 'login'
+    title: 'login',
+    session: display,
+    company: req.session._company_number
   });
 });
 
@@ -765,6 +773,19 @@ router.get('/login_seller', function (req, res) {
   console.log('login_seller ajax on');
   res.render('login_seller', {
     title: 'login_seller'
+  });
+});
+
+/* GET /login_admin : 관리자 로그인 화면 전환 버튼 */
+router.get('/login_admin', function(req, res){
+  console.log('admin login display');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+  res.render('login_admin',{
+  title: 'login',
+    session: display,
+    company: req.session._company_number
   });
 });
 
@@ -796,6 +817,7 @@ router.post('/checksum_customer', function (req, res) {
             req.session._money = result[0].customer_money;
             req.session._company_number = "";
             req.session._company_name = "";
+            req.session._type = 1;
             req.session.save(function () {
               res.json({
                 title: 'index',
@@ -845,6 +867,56 @@ router.post('/checksum_seller', function (req, res) {
             req.session._email = result[0].seller_email;
             req.session._company_number = result[0].company_number;
             req.session._company_name = result[0].company_name;
+            req.session._type = 2;
+            req.session.save(function () {
+              res.json({
+                title: 'index',
+                message: 'success'
+              });
+            });
+          } else {
+            res.json({
+              title: 'index',
+              message: 'password'
+            });
+          }
+        } else {
+          res.json({
+            title: 'index',
+            message: 'failed'
+          });
+        }
+      }
+    });
+});
+
+router.post('/checksum_admin', function(req, res){
+  var id = req.body.id;
+  var passwd = req.body.password;
+  console.log("get id : " + id);
+  console.log("get password : " + passwd);
+  connection.query('SELECT * FROM admin WHERE admin_id = ?', [id],
+    function (error, result, fields) {
+      if (error) {
+        // console.log("error ocurred", error);
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        // console.log('The solution is: ', results);
+        if (result.length > 0) {
+          if (result[0].admin_passwd == passwd) {
+            req.session._id = result[0].admin_id;
+            req.session._passwd = result[0].admin_passwd;
+            req.session._name = result[0].admin_name;
+            req.session._address = result[0].admin_address;
+            req.session._zipcode = result[0].admin_zipcode;
+            req.session._phone = result[0].admin_mobile;
+            req.session._email = result[0].admin_email;
+            req.session._company_number = "";
+            req.session._company_name = "";
+            req.session._type = 0;
             req.session.save(function () {
               res.json({
                 title: 'index',
