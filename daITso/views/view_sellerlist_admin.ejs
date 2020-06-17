@@ -662,58 +662,52 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<form id="checkout-form" class="clearfix">
-					<div>
-						<div class="billing-details">
-							<div class="section-title">
-								<h2 class="title">판매자 목록</h2>
-							</div>
-							<br>
-							<table class="shopping-cart-table table">
-								<thead>
-									<tr>
-										<th></th>
-										<th class="text-center">아이디</th>
-										<th class="text-center">회사 이메일</th>
-										<th></th>
-										<th class="text-center">판매자명</th>
-										<th></th>
-										<th>상세조회</th>
-									</tr>
-								</thead>
-								<tbody>
-									<% for(var i = 0; i < result.length; i++){ %>
-									<tr>
-										<td></td>
-										<td class="qty text-center"><%=result[i].seller_id%></td>
-										<td class="qty text-center"><%=result[i].seller_email%></td>
-										<td></td>
-										<td class="qty text-center"><%=result[i].seller_name%></td>
-										<td></td>
-										<td class="qty text-center"><a id='cansle' class="main-btn" href="/view_info_seller_admin?seller_id=<%=result[i].seller_id%>">상세조회</a></td>
-									</tr>
-									<% } %>
-								</tbody>
-							</table>
-							<div class="text-center">
-								<ul class="store-pages">
-									<li><a href="#"><i class="fa fa-caret-left"></i></a></li>
-									<li class="active">1</li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
-								</ul>
-							</div>
+				<div>
+					<div class="billing-details">
+						<div class="section-title">
+							<h2 class="title">판매자 목록</h2>
 						</div>
 						<br>
-						<div class="info-search">
-							<input class="input search-input text-center" type="text" placeholder="찾을 회원 아이디 입력">
-							<button class="search-btn"><i class="fa fa-search"></i></button>
-						</div>
+						<table class="shopping-cart-table table">
+							<thead>
+								<tr>
+									<th></th>
+									<th class="text-center">아이디</th>
+									<th class="text-center">회사 이메일</th>
+									<th></th>
+									<th class="text-center">판매자명</th>
+									<th></th>
+									<th>상세조회</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for(var i = 0; i < result.length; i++){ %>
+								<tr>
+									<td></td>
+									<td class="qty text-center"><%=result[i].seller_id%></td>
+									<td class="qty text-center"><%=result[i].seller_email%></td>
+									<td></td>
+									<td class="qty text-center"><%=result[i].seller_name%></td>
+									<td></td>
+									<td class="qty text-center"><a id='cansle' class="main-btn"
+											href="/view_info_seller_admin?seller_id=<%=result[i].seller_id%>">상세조회</a>
+									</td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
 					</div>
-				</form>
+					<br>
+					<div class="info-search">
+						<form action="/admin_search" method="get">
+							<input type="hidden" name="Member_classification" value="1" />
+							<input name="admin_search" class="input search-input text-center" type="text"
+								placeholder="찾을 회원 아이디 입력">
+							<button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
+					<!-- Search -->
+				</div>
 			</div>
 		</div>
 		<!-- /container -->

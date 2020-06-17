@@ -1352,6 +1352,51 @@ router.get('/view_info_seller_admin', function (req, res, next) {
     });
 });
 
+/* GET admin_search page. */
+router.get('/admin_search', function (req, res) {
+  console.log('admin_searchjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  if (req.query.admin_search != "") {
+    if (req.query.Member_classification == 0) {
+      console.log("구매자입니다.");
+      connection.query("SELECT * FROM customer WHERE customer_id like " + "'%" + req.query.admin_search + "%'",
+        function (error, result, fields) {
+          if (error) {
+            res.send({ code: 400, failed: "error ocurred" });
+          } else {
+            console.log(result);
+            res.render('view_customerlist_admin', {
+              title: 'view_customerlist_admin',
+              result: result,
+              session: display,
+              company: req.session._company_number
+            });
+          }
+        });
+    }
+    else {
+      console.log("판매자입니다.");
+      connection.query("SELECT * FROM seller WHERE seller_id like " + "'%" + req.query.admin_search + "%'",
+        function (error, result, fields) {
+          if (error) {
+            res.send({ code: 400, failed: "error ocurred" });
+          } else {
+            console.log(result);
+            res.render('view_sellerlist_admin', {
+              title: 'view_sellerlist_admin',
+              result: result,
+              session: display,
+              company: req.session._company_number
+            });
+          }
+        });
+    }
+  }
+});
+
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   TEST SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
