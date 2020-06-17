@@ -936,6 +936,394 @@ router.post('/purchase', function (req, res, next) {
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
+//                                   INFO SECTION                                      //
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/* GET view_info_customer page. */
+router.get('/view_info_customer', function (req, res, next) {
+  console.log('view_info_customerjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM customer WHERE customer_id = '" + req.session._id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].customer_id);
+        res.render('view_info_customer', {
+          title: 'view_info_customer',
+          customer_id: result[0].customer_id,
+          customer_passwd: result[0].customer_passwd,
+          customer_name: result[0].customer_name,
+          customer_address: result[0].customer_address,
+          customer_zipcode: result[0].customer_zipcode,
+          customer_phone: result[0].customer_phone,
+          customer_email: result[0].customer_email,
+          customer_money: result[0].customer_money,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* GET withdrawal page. */
+router.get('/withdrawal', function (req, res, next) {
+  console.log('withdrawaljs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  if (req.session._company_number == "") {  // 구매자
+    connection.query("SELECT * FROM customer WHERE customer_id = '" + req.session._id + "'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred1" });
+        } else {
+          console.log(result[0].customer_id);
+          res.render('withdrawal', {
+            title: 'withdrawal',
+            id: result[0].customer_id,
+            passwd: result[0].customer_passwd,
+            session: display,
+            company: req.session._company_number
+          });
+        }
+      });
+  }
+  else {  //판매자
+    connection.query("SELECT * FROM seller WHERE seller_id = '" + req.session._id + "'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred1" });
+        } else {
+          console.log(result[0].seller_id);
+          res.render('withdrawal', {
+            title: 'withdrawal',
+            id: result[0].seller_id,
+            passwd: result[0].seller_passwd,
+            session: display,
+            company: req.session._company_number
+          });
+        }
+      });
+  }
+});
+
+/* POST withdrawal page. */
+router.post('/withdrawal', function (req, res, next) {
+  console.log('# User withdrawal reuqest arrive.');
+  console.log(req.body);
+
+  if (req.session._company_number == "") {  // 구매자
+    console.log("구매자입니다.");
+    connection.query("DELETE FROM customer WHERE customer_id = '" + req.session._id + "'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred1" });
+        } else {
+          req.session.destroy(function (err) {
+            if (err) { console.log(err); }
+          });
+        }
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.write("<script>");
+        res.write("alert('성공적으로 회원삭제되었습니다.'); location.href='/';");
+        res.write("</script>");
+      });
+  } else {  //판매자
+    console.log("퍈매자입니다.");
+    connection.query("DELETE FROM seller WHERE seller_id = '" + req.session._id + "'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred1" });
+        } else {
+          req.session.destroy(function (err) {
+            if (err) { console.log(err); }
+          });
+        }
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.write("<script>");
+        res.write("alert('성공적으로 회원삭제되었습니다.'); location.href='/';");
+        res.write("</script>");
+      });
+  }
+});
+
+/* POST withdrawal_admin page. */
+router.post('/withdrawal_admin', function (req, res, next) {
+  console.log('# User withdrawal_admin reuqest arrive.');
+  if (req.query.customer_id !== undefined) {  // 구매자
+    console.log("구매자입니다.");
+    connection.query("DELETE FROM customer WHERE customer_id = '" + req.query.customer_id + "'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred1" });
+        }
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.write("<script>");
+        res.write("alert('성공적으로 구매자 회원이 삭제되었습니다.'); location.href='/view_customerlist_admin';");
+        res.write("</script>");
+      });
+  } else {  //판매자
+    console.log("판매자입니다.");
+    connection.query("DELETE FROM seller WHERE seller_id = '" + req.query.seller_id + "'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred1" });
+        }
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.write("<script>");
+        res.write("alert('성공적으로 판매자 회원이 삭제되었습니다.'); location.href='/view_sellerlist_admin';");
+        res.write("</script>");
+      });
+  }
+});
+
+/* GET modify_info_customer page. */
+router.get('/modify_info_customer', function (req, res, next) {
+  console.log('modify_info_customerjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM customer WHERE customer_id = '" + req.session._id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].customer_id);
+        res.render('modify_info_customer', {
+          title: 'modify_info_customer',
+          customer_id: result[0].customer_id,
+          customer_passwd: result[0].customer_passwd,
+          customer_name: result[0].customer_name,
+          customer_address: result[0].customer_address,
+          customer_zipcode: result[0].customer_zipcode,
+          customer_phone: result[0].customer_phone,
+          customer_email: result[0].customer_email,
+          customer_money: result[0].customer_money,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* POST modify_info_customer page. */
+router.post('/modify_info_customer', function (req, res, next) {
+  console.log('# User modify_info_customer reuqest arrive.');
+  console.log(req.body);
+  var body = req.body;
+  var customer_passwd = body.passwd;
+  var customer_email = body.email;
+  var customer_phone = body.tel;
+  var customer_zipcode = body.zip;
+  var customer_address = body.addr1 + body.addr2;
+
+  var sql = "update customer set customer_passwd=?, customer_email=?, customer_phone=?, customer_zipcode=?, customer_address=? where customer_id=?"
+  var query = connection.query(sql, [customer_passwd, customer_email, customer_phone, customer_zipcode, customer_address, req.session._id], function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    console.log("Data modified!");
+  });
+  res.redirect('/view_info_customer');
+});
+
+/* GET view_info_seller page. */
+router.get('/view_info_seller', function (req, res, next) {
+  console.log('view_info_sellerjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM seller WHERE seller_id = '" + req.session._id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].seller_id);
+        res.render('view_info_seller', {
+          title: 'view_info_seller',
+          seller_id: result[0].seller_id,
+          seller_passwd: result[0].seller_passwd,
+          seller_name: result[0].seller_name,
+          seller_address: result[0].seller_address,
+          seller_zipcode: result[0].seller_zipcode,
+          seller_mobile: result[0].seller_mobile,
+          seller_email: result[0].seller_email,
+          company_number: result[0].company_number,
+          company_name: result[0].company_name,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* GET modify_info_seller page. */
+router.get('/modify_info_seller', function (req, res, next) {
+  console.log('modify_info_sellerjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM seller WHERE seller_id = '" + req.session._id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].seller_id);
+        res.render('modify_info_seller', {
+          title: 'modify_info_seller',
+          seller_id: result[0].seller_id,
+          seller_passwd: result[0].seller_passwd,
+          seller_name: result[0].seller_name,
+          seller_address: result[0].seller_address,
+          seller_zipcode: result[0].seller_zipcode,
+          seller_mobile: result[0].seller_mobile,
+          seller_email: result[0].seller_email,
+          company_number: result[0].company_number,
+          company_name: result[0].company_name,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* POST modify_info_seller page. */
+router.post('/modify_info_seller', function (req, res, next) {
+  console.log('# User modify_info_seller reuqest arrive.');
+  console.log(req.body);
+  var body = req.body;
+  var seller_passwd = body.passwd;
+  var seller_email = body.email;
+  var seller_mobile = body.tel;
+  var seller_zipcode = body.zip;
+  var seller_address = body.addr1 + body.addr2;
+
+  var sql = "update seller set seller_passwd=?, seller_email=?, seller_mobile=?, seller_zipcode=?, seller_address=? where seller_id=?"
+  var query = connection.query(sql, [seller_passwd, seller_email, seller_mobile, seller_zipcode, seller_address, req.session._id], function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    console.log("Data modified!");
+  });
+  res.redirect('/view_info_seller');
+});
+
+/* GET view_customerlist_admin page. */
+router.get('/view_customerlist_admin', function (req, res, next) {
+  console.log('view_customerlist_adminjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT customer_id, customer_email, customer_name FROM customer",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result);
+        res.render('view_customerlist_admin', {
+          title: 'view_customerlist_admin',
+          result: result,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* GET view_sellerlist_admin page. */
+router.get('/view_sellerlist_admin', function (req, res, next) {
+  console.log('view_sellerlist_adminjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT seller_id, seller_email, seller_name FROM seller",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result);
+        res.render('view_sellerlist_admin', {
+          title: 'view_sellerlist_admin',
+          result: result,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* GET view_info_customer_admin page. */
+router.get('/view_info_customer_admin', function (req, res, next) {
+  console.log('view_info_customer_adminjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM customer WHERE customer_id = '" + req.query.customer_id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].customer_id);
+        res.render('view_info_customer_admin', {
+          title: 'view_info_customer_admin',
+          id: result[0].customer_id,
+          customer_passwd: result[0].customer_passwd,
+          customer_name: result[0].customer_name,
+          customer_address: result[0].customer_address,
+          customer_zipcode: result[0].customer_zipcode,
+          customer_phone: result[0].customer_phone,
+          customer_email: result[0].customer_email,
+          customer_money: result[0].customer_money,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/* GET view_info_seller_admin page. */
+router.get('/view_info_seller_admin', function (req, res, next) {
+  console.log('view_info_customer_adminjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM seller WHERE seller_id = '" + req.query.seller_id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].seller_id);
+        res.render('view_info_seller_admin', {
+          title: 'view_info_seller_admin',
+          id: result[0].seller_id,
+          seller_passwd: result[0].seller_passwd,
+          seller_name: result[0].seller_name,
+          seller_address: result[0].seller_address,
+          seller_zipcode: result[0].seller_zipcode,
+          seller_mobile: result[0].seller_mobile,
+          seller_email: result[0].seller_email,
+          company_number: result[0].company_number,
+          company_name: result[0].company_name,
+          session: display,
+          company: req.session._company_number
+        });
+      }
+    });
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////
 //                                   TEST SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/view_info_c', function(req, res){
