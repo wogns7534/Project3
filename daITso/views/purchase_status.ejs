@@ -110,7 +110,7 @@
                         <li><a href="/view_customerlist_admin?page=1"><i class="fa fa-list"></i>구매자 목록 조회</a></li>
                         <li><a href="/view_sellerlist_admin?page=1"><i class="fa fa-list"></i>판매자 목록 조회</a></li>
                         <li><a href="/point_charge_log"><i class="fa fa-star"></i>포인트 충전 관리 </a></li>
-                        <li><a href="/cash_withdrawal_log"><i class="fa fa-user-o"></i> 현금 출금 신청</a></li>
+                        <li><a href="/cash_withdrawal_log"><i class="fa fa-user-o"></i> 현금 출금 관리</a></li>
                         <% } else { %>
                         <!-- if customer -->
                         <li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
@@ -652,189 +652,114 @@
       <!-- /container -->
    </div>
    <!-- /NAVIGATION -->
-   <!-- BREADCRUMB -->
-   <div id="breadcrumb">
-      <div class="container">
-         <ul class="breadcrumb">
-            <li><a href="/">&nbsp 홈</a></li>
-            <li class="active"> 주문/결제</li>
-         </ul>
-      </div>
-   </div>
-   <!-- /BREADCRUMB -->
 
    <!-- section -->
    <div class="section">
       <!-- container -->
       <div class="container">
          <!-- row -->
+         <div class="col-md-12 text-center">
+            <br><br><br>
+            <h1 class="title">나의 구매 현황 확인</h1>
+            <hr>
+         </div>
          <div class="row">
-            <form id="checkout-form" class="clearfix">
-               <div class="col-md-12">
-                  <div class="order-summary clearfix">
-                     <div class=shopping-cart-table>
-                        <img src="./img/banner_purchase.jpg" alt="" width="100%"><br><br>
-                     </div>
-                     <table class="shopping-cart-table table">
-                        <thead>
-                           <tr>
-                              <th class="text-center">배송상품</th>
-                              <th class="text-center">상품이름</th>
-                              <th class="text-center">가격</th>
-                              <th class="text-center">수량</th>
-                              <th class="text-center">주문금액</th>
-                              <th class="text-right"></th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <% var total_price = 0; %>
-                           <% for(var i = 0; i < result2.length; i++){ %>
+
+            <div class="col-md-12">
+               <div class="shiping-methods">
+
+                  <table class="shopping-cart-table table">
+                     <thead>
+                        <tr>
+                           <td>제품</td>
+                           <td style="width: 30%;">상품 이름</td>
+                           <td>주문 수량</td>
+                           <td>주문 금액</td>
+                           <td>배송 메모</td>
+                           <td>주문 확인</td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <% if(result.length==0){ %>
+                        <tr>
+                           <td></td>
+                           <td class=details>
+                              주문된 상품이 없습니다.
+                           </td>
+                           <td></td>
+                           <td></td>
+                        </tr>
+                        <% } else{%>
+                        <% for(var i=(current_page-1)*10; i<(current_page)*10; i++){ %>
+                        <% if(result.length == i) break; %>
+                        <form id="checkout-form" class="clearfix" action="/purchase_status" method="POST">
+                           <input type="hidden" name="product_no" value="<%=result[i].product_no%>">
+                           <input type="hidden" name="transaction_complete" value="<%=result[i].transaction_complete%>">
+                           <input type="hidden" name="order_amount" value="<%=result[i].order_amount%>">
+                           <input type="hidden" name="transaction_quantity" value="<%=result[i].transaction_quantity%>">
+                           <input type="hidden" name="product_name" value="<%=result[i].product_name%>">
+                           <input type="hidden" name="customer_id" value="<%=result[i].customer_id%>">
+                           <input type="hidden" name="seller_money" value="<%=result[i].seller_money%>">
                            <tr>
                               <td class="thumb"><img
-                                    src="img/proj3_img/<%=result2[i][0].sdiv_no%>/<%=result2[i][0].product_thumb_img%>"
-                                    alt=""></td>
-                              <td class="details">
-                                 <a href="#"><%=result2[i][0].product_name%></a>
-                                 <ul>
-                                    <li><span><%=result2[i][0].detail_description%></span></li>
-                                 </ul>
+                                    src="img/proj3_img/<%=result[i].sdiv_no%>/<%=result[i].product_thumb_img%>" alt="">
                               </td>
-                              <td class="price text-center">
-                                 <strong><%=(result2[i][0].product_price*((100-result2[i][0].product_sale)/100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</strong><br><del
-                                    class="font-weak">
-                                    <% if(result2[i][0].product_sale > 0){ %>
-                                    <small><%=result2[i][0].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</small></del>
-                                 <% } %>
+                              <td><%= result[i].product_name %></td>
+                              <td><a><%=result[i].transaction_quantity%></a></td>
+                              <td><a><%=result[i].order_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</a>
                               </td>
-
-                              <td class="qty text-center">
-                                 <h4><%=result[i].shoppingcart_quantity%></h4>
-                              </td>
-
-                              <td class="total text-center"><strong class="primary-color"><%=(result2[i][0].product_price*((100-result2[i][0].product_sale)/100)*result[i].shoppingcart_quantity)
-                                 .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</strong>
-                              </td>
-                              <% total_price += result2[i][0].product_price*((100-result2[i][0].product_sale)/100)*result[i].shoppingcart_quantity; %>
+                              <td><a><%=result[i].delivery_memo%></a></td>
+                              <% if(result[i].transaction_complete==0){%>
+                              <td style="color:blue">결제완료</td>
+                              <% } else{%>
+                              <td style="color:red">배송완료</td>
+                              <% } %>
                            </tr>
+
+                        </form>
+                        <% } } %>
+                     </tbody>
+                  </table>
+                  <!-- store bottom filter -->
+                  <div class="store-filter clearfix">
+                     <div class="pull-left">
+                        <div class="row-filter">
+                        </div>
+                     </div>
+                     <% if(result.length != 0) {%>
+                     <div class="text-center">
+                        <ul class="store-pages">
+                           <% if(start_page > 5){ %>
+                           <li><a href="?page=<%=start_page-1%>"><i class="fa fa-caret-left"></i></a></li>
                            <% } %>
-                        </tbody>
-                     </table>
+
+                           <% for(var p = start_page; p <= end_page; p++){ %>
+                           <% if(p > total_page) break; %>
+                           <% if(p == current_page) { %>
+                           <li class="active"><%=p%></li>
+                           <% } else { %>
+                           <li><a href="?page=<%=p%>"><%=p%></a></li>
+                           <% }} %>
+
+                           <% if(end_page < total_page){ %>
+                           <li><a href="?page=<%=end_page+1%>"><i class="fa fa-caret-right"></i></a></li>
+                           <% } %>
+                        </ul>
+                     </div>
+                     <% } %>
                   </div>
+                  <!-- /store bottom filter -->
                </div>
-            </form>
+            </div>
+
          </div>
          <!-- /row -->
+
+
       </div>
       <!-- /container -->
    </div>
-
    <!-- /section -->
-   <div class="section">
-      <!-- container -->
-      <div class="container">
-         <!-- row -->
-         <div class="row">
-            <div class="col-md-6">
-               <div class=shopping-cart-table>
-                  <h4 class="pull-left">[구매자 및 배송지 정보]</h4><br><br><br>
-                  <div class="form-group">
-                     <h4 class="pull-left">- 주문자 이름</h4><br><br>
-                     <h4 class="pull-left"><%=result3[0].customer_id%></h4><br><br>
-                  </div>
-                  <div class="form-group">
-                     <h4 class="pull-left">- 이메일</h4><br><br>
-                     <h4 class="pull-left"><%=result3[0].customer_email%></h4><br><br>
-                  </div>
-                  <div class="form-group">
-                     <h4 class="pull-left">- 전화번호</h4><br><br>
-                     <h4 class="pull-left"><%=result3[0].customer_phone%></h4><br><br>
-                  </div>
-               </div>
-            </div>
-            <form class="shoppingcart-form" method="post" action="/purchase">
-               <div class="col-md-6">
-                  <div class="form-group">
-                     <br><br><br>
-                     <h4 class="pull-left">- 주소</h4><br>
-                  </div>
-                  <div class="form-group">
-                     <h4 class="pull-left">우편번호: <%=result3[0].customer_zipcode%></h4><br><br>
-                  </div>
-                  <div class="form-group">
-                     <h4 class="pull-left">상세주소: <%=result3[0].customer_address%></h4><br><br>
-                  </div>
-                  <div class="form-group">
-                     <br><br>
-                     <h4 class="pull-left">배송 메모</h4><br>
-                     <input class="input" type="text" name="delivery_memo" , id="delivery_memo">
-                  </div>
-               </div>
-         </div>
-
-      </div>
-   </div>
-   </div>
-
-
-   <div class="section">
-      <!-- container -->
-      <div class="container">
-         <!-- row -->
-         <div class="row">
-            <div class="col-md-6">
-               <div class=shopping-cart-table width="50%">
-                  <h4 class="pull-left">[배송지 방법선택]</h4><br><br><br>
-                  <input type="radio" id="od_delivery1" name="od_delivery" value="택배(무료)"
-                     onclick="priceSum('무료','0','1');">
-                  <label for="od_delivery1">택배 (무료)</label>
-                  <input type="radio" id="od_delivery2" name="od_delivery" value="방문수령"
-                     onclick="priceSum('착불','0','1');">
-                  <label for="od_delivery2">방문수령</label><br><br><br>
-
-                  <h4 class="pull-left">[결제방법 선택]</h4><br><br><br>
-                  <input type="radio" id="od_pkind1" name="od_pkind" value="은행" onclick="showPay('bank');">
-                  <label for="od_delivery1">무통장입금</label>
-                  <input type="radio" id="od_pkind2" name="od_pkind" value="온라인카드" onclick="showPay('card');pg();">
-                  <label for="od_delivery2">신용카드 결제</label>
-               </div>
-            </div>
-
-            <div class="col-md-6" style="display:flexbox;">
-               <div class="shopping-cart-table table" width="50%">
-                  <h4 class="pull-left">[결제금액 확인]</h4><br><br><br>
-                  <tr>
-                     <h5 class="pull-left">총 상품금액</h5>
-                     <h4 class="pull-right" colspan="2" class="total">
-                        <%=(total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원%></h4><br><br>
-                  </tr>
-                  <tr>
-                     <h5 class="pull-left">배송비</h5>
-                     <h4 class="pull-right" colspan="2" class="total">
-                        무료</h4><br><br>
-                  </tr>
-                  <tr>
-                     <h4 class="pull-left">총 결제금액</h4>
-                     <h4 colspan="2" class="pull-right">
-                        <%=(total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</h4><br><br>
-                  </tr>
-                  <tr>
-                     <h4 class="pull-left">보유 포인트</h4>
-                     <h4 colspan="2" class="pull-right">
-                        <%=(result3[0].customer_money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>원</h4><br>
-                  </tr>
-                  
-               </div>
-               <input type="hidden" name="total_price" value="<%=total_price%>"/>
-               <input type="hidden" name="customer_money" value="<%=result3[0].customer_money%>"/>
-               <div class="pull-right">
-                  <input type="submit" value="결제" class="primary-btn">
-                  <button type="button" class="main-btn" onclick="location.href='/shoppingcart'">취소</button>
-               </div>
-               </form>
-            </div>
-         </div>
-      </div>
-   </div>
 
    <!-- FOOTER NEW -->
    <footer id="footer" class="section section-grey">
@@ -855,12 +780,12 @@
                   <p>광운대학교 컴퓨터정보공학부<br>소프트웨어공학 3차 프로젝트<br>인터넷 쇼핑몰 웹 애플리케이션</p>
                   <!-- footer social -->
                   <!-- <ul class="footer-social">
-                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                     <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                  </ul> -->
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+						</ul> -->
                   <!-- /footer social -->
                </div>
             </div>
@@ -929,6 +854,7 @@
       <!-- /container -->
    </footer>
    <!-- /FOOTER NEW -->
+
    <!-- jQuery Plugins -->
    <script src="js/jquery.min.js"></script>
    <script src="js/bootstrap.min.js"></script>
@@ -936,16 +862,22 @@
    <script src="js/nouislider.min.js"></script>
    <script src="js/jquery.zoom.min.js"></script>
    <script src="js/main.js"></script>
-   <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
    <script>
-      function openZipSearch() {
-         new daum.Postcode({
-            oncomplete: function (data) {
-               $('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
-               $('[name=addr1]').val(data.address);
-               $('[name=addr2]').val(data.buildingName);
+      function deleteproduct(number) {
+         var delete_product_number = number
+         $.ajax({
+            type: 'POST',
+            data: { data: delete_product_number },
+            url: '/api/delete_product',
+            dataType: 'json',
+            success: function (result) {
+               alert("성공적으로 삭제했습니다.");
+               top.document.location.reload();
+            },
+            error: function (error) {
+               alert("error : " + error);
             }
-         }).open();
+         });
       }
    </script>
 </body>
