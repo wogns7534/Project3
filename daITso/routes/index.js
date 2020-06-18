@@ -1835,46 +1835,51 @@ router.get('/admin_search', function (req, res) {
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
-  if (req.query.admin_search != "") {
-    if (req.query.Member_classification == 0) {
-      console.log("구매자입니다.");
-      connection.query("SELECT * FROM customer WHERE customer_id like " + "'%" + req.query.admin_search + "%'",
-        function (error, result, fields) {
-          if (error) {
-            res.send({ code: 400, failed: "error ocurred" });
-          } else {
-            console.log(result);
-            res.render('view_customerlist_admin', {
-              title: 'view_customerlist_admin',
-              result: result,
-              session: display,
-              company: req.session._company_number,
-              type : req.session._type
-            });
-          }
-        });
+  console.log(req.query.admin_search);
+
+  if (req.query.Member_classification == 0) {
+    console.log("구매자입니다.");
+    if(req.query.admin_search==""){
+      res.redirect("/view_customerlist_admin");
     }
-    else {
-      console.log("판매자입니다.");
-      connection.query("SELECT * FROM seller WHERE seller_id like " + "'%" + req.query.admin_search + "%'",
-        function (error, result, fields) {
-          if (error) {
-            res.send({ code: 400, failed: "error ocurred" });
-          } else {
-            console.log(result);
-            res.render('view_sellerlist_admin', {
-              title: 'view_sellerlist_admin',
-              result: result,
-              session: display,
-              company: req.session._company_number,
-              type : req.session._type
-            });
-          }
-        });
+    connection.query("SELECT * FROM customer WHERE customer_id like " + "'%" + req.query.admin_search + "%'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred" });
+        } else {
+          console.log(result);
+          res.render('view_customerlist_admin', {
+            title: 'view_customerlist_admin',
+            result: result,
+            session: display,
+            company: req.session._company_number,
+            type: req.session._type
+          });
+        }
+      });
+  }
+  else {
+    console.log("판매자입니다.");
+    if(req.query.admin_search==""){
+      res.redirect("/view_sellerlist_admin");
     }
+    connection.query("SELECT * FROM seller WHERE seller_id like " + "'%" + req.query.admin_search + "%'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred" });
+        } else {
+          console.log(result);
+          res.render('view_sellerlist_admin', {
+            title: 'view_sellerlist_admin',
+            result: result,
+            session: display,
+            company: req.session._company_number,
+            type: req.session._type
+          });
+        }
+      });
   }
 });
-
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   POINT SECTION                                     //
 /////////////////////////////////////////////////////////////////////////////////////////
