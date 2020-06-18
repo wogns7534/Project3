@@ -152,6 +152,62 @@ router.post('/seller_add_product', up_img.array('product_img', 3), function(req,
   res.redirect('/seller_page?page=1');
 });
 
+router.get('/order_status', function(req, res) {
+  console.log('order_status . path loaded');
+  var display = [];
+  var start_page = Math.ceil(req.query.page / 5) * 5 - 4;
+  var end_page = start_page + 4;
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+
+  connection.query('select * from transaction natural join product natural join seller where product_no in(select product_no from product where seller_id=?);', req.session._id,
+    function(error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        res.render('order_status', {
+          title: 'order_status',
+          result: result,
+          session: display,
+          company: req.session._company_number,
+          start_page: start_page,
+          type : req.session._type,
+          end_page: end_page,
+          total_page: Math.ceil(result.length / 10),
+          current_page: req.query.page
+        });
+      }
+  });
+});
+
+router.post('/order_status', function(req, res){
+  console.log('order_status request arrived!');
+  var product_no = req.body.product_no;
+  var transaction_complete = req.body.transaction_complete;
+  var order_amount = req.body.order_amount;
+  var transaction_quantity = req.body.transaction_quantity;
+  var product_name = req.body.product_name;
+  var customer_id = req.body.customer_id;
+  var seller_money = req.body.seller_money;
+
+  seller_money=parseInt(seller_money);
+  order_amount=parseInt(order_amount);
+  seller_money+=order_amount
+  var sql = "update transaction natural join product natural join seller set transaction_complete=1, seller_money=? where product_no=? and seller_id=?"
+
+  var query = connection.query(sql, [seller_money, product_no, req.session._id], function(err, rows) {
+    if (err) {
+      throw err;
+    }
+    console.log("order status update!");
+  });
+  res.redirect('/order_status?page=1');
+});
+
 router.get('/seller_page', function(req, res) {
   console.log('seller_page . path loaded');
   var start_page = Math.ceil(req.query.page/5) * 5 - 4;
@@ -979,8 +1035,10 @@ router.get('/FAQ', function(req, res){
   });
 });
 
-router.get('/QA', function(req, res){
+router.get('/QA', function(req, res) {
   console.log('QA load');
+  var start_page = Math.ceil(req.query.page / 5) * 5 - 4;
+  var end_page = start_page + 4;
   var display = [];
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
@@ -997,15 +1055,18 @@ router.get('/QA', function(req, res){
       } else {
         console.log(result);
         res.render('QA', {
-          title : 'QA',
+          title: 'QA',
           session: display,
           company: req.session._company_number,
-          type : req.session._type,
           user: user,
-          qa: result
+          qa: result,
+          start_page: start_page,
+          end_page: end_page,
+          total_page: Math.ceil(result.length / 10),
+          current_page: req.query.page
         });
       }
-     });
+    });
 });
 
 router.get('/QA_read', function(req, res){
@@ -1075,7 +1136,7 @@ router.post('/QA_add', function(req, res){
   [QA_writer, QA_title, QA_content],
     function (err, rows, fields) {
       if (err) { throw err; }
-      res.redirect('/QA');
+      res.redirect('/QA?page=1');
     });
 });
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1774,46 +1835,51 @@ router.get('/admin_search', function (req, res) {
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
-  if (req.query.admin_search != "") {
-    if (req.query.Member_classification == 0) {
-      console.log("구매자입니다.");
-      connection.query("SELECT * FROM customer WHERE customer_id like " + "'%" + req.query.admin_search + "%'",
-        function (error, result, fields) {
-          if (error) {
-            res.send({ code: 400, failed: "error ocurred" });
-          } else {
-            console.log(result);
-            res.render('view_customerlist_admin', {
-              title: 'view_customerlist_admin',
-              result: result,
-              session: display,
-              company: req.session._company_number,
-              type : req.session._type
-            });
-          }
-        });
+  console.log(req.query.admin_search);
+
+  if (req.query.Member_classification == 0) {
+    console.log("구매자입니다.");
+    if(req.query.admin_search==""){
+      res.redirect("/view_customerlist_admin");
     }
-    else {
-      console.log("판매자입니다.");
-      connection.query("SELECT * FROM seller WHERE seller_id like " + "'%" + req.query.admin_search + "%'",
-        function (error, result, fields) {
-          if (error) {
-            res.send({ code: 400, failed: "error ocurred" });
-          } else {
-            console.log(result);
-            res.render('view_sellerlist_admin', {
-              title: 'view_sellerlist_admin',
-              result: result,
-              session: display,
-              company: req.session._company_number,
-              type : req.session._type
-            });
-          }
-        });
+    connection.query("SELECT * FROM customer WHERE customer_id like " + "'%" + req.query.admin_search + "%'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred" });
+        } else {
+          console.log(result);
+          res.render('view_customerlist_admin', {
+            title: 'view_customerlist_admin',
+            result: result,
+            session: display,
+            company: req.session._company_number,
+            type: req.session._type
+          });
+        }
+      });
+  }
+  else {
+    console.log("판매자입니다.");
+    if(req.query.admin_search==""){
+      res.redirect("/view_sellerlist_admin");
     }
+    connection.query("SELECT * FROM seller WHERE seller_id like " + "'%" + req.query.admin_search + "%'",
+      function (error, result, fields) {
+        if (error) {
+          res.send({ code: 400, failed: "error ocurred" });
+        } else {
+          console.log(result);
+          res.render('view_sellerlist_admin', {
+            title: 'view_sellerlist_admin',
+            result: result,
+            session: display,
+            company: req.session._company_number,
+            type: req.session._type
+          });
+        }
+      });
   }
 });
-
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                   POINT SECTION                                     //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1908,9 +1974,9 @@ router.post('/point_charging', function(req, res){
       connection.query("UPDATE customer SET customer_money=" + point +" where customer_id='" + req.body.customer_id +"'",
     function(err, result2, field){
       if(err) {throw err;}
-      else { 
-        connection.query("UPDATE point SET charge_complete=1, charge_complete_time=NOW()" + 
-                         " WHERE customer_id='" + req.body.customer_id + "' and charge_no=" + req.body.charge_no + 
+      else {
+        connection.query("UPDATE point SET charge_complete=1, charge_complete_time=NOW()" +
+                         " WHERE customer_id='" + req.body.customer_id + "' and charge_no=" + req.body.charge_no +
                          " and charge_amount=" + req.body.charge_amount,
           function(err, result3, field){
             if(err) {throw err;}
@@ -2015,7 +2081,7 @@ router.post('/cash_withdrawal_request', function(req, res){
                     req.body.seller_id + "', " + req.body.withdraw_amount + ", 0)",
     function(err, result2, field){
       if(err) {throw err;}
-      else { 
+      else {
         res.redirect('/cash_withdrawal_log');
       }
   });
@@ -2037,9 +2103,9 @@ router.post('/cash_withdrawaling', function(req, res){
       connection.query("UPDATE seller SET seller_money=" + point +" where seller_id='" + req.body.seller_id +"'",
     function(err, result2, field){
       if(err) {throw err;}
-      else { 
-        connection.query("UPDATE withdraw SET withdraw_complete=1, withdraw_complete_time=NOW()" + 
-                         " WHERE seller_id='" + req.body.seller_id + "' and withdraw_no=" + req.body.withdraw_no + 
+      else {
+        connection.query("UPDATE withdraw SET withdraw_complete=1, withdraw_complete_time=NOW()" +
+                         " WHERE seller_id='" + req.body.seller_id + "' and withdraw_no=" + req.body.withdraw_no +
                          " and withdraw_amount=" + req.body.withdraw_amount,
           function(err, result3, field){
             if(err) {throw err;}
