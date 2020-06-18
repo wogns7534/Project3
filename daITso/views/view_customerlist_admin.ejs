@@ -102,10 +102,10 @@
                      <% } else {%>
                         <% if(type == 0) {%> <!-- if admin -->
                            <li><a href="/view_info_admin"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
-                           <li><a href="/view_customerlist_admin"><i class="fa fa-list"></i>구매자 목록 조회</a></li>
-                           <li><a href="/view_sellerlist_admin"><i class="fa fa-list"></i>판매자 목록 조회</a></li>
+                           <li><a href="/view_customerlist_admin?page=1"><i class="fa fa-list"></i>구매자 목록 조회</a></li>
+                           <li><a href="/view_sellerlist_admin?page=1"><i class="fa fa-list"></i>판매자 목록 조회</a></li>
                            <li><a href="/point_charge_log"><i class="fa fa-star"></i>포인트 충전 관리 </a></li>
-                           <li><a href="/cash_withdrawal_log"><i class="fa fa-user-o"></i> 현금 출금 신청</a></li>
+                           <li><a href="/cash_withdrawal_log"><i class="fa fa-user-o"></i> 현금 출금 관리</a></li>
                         <% } else { %>   <!-- if customer -->
                            <li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
                            <li><a href="/point_charge_log"><i class="fa fa-star"></i>포인트 충전 신청 </a></li>
@@ -520,165 +520,195 @@
       <!-- /container -->
    </div>
    <!-- /NAVIGATION -->
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div>
-					<div class="billing-details">
-						<div class="section-title">
-							<h2 class="title">구매자 목록</h2>
-						</div>
-						<br>
-						<table class="shopping-cart-table table">
-							<thead>
-								<tr>
-									<th></th>
-									<th class="text-center">아이디</th>
-									<th class="text-center">이메일</th>
-									<th></th>
-									<th class="text-center">이름</th>
-									<th></th>
-									<th>상세조회</th>
-								</tr>
-							</thead>
-							<tbody>
-								<% for(var i = 0; i < result.length; i++){ %>
-								<tr>
-									<td></td>
-									<td class="qty text-center"><%=result[i].customer_id%></td>
-									<td class="qty text-center"><%=result[i].customer_email%></td>
-									<td></td>
-									<td class="qty text-center"><%=result[i].customer_name%></td>
-									<td></td>
-									<td class="qty text-center"><a id='cansle' class="main-btn"
-											href="/view_info_customer_admin?customer_id=<%=result[i].customer_id%>">상세조회</a>
-								</tr>
-								<% } %>
-							</tbody>
-						</table>
-					</div>
-					<br>
-					<div class="info-search">
-						<form action="/admin_search" method="get">
-							<input type="hidden" name="Member_classification" value="0" />
-							<input name="admin_search" class="input search-input text-center" type="text"
-								placeholder="찾을 회원 아이디 입력">
-							<button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
-						</form>
-					</div>
-					<!-- Search -->
-				</div>
-			</div>
-			<!-- /Search -->
-		</div>
-	</div>
-	</div>
-	<!-- /container -->
-	</div>
-	<!-- /section -->
-	<!-- FOOTER NEW -->
-	<footer id="footer" class="section section-grey">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<!-- footer logo -->
-						<div class="footer-logo">
-							<a class="logo" href="#">
-		            <img src="./img/logo.png" alt="">
-		          </a>
-						</div>
-						<!-- /footer logo -->
-						<p>광운대학교 컴퓨터정보공학부<br>소프트웨어공학 3차 프로젝트<br>인터넷 쇼핑몰 웹 애플리케이션</p>
-						<!-- footer social -->
-						<!-- <ul class="footer-social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-						</ul> -->
-						<!-- /footer social -->
-					</div>
-				</div>
-				<!-- /footer widget -->
+   <!-- section -->
+   <div class="section">
+      <!-- container -->
+      <div class="container">
+         <!-- row -->
+         <div class="row">
+            <div>
+               <div class="billing-details">
+                  <div class="section-title">
+                     <h2 class="title">구매자 목록</h2>
+                  </div>
+                  <br>
+                  <table class="shopping-cart-table table">
+                     <thead>
+                        <tr>
+                           <th></th>
+                           <th class="text-center">아이디</th>
+                           <th class="text-center">이메일</th>
+                           <th></th>
+                           <th class="text-center">이름</th>
+                           <th></th>
+                           <th>상세조회</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <% for(var i=(current_page-1)*10; i<(current_page)*10; i++){ %>
+                  <% if(result.length == i) break; %>
+                        <tr>
+                           <td></td>
+                           <td class="qty text-center"><%=result[i].customer_id%></td>
+                           <td class="qty text-center"><%=result[i].customer_email%></td>
+                           <td></td>
+                           <td class="qty text-center"><%=result[i].customer_name%></td>
+                           <td></td>
+                           <td class="qty text-center"><a id='cansle' class="main-btn"
+                                 href="/view_info_customer_admin?customer_id=<%=result[i].customer_id%>">상세조회</a>
+                        </tr>
+                        <% } %>
+                     </tbody>
+                  </table>
+            <!-- store bottom filter -->
+           <div class="store-filter clearfix">
+             <div class="pull-left">
+               <div class="row-filter">
+               </div>
+             </div>
+             <% if(result.length != 0) {%>
+             <div class="text-center">
+               <ul class="store-pages">
+                 <% if(start_page > 5){ %>
+                     <li><a href="?page=<%=start_page-1%>"><i class="fa fa-caret-left"></i></a></li>
+                 <% } %>
 
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">SW Project3 information</h3>
-						<ul class="list-links">
-							<li><a href="https://github.com/wogns7534/project3">Team Github Repository</a></li>
-							<li><a href="#">Team SW Project3 Presentation</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer widget -->
+                 <% for(var p = start_page; p <= end_page; p++){ %>
+                   <% if(p > total_page) break; %>
+                   <% if(p == current_page) { %>
+                     <li class="active"><%=p%></li>
+                   <% } else { %>
+                     <li><a href="?page=<%=p%>"><%=p%></a></li>
+                 <% }} %>
 
-				<div class="clearfix visible-sm visible-xs"></div>
+                 <% if(end_page < total_page){ %>
+                     <li><a href="?page=<%=end_page+1%>"><i class="fa fa-caret-right"></i></a></li>
+                 <% } %>
+               </ul>
+             </div>
+             <% } %>
+           </div>
+           <!-- /store bottom filter -->
+               </div>
+               <br>
+               <div class="info-search">
+                  <form action="/admin_search" method="get">
+                     <input type="hidden" name="Member_classification" value="0" />
+                     <input name="admin_search" class="input search-input text-center" type="text"
+                        placeholder="찾을 회원 아이디 입력">
+                     <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+                  </form>
+               </div>
+               <!-- Search -->
+            </div>
+         </div>
+         <!-- /Search -->
+      </div>
+   </div>
+   </div>
+   <!-- /container -->
+   </div>
+   <!-- /section -->
+   <!-- FOOTER NEW -->
+   <footer id="footer" class="section section-grey">
+      <!-- container -->
+      <div class="container">
+         <!-- row -->
+         <div class="row">
+            <!-- footer widget -->
+            <div class="col-md-3 col-sm-6 col-xs-6">
+               <div class="footer">
+                  <!-- footer logo -->
+                  <div class="footer-logo">
+                     <a class="logo" href="#">
+                  <img src="./img/logo.png" alt="">
+                </a>
+                  </div>
+                  <!-- /footer logo -->
+                  <p>광운대학교 컴퓨터정보공학부<br>소프트웨어공학 3차 프로젝트<br>인터넷 쇼핑몰 웹 애플리케이션</p>
+                  <!-- footer social -->
+                  <!-- <ul class="footer-social">
+                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                     <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                  </ul> -->
+                  <!-- /footer social -->
+               </div>
+            </div>
+            <!-- /footer widget -->
 
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">Team members</h3>
-						<ul class="list-links">
-							<li><a href="https://github.com/wogns7534">2015722001 주재훈 - 팀장</a></li>
-							<li><a href="https://github.com/pdache">2015722099 박동현 - 팀원</a></li>
-							<li><a href="https://github.com/wlsgh6346">2015722065 최진호 - 팀원</a></li>
-							<li><a href="https://github.com/hyeon9mak">2015722010 최현구 - 팀원</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer widget -->
+            <!-- footer widget -->
+            <div class="col-md-3 col-sm-6 col-xs-6">
+               <div class="footer">
+                  <h3 class="footer-header">SW Project3 information</h3>
+                  <ul class="list-links">
+                     <li><a href="https://github.com/wogns7534/project3">Team Github Repository</a></li>
+                     <li><a href="#">Team SW Project3 Presentation</a></li>
+                  </ul>
+               </div>
+            </div>
+            <!-- /footer widget -->
 
-				<!-- footer subscribe -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">Used Tech & LANGUAGE</h3>
-						<ul class="list-links">
-							<li><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript"></a>JavaScript</a></li>
-							<li><a href="https://ko.wikipedia.org/wiki/HTML">HTML</a></li>
-							<li><a href="https://developer.mozilla.org/ko/docs/Web/CSS">CSS</a></li>
-							<li><a href="https://jquery.com/">JQUERY</a></li>
-							<li><a href="https://ko.wikipedia.org/wiki/Ajax">AJAX</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer subscribe -->
-			</div>
-			<!-- /row -->
-			<hr>
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<!-- footer copyright -->
-					<div class="footer-copyright">
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved by 주재훈, 박동현, 최진호, 최현구
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</div>
-					<!-- /footer copyright -->
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</footer>
-	<!-- /FOOTER NEW -->
-	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/nouislider.min.js"></script>
-	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
-	<script src="/javascripts/jquery-3.5.1.min.js"></script>
+            <div class="clearfix visible-sm visible-xs"></div>
+
+            <!-- footer widget -->
+            <div class="col-md-3 col-sm-6 col-xs-6">
+               <div class="footer">
+                  <h3 class="footer-header">Team members</h3>
+                  <ul class="list-links">
+                     <li><a href="https://github.com/wogns7534">2015722001 주재훈 - 팀장</a></li>
+                     <li><a href="https://github.com/pdache">2015722099 박동현 - 팀원</a></li>
+                     <li><a href="https://github.com/wlsgh6346">2015722065 최진호 - 팀원</a></li>
+                     <li><a href="https://github.com/hyeon9mak">2015722010 최현구 - 팀원</a></li>
+                  </ul>
+               </div>
+            </div>
+            <!-- /footer widget -->
+
+            <!-- footer subscribe -->
+            <div class="col-md-3 col-sm-6 col-xs-6">
+               <div class="footer">
+                  <h3 class="footer-header">Used Tech & LANGUAGE</h3>
+                  <ul class="list-links">
+                     <li><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript"></a>JavaScript</a></li>
+                     <li><a href="https://ko.wikipedia.org/wiki/HTML">HTML</a></li>
+                     <li><a href="https://developer.mozilla.org/ko/docs/Web/CSS">CSS</a></li>
+                     <li><a href="https://jquery.com/">JQUERY</a></li>
+                     <li><a href="https://ko.wikipedia.org/wiki/Ajax">AJAX</a></li>
+                  </ul>
+               </div>
+            </div>
+            <!-- /footer subscribe -->
+         </div>
+         <!-- /row -->
+         <hr>
+         <!-- row -->
+         <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+               <!-- footer copyright -->
+               <div class="footer-copyright">
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved by 주재훈, 박동현, 최진호, 최현구
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+               </div>
+               <!-- /footer copyright -->
+            </div>
+         </div>
+         <!-- /row -->
+      </div>
+      <!-- /container -->
+   </footer>
+   <!-- /FOOTER NEW -->
+   <!-- jQuery Plugins -->
+   <script src="js/jquery.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script src="js/slick.min.js"></script>
+   <script src="js/nouislider.min.js"></script>
+   <script src="js/jquery.zoom.min.js"></script>
+   <script src="js/main.js"></script>
+   <script src="/javascripts/jquery-3.5.1.min.js"></script>
 </body>
 
 </html>

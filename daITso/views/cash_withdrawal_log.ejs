@@ -47,7 +47,7 @@
             <div class="pull-right">
                <ul class="header-top-links">
                   <li><a href="/FAQ">FAQ</a></li>
-                  <li><a href="/QA">고객센터</a></li>
+                  <li><a href="/QA?page=1">고객센터</a></li>
                </ul>
             </div>
          </div>
@@ -102,10 +102,10 @@
                      <% } else {%>
                         <% if(type == 0) {%> <!-- if admin -->
                            <li><a href="/view_info_admin"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
-                           <li><a href="/view_customerlist_admin"><i class="fa fa-list"></i>구매자 목록 조회</a></li>
-                           <li><a href="/view_sellerlist_admin"><i class="fa fa-list"></i>판매자 목록 조회</a></li>
+                           <li><a href="/view_customerlist_admin?page=1"><i class="fa fa-list"></i>구매자 목록 조회</a></li>
+                           <li><a href="/view_sellerlist_admin?page=1"><i class="fa fa-list"></i>판매자 목록 조회</a></li>
                            <li><a href="/point_charge_log"><i class="fa fa-star"></i>포인트 충전 관리 </a></li>
-                           <li><a href="/cash_withdrawal_log"><i class="fa fa-user-o"></i> 현금 출금 신청</a></li>
+                           <li><a href="/cash_withdrawal_log"><i class="fa fa-user-o"></i> 현금 출금 관리</a></li>
                         <% } else { %>   <!-- if customer -->
                            <li><a href="/view_info_customer"><i class="fa fa-user-o"></i> 내 계정정보</a></li>
                            <li><a href="/point_charge_log"><i class="fa fa-star"></i>포인트 충전 신청 </a></li>
@@ -530,7 +530,7 @@
 			<div class="col-md-12 text-center">
 				<img src="/img/banner_cash.png" style="width: 10%;">
 				<br><br>
-				<% if(session != "admin님, 안녕하세요!") {%>
+				<% if(type != 0) {%>
 					<a href="/cash_withdrawal_request"><div class= "primary-btn">현금 인출 신청</div></a>
 				<% } %>
 				<br><br>
@@ -549,7 +549,7 @@
 									<tr>
 									<td>신청 일자</td>
 									<td>출금 일자</td>
-									<% if(session == "admin님, 안녕하세요!") {%>
+									<% if(type == 0) {%>
 									<td>신청자 아이디</td>
 									<% } %>
 									<td>신청 금액</td>
@@ -575,12 +575,12 @@
 									<% } else { %>
 									<td> - </td>
 									<% } %>
-									<% if(session == "admin님, 안녕하세요!") {%>
+									<% if(type == 0) {%>
 										<td><%=result[i].seller_id%></td>
 									<% } %>
 									<td><%=result[i].withdraw_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%></td>
 									<% if(result[i].withdraw_complete == 0) { %>
-										<% if(session == "admin님, 안녕하세요!") {%>
+										<% if(type == 0) {%>
 										<form action="/cash_withdrawaling" method="POST">
 										<td style="color:coral">
 											<input type="hidden" name="seller_id" value="<%=result[i].seller_id%>"/>
