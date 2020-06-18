@@ -114,7 +114,8 @@ router.get('/seller_add_product', function (req, res) {
   res.render('seller_add_product', {
     title: 'seller_add_product',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -172,6 +173,7 @@ router.get('/seller_page', function(req, res) {
           result: result,
           session: display,
           company: req.session._company_number,
+          type : req.session._type,
           start_page: start_page,
           end_page: end_page,
           total_page : Math.ceil(result.length / 10),
@@ -239,7 +241,8 @@ router.get('/product-page', function(req, res) {
                   review_cnt: len,
                   session: display,
                   review_check:check,
-                  company: req.session._company_number
+                  company: req.session._company_number,
+                  type : req.session._type
                 });
               }
             });
@@ -313,7 +316,8 @@ router.get('/seller_modify_product', function(req, res) {
           result: result,
           p_no: req.query.product_no,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -385,7 +389,8 @@ router.get('/more_review', function(req, res) {
           review: result,
           date: date,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
      });
@@ -404,7 +409,8 @@ router.get('/join', function (req, res) {
   res.render('join', {
     title: 'join',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -418,7 +424,8 @@ router.get('/join_admin', function (req, res) {
   res.render('join_admin', {
     title: 'join_admin',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -432,7 +439,8 @@ router.get('/join_customer', function (req, res) {
   res.render('join_customer', {
     title: 'join_customer',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -446,7 +454,8 @@ router.get('/join_seller', function (req, res) {
   res.render('join_seller', {
     title: 'join_seller',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -460,7 +469,8 @@ router.get('/join_check', function (req, res, next) {
   res.render('join_check', {
     title: 'join_check',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -756,7 +766,8 @@ router.get('/login', function (req, res) {
   res.render('login', {
     title: 'login',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -785,7 +796,8 @@ router.get('/login_admin', function(req, res){
   res.render('login_admin',{
   title: 'login',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -954,9 +966,16 @@ router.get('/logout', function (req, res) {
 //                               FAQ & QA SECTION                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/FAQ', function(req, res){
-  console.log('FAQ load');
+  console.log('FAQjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
   res.render('FAQ', {
-    title: 'FAQ'
+    title: 'FAQ',
+    session: display,
+    company: req.session._company_number,
+    type : req.session._type,
   });
 });
 
@@ -981,6 +1000,7 @@ router.get('/QA', function(req, res){
           title : 'QA',
           session: display,
           company: req.session._company_number,
+          type : req.session._type,
           user: user,
           qa: result
         });
@@ -1010,6 +1030,7 @@ router.get('/QA_read', function(req, res){
           title : 'QA_read',
           session: display,
           company: req.session._company_number,
+          type : req.session._type,
           qa: result[0],
           user: user
         });
@@ -1039,7 +1060,8 @@ router.get('/QA_add', function(req, res){
   res.render('QA_add', {
     title: 'QA_add',
     session: display,
-    company: req.session._company_number
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -1084,6 +1106,9 @@ router.get('/shoppingcart', function (req, res) {
         if (len == 0) {
           res.render('shoppingcart', {
             title: 'shoppingcart',
+            session: display,
+            company: req.session._company_number,
+            type : req.session._type,
             result2: 0,
             result: 0
           });
@@ -1097,7 +1122,8 @@ router.get('/shoppingcart', function (req, res) {
                   result2: result2,
                   result: result,
                   session: display,
-                  company: req.session._company_number
+                  company: req.session._company_number,
+                  type : req.session._type
                 });
               }
             });
@@ -1143,8 +1169,15 @@ router.post('/api/delete_shopping_cart', function (req, res) {
 /* GET purchase_check page. */
 router.get('/purchase_check', function (req, res, next) {
   console.log('purchase_checkjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
   res.render('purchase_check', {
-    title: 'purchase_check'
+    title: 'purchase_check',
+    session: display,
+    company: req.session._company_number,
+    type : req.session._type
   });
 });
 
@@ -1205,7 +1238,8 @@ router.get('/purchase', function (req, res) {
                             result2: result2,
                             result: result,
                             session: display,
-                            company: req.session._company_number
+                            company: req.session._company_number,
+                            type : req.session._type
                           });
                         }
                       }
@@ -1281,7 +1315,8 @@ router.get('/view_info_customer', function (req, res, next) {
           customer_email: result[0].customer_email,
           customer_money: result[0].customer_money,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -1294,12 +1329,12 @@ router.get('/view_info_admin', function (req, res, next) {
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
-  connection.query("SELECT * FROM  WHERE admin_id = '" + req.session._id + "'",
+  connection.query("SELECT * FROM admin WHERE admin_id = '" + req.session._id + "'",
     function (error, result, fields) {
       if (error) {
         res.send({ code: 400, failed: "error ocurred1" });
       } else {
-        console.log(result[0].admin_id);
+        console.log(result);
         res.render('view_info_admin', {
           title: 'view_info_admin',
           admin_id: result[0].admin_id,
@@ -1309,9 +1344,9 @@ router.get('/view_info_admin', function (req, res, next) {
           admin_zipcode: result[0].admin_zipcode,
           admin_phone: result[0].admin_phone,
           admin_email: result[0].admin_email,
-          admin_money: result[0].admin_money,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -1341,8 +1376,10 @@ router.get('/view_info_seller', function (req, res, next) {
           seller_email: result[0].seller_email,
           company_number: result[0].company_number,
           company_name: result[0].company_name,
+          seller_money: result[0].seller_money,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -1355,7 +1392,7 @@ router.get('/withdrawal', function (req, res, next) {
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
-  if (req.session._company_number == "") {  // 구매자
+  if (req.session._company_number == "") {  // customer
     connection.query("SELECT * FROM customer WHERE customer_id = '" + req.session._id + "'",
       function (error, result, fields) {
         if (error) {
@@ -1367,12 +1404,13 @@ router.get('/withdrawal', function (req, res, next) {
             id: result[0].customer_id,
             passwd: result[0].customer_passwd,
             session: display,
-            company: req.session._company_number
+            company: req.session._company_number,
+            type : req.session._type
           });
         }
       });
   }
-  else {  //판매자
+  else {  // seller
     connection.query("SELECT * FROM seller WHERE seller_id = '" + req.session._id + "'",
       function (error, result, fields) {
         if (error) {
@@ -1384,7 +1422,8 @@ router.get('/withdrawal', function (req, res, next) {
             id: result[0].seller_id,
             passwd: result[0].seller_passwd,
             session: display,
-            company: req.session._company_number
+            company: req.session._company_number,
+            type : req.session._type
           });
         }
       });
@@ -1415,10 +1454,62 @@ router.get('/modify_info_customer', function (req, res, next) {
           customer_email: result[0].customer_email,
           customer_money: result[0].customer_money,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
+});
+
+/* GET modify_info_admin page. */
+router.get('/modify_info_admin', function (req, res, next) {
+  console.log('modify_info_adminjs . path loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+
+  connection.query("SELECT * FROM admin WHERE admin_id = '" + req.session._id + "'",
+    function (error, result, fields) {
+      if (error) {
+        res.send({ code: 400, failed: "error ocurred1" });
+      } else {
+        console.log(result[0].admin_id);
+        res.render('modify_info_admin', {
+          title: 'modify_info_admin',
+          admin_id: result[0].admin_id,
+          admin_passwd: result[0].admin_passwd,
+          admin_name: result[0].admin_name,
+          admin_address: result[0].admin_address,
+          admin_zipcode: result[0].admin_zipcode,
+          admin_phone: result[0].admin_phone,
+          admin_email: result[0].admin_email,
+          session: display,
+          company: req.session._company_number,
+          type : req.session._type
+        });
+      }
+    });
+});
+
+/* POST modify_info_admin page. */
+router.post('/modify_info_admin', function (req, res, next) {
+  console.log('# User modify_info_admin reuqest arrive.');
+  console.log(req.body);
+  var body = req.body;
+  var admin_passwd = body.passwd;
+  var admin_email = body.email;
+  var admin_phone = body.tel;
+  var admin_zipcode = body.zip;
+  var admin_address = body.addr1 + body.addr2;
+
+  var sql = "update admin set admin_passwd=?, admin_email=?, admin_phone=?, admin_zipcode=?, admin_address=? where admin_id=?"
+  var query = connection.query(sql, [admin_passwd, admin_email, admin_phone, admin_zipcode, admin_address, req.session._id], function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    console.log("Data modified!");
+  });
+  res.redirect('/view_info_admin');
 });
 
 /* POST modify_info_customer page. */
@@ -1485,7 +1576,7 @@ router.post('/withdrawal', function (req, res, next) {
 /* POST withdrawal_admin page. */
 router.post('/withdrawal_admin', function (req, res, next) {
   console.log('# User withdrawal_admin reuqest arrive.');
-  if (req.query.customer_id !== undefined) {  // 구매자
+  if (req.query.customer_id !== undefined) {  // customer
     console.log("구매자입니다.");
     connection.query("DELETE FROM customer WHERE customer_id = '" + req.query.customer_id + "'",
       function (error, result, fields) {
@@ -1537,7 +1628,8 @@ router.get('/modify_info_seller', function (req, res, next) {
           company_number: result[0].company_number,
           company_name: result[0].company_name,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -1581,7 +1673,8 @@ router.get('/view_customerlist_admin', function (req, res, next) {
           title: 'view_customerlist_admin',
           result: result,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -1604,7 +1697,8 @@ router.get('/view_sellerlist_admin', function (req, res, next) {
           title: 'view_sellerlist_admin',
           result: result,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -1634,7 +1728,8 @@ router.get('/view_info_customer_admin', function (req, res, next) {
           customer_email: result[0].customer_email,
           customer_money: result[0].customer_money,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -1665,7 +1760,8 @@ router.get('/view_info_seller_admin', function (req, res, next) {
           company_number: result[0].company_number,
           company_name: result[0].company_name,
           session: display,
-          company: req.session._company_number
+          company: req.session._company_number,
+          type : req.session._type
         });
       }
     });
@@ -1691,7 +1787,8 @@ router.get('/admin_search', function (req, res) {
               title: 'view_customerlist_admin',
               result: result,
               session: display,
-              company: req.session._company_number
+              company: req.session._company_number,
+              type : req.session._type
             });
           }
         });
@@ -1708,7 +1805,8 @@ router.get('/admin_search', function (req, res) {
               title: 'view_sellerlist_admin',
               result: result,
               session: display,
-              company: req.session._company_number
+              company: req.session._company_number,
+              type : req.session._type
             });
           }
         });
@@ -1736,6 +1834,7 @@ router.get('/point_charge_log', function(req, res){
           title: '관리자 포인트 충전 관리',
           session: display,
           company: req.session._company_number,
+          type : req.session._type,
           result: result
         });
       }
@@ -1750,6 +1849,7 @@ router.get('/point_charge_log', function(req, res){
             title: '포인트 충전 내역',
             session: display,
             company: req.session._company_number,
+            type : req.session._type,
             result: result
           });
         }
@@ -1772,6 +1872,7 @@ router.get('/point_charge_request', function(req, res){
           title: '포인트 충전 신청',
           session: display,
           company: req.session._company_number,
+          type : req.session._type,
           result: result
         });
       }
@@ -1780,12 +1881,19 @@ router.get('/point_charge_request', function(req, res){
 
 /* 구매자가 충전 신청 */
 router.post('/point_charge_request', function(req, res){
+  if(req.body.charge_amount == ""){
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write("<script>");
+    res.write("alert('충전 금액을 입력해주세요.'); location.href=history.back();");
+    res.write("</script>");
+  } else {
   connection.query("INSERT INTO point (customer_id, charge_amount, charge_complete) VALUES ('" +
                     req.body.customer_id + "', " + req.body.charge_amount + ", 0)",
     function(err, result2, field){
       if(err) {throw err;}
       else { res.redirect('/point_charge_log'); }
   });
+}
 });
 
 /* 관리자가 충전 */
@@ -1834,6 +1942,7 @@ router.get('/cash_withdrawal_log', function(req, res){
           title: '관리자 현금 인출 관리',
           session: display,
           company: req.session._company_number,
+          type : req.session._type,
           result: result
         });
       }
@@ -1848,6 +1957,7 @@ router.get('/cash_withdrawal_log', function(req, res){
             title: '현금 인출 내역',
             session: display,
             company: req.session._company_number,
+            type : req.session._type,
             result: result
           });
         }
@@ -1869,18 +1979,25 @@ router.get('/cash_withdrawal_request', function(req, res){
           title: '현금 인출 신청',
           session: display,
           company: req.session._company_number,
+          type : req.session._type,
           result: result
         });
       }
     });
 });
 
-/* 판매가 인출 신청 */
+/* 판매자가 인출 신청 */
 router.post('/cash_withdrawal_request', function(req, res){
   if(parseInt(req.body.withdraw_amount) < 10){
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.write("<script>");
     res.write("alert('10원 미만은 출금 신청이 불가능합니다.'); location.href=history.back();");
+    res.write("</script>");
+  }
+  else if(req.body.withdraw_amount == ""){
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write("<script>");
+    res.write("alert('금액을 입력해주세요.'); location.href=history.back();");
     res.write("</script>");
   }
   else {
