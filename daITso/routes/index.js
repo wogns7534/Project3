@@ -1244,8 +1244,8 @@ router.post('/QA_read', function(req, res, next){
   var QA_no=req.body.QA_no;
   var QA_check="답변완료";
   var result = 0;
-  console.log(QA_no+'-----------------');
-  var query = connection.query('update QA set QA_reply='+'"'+QA_reply+'"'+', QA_reply_writer='+'"'+QA_reply_writer+'"'+', QA_check='+'"'+QA_check+'"'+' where QA_no=?',[QA_no],
+  var query = connection.query('update QA set QA_reply='+'"'+QA_reply+'"'+', QA_reply_writer='+'"'
+  + QA_reply_writer+'"'+', QA_check='+'"'+QA_check+'"'+' where QA_no=?',[QA_no],
     function (err, rows, fields) {
       if (err) { throw err; }
       res.redirect('/QA?page=1');
