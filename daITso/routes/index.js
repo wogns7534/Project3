@@ -165,7 +165,6 @@ router.get('/order_status', function(req, res) {
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
 
-
   connection.query('select * from transaction natural join product natural join seller where product_no in(select product_no from product where seller_id=?) order by transaction_time desc;', req.session._id,
     function(error, result, fields) {
       if (error) {
@@ -477,6 +476,32 @@ router.post('/product-page', function (req, res, next) {
         });
     }
   }
+});
+
+router.get('/seller_modify_product', function (req, res) {
+  console.log('seller_modify_product . page loaded');
+  var display = [];
+  if (req.session._id) display = req.session._id + "님, 안녕하세요!";
+  else display = "계정정보 관리메뉴";
+  connection.query('SELECT * FROM product WHERE product_no = ?', req.query.product_no,
+    function (error, result, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        console.log(result);
+        res.render('seller_modify_product', {
+          title: 'seller_modify_product',
+          result: result,
+          p_no: req.query.product_no,
+          session: display,
+          company: req.session._company_number,
+          type: req.session._type
+        });
+      }
+    });
 });
 
 router.post('/seller_modify_product', up_img.array('product_img', 3), function(req, res, next) {
