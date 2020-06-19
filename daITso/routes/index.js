@@ -5,9 +5,9 @@ var session = require('express-session');                   // import express-se
 var MySQLStore = require('express-mysql-session')(session); // import express-mysql-session module
 
 var options = {                                               // for connect mysql <-> session
-  host: '127.0.0.1',  // detail : mysql에 연동해서 session 정보를 등록해놓지 않으면
+  host: 'daitso.ckebjmyaqenk.us-east-2.rds.amazonaws.com',  // detail : mysql에 연동해서 session 정보를 등록해놓지 않으면
   user: 'root',                                             //          session 정보 유지를 위해 서버가 끊기지 않고 무한하게 동작해야 한다.
-  password: '1234',                                     //          mysql과 연동 후 session 정보를 등록해놓으면
+  password: '12341234',                                     //          mysql과 연동 후 session 정보를 등록해놓으면
   database: 'daitso',                                       //          서버가 끊겨도 session을 유지시킬 수 있다.
   port: 3306
 }
@@ -23,9 +23,9 @@ const { fstat } = require('fs');
 const { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } = require('constants');
 var connection = mysql.createConnection({
   connectionLimit: 50,
-  host: '127.0.0.1',
+  host: 'daitso.ckebjmyaqenk.us-east-2.rds.amazonaws.com',
   user: 'root',
-  password: '1234',
+  password: '12341234',
   database: 'daitso',
   port: 3306
 });
@@ -1336,7 +1336,7 @@ router.post('/api/modify_quantity_num', function (req, res) {
   console.log('modify Parameter1 = ' + data);
   console.log('modify Parameter2 = ' + data2);
   console.log('modify Parameter3 = ' + data3);
-
+  
   if(Number(data2) > 0){
   var query = connection.query('update shoppingcart set shoppingcart_quantity=' + data2 + ', order_amount = ' + data3
     + ' where product_no='
@@ -1755,7 +1755,6 @@ router.post('/modify_info_customer', function (req, res, next) {
   res.redirect('/view_info_customer');
 });
 
-
 /* POST withdrawal page. */
 router.post('/withdrawal', function (req, res, next) {
   console.log('# User withdrawal reuqest arrive.');
@@ -1795,6 +1794,7 @@ router.post('/withdrawal', function (req, res, next) {
       });
   }
 });
+
 /* POST withdrawal_admin page. */
 router.post('/withdrawal_admin', function (req, res, next) {
   console.log('# User withdrawal_admin reuqest arrive.');
@@ -2299,35 +2299,31 @@ router.post('/cash_withdrawaling', function(req, res){
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                 PURCHASE GRAPH SECTION                              //
 /////////////////////////////////////////////////////////////////////////////////////////
-
-//select sum(order_amount) as order_amount, transaction_time from (select order_amount, transaction_time from transaction natural join product where seller_id = 'seller_id' and transaction_complete=1 and DATE(transaction_time) >= DATE_SUB(CURDATE(), INTERVAL 10 DAY)) as graph GROUP BY DATE(transaction_time) order by transaction_time ASC;
 router.get('/purchase_graph', function(req, res){
   var display = [];
   if (req.session._id) display = req.session._id + "님, 안녕하세요!";
   else display = "계정정보 관리메뉴";
-console.log("1111111111111111111111111111111111111111");
-  connection.query("select sum(order_amount) as order_amount, transaction_time from (select order_amount, transaction_time from transaction natural join product where seller_id = '"
-                    + req.session._id + "' and transaction_complete=1 ) as graph GROUP BY HOUR(transaction_time) order by TIME(transaction_time) ASC;",
+
+  connection.query("select sum(order_amount), transaction_time from (select order_amount, transaction_time from transaction natural join product where seller_id = '"
+                    + req.session._id + "' and transaction_complete=1 ) as graph GROUP BY HOUR(transaction_time) order by TIME(transaction_time) ASC;", 
     function(err, result_hour, field){
       if(err) {throw err;}
       else {
-        connection.query("select sum(order_amount) as order_amount, transaction_time from (select order_amount, transaction_time from transaction natural join product where seller_id = '"
-                        + req.session._id + "' and transaction_complete=1 and DATE(transaction_time) >= DATE_SUB(CURDATE(), INTERVAL 10 DAY)) as graph GROUP BY DATE(transaction_time) order by transaction_time ASC;",
+        
+        connection.query("select sum(order_amount), transaction_time from (select order_amount, transaction_time from transaction natural join product where seller_id = '"
+                        + req.session._id + "' and transaction_complete=1) as graph GROUP BY DATE(transaction_time) order by transaction_time ASC;",
             function(err, result_date, field){
             if(err) {throw err;}
             else {
 
-          connection.query("select sum(order_amount) as order_amount, transaction_time from (select order_amount, transaction_time from transaction natural join product where seller_id = '"
-          + req.session._id + "' and transaction_complete=1 and DATE(transaction_time) >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)) as graph GROUP BY MONTH(transaction_time) order by transaction_time ASC;",
+          connection.query("select sum(order_amount), transaction_time from (select order_amount, transaction_time from transaction natural join product where seller_id = '"
+          + req.session._id + "' and transaction_complete=1) as graph GROUP BY MONTH(transaction_time) order by transaction_time ASC;", 
               function(err, result_month, field){
               if(err) {throw err;}
               else {
-                console.log("1111111111111111111111111111111111111111");
+                console.log("######################################");
                 console.log(result_hour);
-                console.log("2222222222222222222222222222222222222222");
-                console.log(result_date);
-                console.log("3333333333333333333333333333333333333333");
-                console.log(result_month);
+                console.log("######################################");
                 res.render('purchase_graph', {
                   title: '매출금액 통계 그래프',
                   session : display,
@@ -2343,14 +2339,15 @@ console.log("1111111111111111111111111111111111111111");
                   result_date : result_date,
                   result_month : result_month
                 });
-
+                
               }
               });
 
             }
             });
-
+         
       }
     });
 });
+
 module.exports = router;

@@ -687,7 +687,7 @@
                            placeholder="문의할 글의 상세 내용을 입력하세요"></textarea>
                      </div>
                   </div>
-                  <input type="button" value="문의 등록" class="primary-btn" id="QAadd" name="QAadd">
+                  <input type="submit" value="문의 등록" class="primary-btn" id="QAadd" name="QAadd">
                </div>
             </form>
          </div>
@@ -716,12 +716,12 @@
                   <p>광운대학교 컴퓨터정보공학부<br>소프트웨어공학 3차 프로젝트<br>인터넷 쇼핑몰 웹 애플리케이션</p>
                   <!-- footer social -->
                   <!-- <ul class="footer-social">
-                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                     <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                  </ul> -->
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+						</ul> -->
                   <!-- /footer social -->
                </div>
             </div>
@@ -808,25 +808,6 @@
             }
          }).open();
       }
-   </script>
-   <script>
-      $(function () {
-         $("#QAadd").click(
-            function () {
-               if ($("#QA_title").val() == "") {
-                  alert("제목을 꼭 입력하세요");
-                  $("#QA_title").focus();
-                  return;
-               }
-               if ($("#QA_content").val() == "") {
-                  alert("내용을 입력하세요");
-                  $("#QA_content").focus();
-                  return;
-               }
-               $("#add_QA-form").submit()
-            });
-      });
-
    </script>
 
 </body>
