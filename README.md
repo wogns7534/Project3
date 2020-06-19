@@ -16,10 +16,10 @@
     - 학번 : 2015722010
   
 ## 진행 중인 프로젝트
-- 당신이 원하는 PC, 여기 daITso (daITso PC쇼핑몰)
+- (없음)
 
 ## 완료 프로젝트
-- (없음)
+- 당신이 원하는 PC, 여기 daITso (daITso PC쇼핑몰)
 
 ## More information of Us
 - [Wiki](https://github.com/wogns7534/Project3/wiki) 참고
