@@ -521,7 +521,7 @@
    </div>
    <!-- /NAVIGATION -->
 
-   
+
    <!-- section -->
    <div class="section">
       <!-- container -->
@@ -545,10 +545,10 @@
                   <form action="/cash_withdrawal_request" method="POST">
                      <input type="hidden" name="seller_id" value="<%=result[0].seller_id%>"/>
                      <input type="hidden" name="seller_money" value="<%=result[0].seller_money%>"/>
-                     <div class="form-group"><h4>인추 신청할 금액</h4></div>
+                     <div class="form-group"><h4>인출 신청할 금액</h4></div>
                         <input type="text" name="withdraw_amount" class="input pull-left" style="width: 80%;" placeholder="숫자만 입력하세요."
                         onKeyPress="return checkNum(event)"/>
-                     
+
                         <br><br><br><br>
                      <button type="submit" class="primary-btn">신청하기</button>
                      <a href="/cash_withdrawal_log"><div class="main-btn">취소하기</div></a>
@@ -560,18 +560,18 @@
                <div class="shiping-methods">
                   <h3 class="section-title">현금 인출 주의사항</h3>
                   <p> 현금 인출 신청 후 관리자가 확인 후 출금까지 일정 시간이 소요됩니다.<br>
-                     현금 인출 취소를 따로 해드리지 않으며, 이미 출금한 현금 또한 복구해드릴 수 없습니다.</p>   
+                     현금 인출 취소를 따로 해드리지 않으며, 이미 출금한 현금 또한 복구해드릴 수 없습니다.</p>
                </div>
             </div>
          </div>
          <!-- /row -->
-         
-         
+
+
       </div>
       <!-- /container -->
    </div>
    <!-- /section -->
-   
+
    <!-- FOOTER NEW -->
    <footer id="footer" class="section section-grey">
       <!-- container -->
@@ -674,7 +674,7 @@
    <script>
       function checkNum(e) {
           var keyVal = event.keyCode;
-   
+
           if(((keyVal >= 48) && (keyVal <= 57))){
               return true;
           }
